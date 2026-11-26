@@ -290,8 +290,12 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
    del lienzo, y la pastilla se apoya dentro, plana. Por eso funciona igual
    sobre blanco que sobre gris: no proyecta color.
 
-   Es el tratamiento de la accion principal de cada pantalla, UNA por
-   pantalla: si todo lleva anillo, el anillo deja de destacar nada. */
+   SOLO PARA RELLENOS DE COLOR, en la practica el navy. Si el boton ya es
+   del color de la superficie (el de icono, el por defecto), no hay color
+   que aislar: el anillo no resuelve nada y solo anade una sombra de mas.
+   El acento tampoco lo lleva, porque su aro naranja ya cumple esa funcion.
+
+   UNA por pantalla: si todo lleva anillo, el anillo deja de destacar nada. */
 .a-anillo {
   display: inline-flex;
   align-self: flex-start; width: fit-content;
@@ -307,4 +311,7 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 .a-anillo > .a-btn,
 .a-anillo > .a-btn:hover,
 .a-anillo > .a-btn:active { box-shadow: none; transform: none; }
+/* salvaguarda: si alguien mete un boton sin relleno de color, el anillo se anula */
+.a-anillo > .a-btn:not(.a-btn--principal):not(.a-btn--acento-solido) { box-shadow: var(--n-sm); }
+.a-anillo:has(> .a-btn:not(.a-btn--principal):not(.a-btn--acento-solido)) { padding: 0; box-shadow: none; background: none; }
 .sup-inversa .a-anillo { background: var(--p-navy); box-shadow: var(--n-dark); }

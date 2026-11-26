@@ -9,7 +9,8 @@
   height: 56px; padding: 0 var(--e-6);
   background: var(--p-navy); color: var(--txt-inverso);
 }
-.esc-marca { font: 700 19px/1 var(--ff-display); letter-spacing: .5px; color: var(--txt-inverso); text-decoration: none; }
+.esc-marca {
+  display: inline-flex; align-items: center; min-height: 44px; font: 700 19px/1 var(--ff-display); letter-spacing: .5px; color: var(--txt-inverso); text-decoration: none; }
 .esc-marca span { color: var(--p-naranja-soft); }
 .esc-version { font: var(--t-ui-sm); color: var(--p-naranja-soft); }
 
