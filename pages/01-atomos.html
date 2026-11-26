@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=21152c8a">
-<link rel="stylesheet" href="../css/02-atomos.css?v=591463a2">
+<link rel="stylesheet" href="../css/02-atomos.css?v=52707315">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=5c61aeb9">
 </head>
 <body>
@@ -68,11 +68,11 @@
   <section class="ficha" id="boton">
     <h2>Botón</h2>
     <span class="clase">.a-btn</span>
-    <p class="resumen">La acción. Siempre en píldora y siempre en relieve. El acento usa el naranja oficial <code>#DF5E2D</code> con texto <code>#0B1230</code>, que da 5.05:1.</p>
+    <p class="resumen">La acción. Siempre en píldora y siempre en relieve. El acento usa el naranja oficial <code>#DF5E2D</code> con <strong>texto blanco a 19px/700</strong>: APCA Lc&nbsp;&minus;68.6, y al superar los 18.66px en negrita también cumple WCAG&nbsp;2 como texto grande.</p>
     <div class="lienzo">
       <div class="muestra"><span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span><span class="pie">principal + anillo · acción de la pantalla</span></div>
       <div class="muestra"><button class="a-btn">Guardar borrador</button><span class="pie">por defecto</span></div>
-      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · una por pantalla</span></div>
+      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · #DF5E2D · blanco · APCA −68.6</span></div>
       <div class="muestra"><button class="a-btn a-btn--fantasma">Cancelar</button><span class="pie">fantasma · descartar</span></div>
       <div class="muestra"><button class="a-btn" disabled>Siguiente</button><span class="pie">deshabilitado</span></div>
       <div class="muestra"><button class="a-btn a-btn--sm">Pequeño</button><span class="pie">sm · 34px</span></div>
@@ -80,7 +80,7 @@
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La acción es real y el usuario puede ejecutarla ahora</li><li>Necesitas jerarquía: principal &gt; por defecto &gt; fantasma</li><li>El deshabilitado explica por qué lo está, con texto o tooltip</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Dos acentos compitiendo en la misma vista</li><li>Texto blanco sobre el naranja: da 3.64:1 e incumple AA</li><li>Oscurecer el naranja para salvar contraste: el brandbook prohíbe inventar color</li><li>Quitar el relieve por estética: pierde la señal de pulsable</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Dos acentos compitiendo en la misma vista</li><li>Reducir el acento a tamaño pequeño: por debajo de 18.66px en negrita el blanco deja de cumplir</li><li>Oscurecer el naranja para salvar contraste: el brandbook prohíbe inventar color</li><li>Poner texto oscuro sobre el naranja: WCAG&nbsp;2 lo aprueba, pero APCA da Lc&nbsp;39.8 y no se lee</li><li>Quitar el relieve por estética: pierde la señal de pulsable</li></ul></div>
     </div>
     <pre class="codigo">&lt;span class="a-anillo"&gt;
   &lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;

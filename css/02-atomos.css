@@ -54,19 +54,35 @@
 .sup-inversa .a-btn--principal:active   { box-shadow: var(--n-in-dark); }
 
 /* Variante de acento: UNA por pantalla, y solo para la accion comercial.
+   Naranja OFICIAL #DF5E2D con TEXTO BLANCO.
 
-   Naranja OFICIAL #DF5E2D. El contraste se resuelve con el TEXTO, nunca
-   oscureciendo la marca:
+   Los dos modelos de contraste se contradicen aqui, y hay que saber por que:
 
-     blanco  sobre #DF5E2D = 3.64  incumple AA
-     navy    sobre #DF5E2D = 4.38  AA-large, se queda corto a 14px
-     #0B1230 sobre #DF5E2D = 5.05  AA a cualquier tamano   <- el elegido
+                      WCAG 2    APCA Lc
+     blanco           3.64      -68.6    <- elegido
+     #0B1230          5.05       39.8
 
-   #0B1230 es --txt-fuerte, un token que ya existe en el sistema. */
+   WCAG 2 es poco fiable en tonos medios saturados: su formula sobrepondera
+   el offset +0.05 en luminancias bajas, y como #DF5E2D es un naranja
+   OSCURO, el modelo lo trata como si fuera claro y premia el texto negro.
+   APCA, el modelo candidato de WCAG 3, lo mide perceptualmente y dice lo
+   contrario: Lc -68.6 con blanco es lectura comoda de cuerpo normal,
+   mientras que Lc 39.8 con texto oscuro no llega ni a minimo legible.
+   El ojo coincide con APCA, y lo mismo hacen Firefox (#E66000) o HubSpot
+   con naranjas de la misma oscuridad: texto blanco.
+
+   PARA CUMPLIR TAMBIEN WCAG 2 el acento se fuerza a TEXTO GRANDE: 19px/700
+   supera el umbral de 18.66px en negrita, donde el minimo exigido baja a
+   3:1 y el 3.64 pasa. No es un apano: la accion comercial es la unica de
+   la pantalla y merece ese tamano. */
 .a-btn--acento {
-  background: var(--p-naranja); color: var(--txt-fuerte);
+  background: var(--p-naranja); color: #fff;
   box-shadow: var(--n-sm);
+  min-height: 52px; padding: 0 var(--e-8);
+  font: 700 19px/26px var(--ff-ui);   /* >= 18.66px bold: texto grande WCAG 2 */
 }
+/* el tamano del acento no se reduce: a 14px el blanco dejaria de cumplir */
+.a-btn--acento.a-btn--sm { min-height: 52px; font: 700 19px/26px var(--ff-ui); }
 
 /* Variante fantasma: descartar, cancelar. Sigue teniendo relieve porque
    sigue siendo pulsable. */

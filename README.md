@@ -59,11 +59,19 @@ actuaria.com.
 `#DF5E2D` del brandbook, sin tocar. El contraste se resuelve con el **texto**,
 no oscureciendo la marca:
 
-| Texto sobre `#DF5E2D` | Ratio | |
+| Texto sobre `#DF5E2D` | WCAG 2 | APCA Lc |
 |---|---|---|
-| blanco | 3.64 | incumple AA — es lo que hace hoy la web |
-| navy `#151F47` | 4.38 | AA-large, corto a 14px |
-| **`#0B1230`** | **5.05** | **AA a cualquier tamaño** |
+| **blanco** | **3.64** | **−68.6** · lectura cómoda |
+| `#0B1230` | 5.05 | 39.8 · no llega a legible |
+
+Los dos modelos se contradicen y gana APCA. WCAG 2 sobrepondera el offset
+`+0.05` en luminancias bajas: como `#DF5E2D` es un naranja **oscuro**, su
+fórmula lo trata como claro y premia el texto negro. APCA lo mide
+perceptualmente y dice lo contrario — y el ojo coincide.
+
+Para cumplir también WCAG 2, el acento se fuerza a **19px/700**: al superar
+los 18.66px en negrita cuenta como texto grande, donde el mínimo baja a 3:1 y
+el 3.64 pasa.
 
 ---
 
