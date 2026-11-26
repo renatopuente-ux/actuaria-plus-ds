@@ -1,0 +1,16 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   ACTUARIA+ DS · 00b · FUENTES
+   ───────────────────────────────────────────────────────────────────────
+   Lemon Milk Pro es una fuente LICENCIADA. Se referencia desde el CDN de
+   la marca, que sirve los .woff2 con Access-Control-Allow-Origin: *.
+   NUNCA se copia el archivo a este repositorio: es publico.
+
+   Nunito y Prompt son libres (Google Fonts) y se cargan desde alli.
+   Sin Lemon Milk, el fallback de titulos es Nunito Black (900) — nunca una
+   sans generica y nunca Nunito Sans, que es otra familia distinta.
+   ═══════════════════════════════════════════════════════════════════════ */
+@font-face{font-family:'Lemon Milk Pro';src:url('https://webflow-files-prod.global.ssl.fastly.net/6967c96e0fba2ea4f94d3c69/fonts/6aeba20ae9d18b17fe9e2840-lemon-milk-pro-400.woff2') format('woff2');font-weight:400;font-display:swap;}
+@font-face{font-family:'Lemon Milk Pro';src:url('https://webflow-files-prod.global.ssl.fastly.net/6967c96e0fba2ea4f94d3c69/fonts/6aeba20aeaadc3f75487f9b9-lemon-milk-pro-500.woff2') format('woff2');font-weight:500;font-display:swap;}
+@font-face{font-family:'Lemon Milk Pro';src:url('https://webflow-files-prod.global.ssl.fastly.net/6967c96e0fba2ea4f94d3c69/fonts/6aeba20a563b6dd8d197f85f-lemon-milk-pro-700.woff2') format('woff2');font-weight:700;font-display:swap;}
+/* No existe peso 800: el navegador lo sintetiza desde el 700. */
+@font-face{font-family:'Lemon Milk Pro';src:url('https://webflow-files-prod.global.ssl.fastly.net/6967c96e0fba2ea4f94d3c69/fonts/6aeba20a563b6dd8d197f85f-lemon-milk-pro-700.woff2') format('woff2');font-weight:800 900;font-display:swap;}

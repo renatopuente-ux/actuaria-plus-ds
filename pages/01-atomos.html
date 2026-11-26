@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Átomos · Actuaria+ Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/00b-fuentes.css">
+<link rel="stylesheet" href="../css/00-reset.css">
+<link rel="stylesheet" href="../css/01-tokens.css">
+<link rel="stylesheet" href="../css/02-atomos.css">
+<link rel="stylesheet" href="../css/90-escaparate.css">
+</head>
+<body>
+<a class="sr-only" href="#principal">Saltar al contenido</a>
+<header class="esc-topbar">
+  <a class="esc-marca" href="../index.html">ACTUARIA<span>+</span></a>
+  <span class="esc-version">DS v0.1.0</span>
+</header>
+<div class="esc-shell">
+  <nav class="esc-nav" aria-label="Capas del design system">
+    <span class="esc-nav-tit">Atomic Design</span>
+    <a class="esc-nav-link" href="../pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
+    <a class="esc-nav-link" href="../pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
+    <a class="esc-nav-link" href="../pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
+    <a class="esc-nav-link" href="../pages/04-plantillas.html" data-capa="4"><b>4</b> Plantillas</a>
+    <a class="esc-nav-link" href="../pages/05-paginas.html" data-capa="5"><b>5</b> Páginas</a>
+    <span class="esc-nav-tit">Fundamentos</span>
+    <a class="esc-nav-link" href="../pages/00-tokens.html">Tokens</a>
+    <a class="esc-nav-link" href="../docs/principios.html">Principios</a>
+  </nav>
+  <main class="esc-main" id="principal">
+<a class="sr-only" href="#principal">Saltar al contenido</a>
+<header class="esc-topbar">
+  <a class="esc-marca" href="../index.html">ACTUARIA<span>+</span></a>
+  <span class="esc-version">DS v0.1.0</span>
+</header>
+<div class="esc-shell">
+  <nav class="esc-nav" aria-label="Capas del design system">
+    <span class="esc-nav-tit">Atomic Design</span>
+    <a class="esc-nav-link" href="../pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
+    <a class="esc-nav-link" href="../pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
+    <a class="esc-nav-link" href="../pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
+    <a class="esc-nav-link" href="../pages/04-plantillas.html" data-capa="4"><b>4</b> Plantillas</a>
+    <a class="esc-nav-link" href="../pages/05-paginas.html" data-capa="5"><b>5</b> Páginas</a>
+    <span class="esc-nav-tit">Fundamentos</span>
+    <a class="esc-nav-link" href="../pages/00-tokens.html">Tokens</a>
+    <a class="esc-nav-link" href="../docs/principios.html">Principios</a>
+  </nav>
+  <main class="esc-main" id="principal">
+  <div class="esc-cabecera">
+    <h1>1 · Átomos</h1>
+    <p>Los bloques indivisibles. Un átomo no se puede dividir sin perder su función y
+       <strong>no contiene otros componentes</strong> del sistema. Si necesitas combinar dos,
+       eso ya es una molécula.</p>
+  </div>
+
+  <section class="ficha">
+    <h2>La ley de relieve</h2>
+    <p class="resumen">Vale para todo el sistema y no admite excepciones. Es lo que permite al
+       actuario saber qué puede tocar sin probar nada.</p>
+    <div class="lienzo">
+      <div class="muestra"><button class="a-btn">Se pulsa</button><span class="pie">RELIEVE</span></div>
+      <div class="muestra"><input class="a-campo" style="width:190px" placeholder="Se escribe"><span class="pie">HUNDIDO</span></div>
+      <div class="muestra"><span class="a-chip a-chip--ok">Solo informa</span><span class="pie">PLANO</span></div>
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Por qué funciona</h3><ul>
+        <li>Es binaria: no hay estado intermedio que interpretar</li>
+        <li>Sobrevive al daltonismo: la señal es la sombra, no el color</li>
+        <li>Un componente nuevo se clasifica solo respondiendo &laquo;¿se pulsa?&raquo;</li></ul></div>
+      <div class="regla regla--no"><h3>Cómo se rompe</h3><ul>
+        <li>Dar relieve a las tarjetas: si todo sobresale, nada sobresale</li>
+        <li>Hundir los chips para que &laquo;no parezcan botones&raquo;: sigue siendo neumorfismo</li>
+        <li>Quitar el relieve a un botón por estética</li></ul></div>
+    </div>
+  </section>
+
+  <section class="ficha" id="boton">
+    <h2>Botón</h2>
+    <span class="clase">.a-btn</span>
+    <p class="resumen">La acción. Siempre en píldora y siempre en relieve: es la señal de que se puede pulsar. El acento naranja se reserva para UNA acción por pantalla.</p>
+    <div class="lienzo">
+      <div class="muestra"><button class="a-btn a-btn--principal">Calcular provisión</button><span class="pie">principal · acción de sistema</span></div>
+      <div class="muestra"><button class="a-btn">Guardar borrador</button><span class="pie">por defecto</span></div>
+      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · una por pantalla</span></div>
+      <div class="muestra"><button class="a-btn a-btn--fantasma">Cancelar</button><span class="pie">fantasma · descartar</span></div>
+      <div class="muestra"><button class="a-btn" disabled>Siguiente</button><span class="pie">deshabilitado · se aplana</span></div>
+      <div class="muestra"><button class="a-btn a-btn--sm">Pequeño</button><span class="pie">sm · 34px</span></div>
+      <div class="muestra"><button class="a-btn a-btn--lg">Grande</button><span class="pie">lg · 52px</span></div>
+
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La acción es real y el usuario puede ejecutarla ahora</li><li>Necesitas jerarquía: principal &gt; por defecto &gt; fantasma</li><li>El botón deshabilitado explica por qué lo está (tooltip o texto)</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Dos botones de acento compitiendo en la misma vista</li><li>Usar el naranja de marca puro como fondo con texto blanco: da 3.7:1</li><li>Radio pequeño: deja de distinguirse de una tarjeta</li><li>Quitar el relieve para que &laquo;se vea más limpio&raquo;: pierde la señal de pulsable</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;</pre>
+  </section>
+  <section class="ficha" id="icono">
+    <h2>Botón de icono</h2>
+    <span class="clase">.a-icono</span>
+    <p class="resumen">Acción sin texto. Círculo perfecto. Obligatorio <code>aria-label</code>: sin él, un lector de pantalla anuncia un botón vacío.</p>
+    <div class="lienzo">
+      <div class="muestra"><button class="a-icono" aria-label="Descargar informe">&#8681;</button><span class="pie">descargar</span></div>
+      <div class="muestra"><button class="a-icono" aria-label="Filtrar">&#9776;</button><span class="pie">filtrar</span></div>
+      <div class="muestra"><button class="a-icono a-icono--sm" aria-label="Cerrar">&times;</button><span class="pie">sm · 34px</span></div>
+
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El icono es inequívoco (cerrar, descargar, más)</li><li>El espacio es escaso: barras de herramientas, filas de tabla</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Iconos ambiguos sin etiqueta visible al lado</li><li>Omitir <code>aria-label</code></li><li>Usarlo para la acción principal de una pantalla</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;button class="a-icono" aria-label="Descargar informe"&gt;&#8681;&lt;/button&gt;</pre>
+  </section>
+  <section class="ficha" id="campo">
+    <h2>Campo de texto</h2>
+    <span class="clase">.a-campo</span>
+    <p class="resumen">Entrada de datos. <strong>Hundido</strong>: en neumorfismo un campo es un pozo donde se deposita el dato. Esa metáfora separa de un vistazo lo que se escribe de lo que se pulsa.</p>
+    <div class="lienzo">
+      <div class="muestra" style="min-width:280px"><label class="a-etiqueta" for="c1" data-obligatorio>Razón social</label><input class="a-campo" id="c1" placeholder="YUPANA ANALYTICS S.A."><span class="pie">normal</span></div>
+      <div class="muestra" style="min-width:280px"><label class="a-etiqueta" for="c2">Tasa de descuento</label><input class="a-campo" id="c2" value="5.85" aria-invalid="true"><span class="pie" style="color:var(--txt-error)">error · anillo rojo</span></div>
+
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Cualquier dato que el usuario escriba o pegue</li><li>Marcar los obligatorios con <code>data-obligatorio</code> en la etiqueta</li><li>Usar <code>aria-invalid</code> y un mensaje que diga cómo arreglarlo</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Ponerle relieve: parecería un botón</li><li>Usar solo el color rojo para indicar error</li><li>Placeholder como sustituto de la etiqueta: desaparece al escribir</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;label class="a-etiqueta" for="c1" data-obligatorio&gt;Razón social&lt;/label&gt;
+&lt;input class="a-campo" id="c1" placeholder="YUPANA ANALYTICS S.A."&gt;</pre>
+  </section>
+  <section class="ficha" id="chip">
+    <h2>Chip de estado</h2>
+    <span class="clase">.a-chip</span>
+    <p class="resumen">Informa, no actúa. <strong>Plano y opaco</strong>. Opaco importa: un relleno con alpha hereda la superficie de debajo, y el mismo chip medido daba 8:1 sobre claro y 1.3:1 sobre navy.</p>
+    <div class="lienzo">
+      <div class="muestra"><span class="a-chip a-chip--ok">Finalizado</span><span class="pie">ok · 5.45:1</span></div>
+      <div class="muestra"><span class="a-chip a-chip--aviso">Pendiente</span><span class="pie">aviso · 6.58:1</span></div>
+      <div class="muestra"><span class="a-chip a-chip--error">Rechazado</span><span class="pie">error · 4.63:1</span></div>
+      <div class="muestra"><span class="a-chip a-chip--info">Solicitado</span><span class="pie">info · 8.60:1</span></div>
+      <div class="muestra"><span class="a-chip">Borrador</span><span class="pie">neutro · 6.99:1</span></div>
+
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Estado de una fila, una valuación o un pedido</li><li>Metadato corto: plan, normativa, periodo</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Darle relieve: fingiría que se puede pulsar</li><li>Rellenos con <code>rgba</code>: el contraste cambia según el fondo</li><li>Usar los niveles <code>500</code> del brandbook como color de texto: no llegan a 4.5:1</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;span class="a-chip a-chip--ok"&gt;Finalizado&lt;/span&gt;</pre>
+  </section>
+  <section class="ficha" id="control">
+    <h2>Interruptor y casilla</h2>
+    <span class="clase">.a-interruptor · a-casilla</span>
+    <p class="resumen">Decisiones binarias. El carril va hundido y el pulgar en relieve: el pulgar sobresale del canal, que es exactamente lo que hace un interruptor físico.</p>
+    <div class="lienzo">
+      <div class="muestra"><label class="a-interruptor"><input type="checkbox" checked><span class="pista"><span class="pulgar"></span></span></label><span class="pie">activado</span></div>
+      <div class="muestra"><label class="a-interruptor"><input type="checkbox"><span class="pista"><span class="pulgar"></span></span></label><span class="pie">desactivado</span></div>
+      <div class="muestra"><label class="a-casilla"><input type="checkbox" checked><span class="caja">&#10003;</span> Incluir desahucio</label><span class="pie">casilla marcada</span></div>
+      <div class="muestra"><label class="a-casilla"><input type="checkbox"><span class="caja">&#10003;</span> Incluir bonificación</label><span class="pie">casilla sin marcar</span></div>
+
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Interruptor: el cambio se aplica al instante</li><li>Casilla: el cambio se confirma al enviar el formulario</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Interruptor para algo que requiere confirmar después</li><li>Interruptor sin etiqueta: no se sabe qué activa</li><li>Más de 5 casillas sueltas sin agrupar</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;label class="a-interruptor"&gt;&lt;input type="checkbox"&gt;
+  &lt;span class="pista"&gt;&lt;span class="pulgar"&gt;&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;</pre>
+  </section>
+  <section class="ficha" id="progreso">
+    <h2>Barra y esqueleto</h2>
+    <span class="clase">.a-barra · a-esqueleto</span>
+    <p class="resumen">Espera. La barra sirve cuando se conoce el porcentaje; el esqueleto, cuando no. Ambos van hundidos: son superficie, no acción.</p>
+    <div class="lienzo">
+      <div class="muestra" style="min-width:300px"><div class="a-barra"><i style="width:62%"></i></div><span class="pie">barra · 62%</span></div>
+      <div class="muestra" style="min-width:300px"><div class="a-esqueleto" style="height:14px;width:100%"></div><div class="a-esqueleto" style="height:14px;width:70%;margin-top:8px"></div><span class="pie">esqueleto · carga desconocida</span></div>
+
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Barra: subida de nómina, cálculo con progreso real</li><li>Esqueleto: primera carga de una tabla o un panel</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Barra con porcentaje inventado para &laquo;tranquilizar&raquo;</li><li>Esqueleto con forma distinta del contenido que va a llegar</li><li>Animar sin respetar <code>prefers-reduced-motion</code></li></ul></div>
+    </div>
+    <pre class="codigo">&lt;div class="a-barra"&gt;&lt;i style="width:62%"&gt;&lt;/i&gt;&lt;/div&gt;</pre>
+  </section>
+  </main>
+</div>
+<script src="../js/ds.js"></script>
+<script>
+  // marcar el enlace de la capa actual
+  (() => { const f = location.pathname.split('/').pop();
+    document.querySelectorAll('.esc-nav-link').forEach(a => {
+      if (a.getAttribute('href').endsWith(f)) { a.classList.add('activo'); a.setAttribute('aria-current','page'); }
+    }); })();
+</script>
+</body>
+</html>

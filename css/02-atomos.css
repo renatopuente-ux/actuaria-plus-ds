@@ -1,0 +1,175 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   ACTUARIA+ DS · 02 · ATOMOS
+   ───────────────────────────────────────────────────────────────────────
+   Un atomo no se puede dividir sin perder su funcion: un boton, una
+   etiqueta, un campo, un icono. No contiene otros componentes del sistema.
+
+   LEY DE RELIEVE — vale para todo el sistema, sin excepciones:
+     RELIEVE  = se puede pulsar
+     HUNDIDO  = acepta entrada (campo) o es un carril
+     PLANO    = informativo; no se pulsa, no se escribe
+   Si todo sobresale, el relieve deja de significar nada.
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ── a-btn · Boton ───────────────────────────────────────────────────────
+   Pildora siempre. El radio pequeno no distingue lo cliqueable de lo que
+   no lo es, y en una plataforma densa esa distincion es el 80% de la
+   usabilidad. */
+.a-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  gap: var(--e-2);
+  align-self: flex-start; width: fit-content; max-width: 100%;
+  min-height: 44px; padding: 0 var(--e-6);
+  border-radius: var(--r-pill);
+  background: var(--sup-app);
+  color: var(--txt-fuerte);
+  font: var(--t-ui);
+  cursor: pointer;
+  box-shadow: var(--n-sm);
+  transition: box-shadow var(--mov-rapido), transform var(--mov-rapido);
+}
+.a-btn:hover    { box-shadow: var(--n-md); }
+.a-btn:active   { box-shadow: var(--n-in-sm); transform: translateY(1px); }
+.a-btn[disabled],
+.a-btn[aria-disabled="true"] {
+  box-shadow: none; background: var(--sup-hundida);
+  color: var(--txt-debil); cursor: not-allowed; opacity: .7;
+}
+
+/* Variante principal: la accion de sistema. Navy solido. */
+.a-btn--principal {
+  background: var(--p-navy); color: var(--txt-inverso);
+  box-shadow: var(--n-dark);
+}
+.a-btn--principal:hover  { box-shadow: 5px 5px 14px rgba(4,8,24,.6), -4px -4px 11px rgba(86,104,165,.3); }
+.a-btn--principal:active { box-shadow: var(--n-in-dark); }
+
+/* Variante de acento: UNA por pantalla, y solo para la accion comercial.
+   El naranja de marca no sostiene texto blanco (3.7:1), asi que el relleno
+   es el naranja legible como texto, no el naranja puro. */
+.a-btn--acento {
+  background: var(--txt-acento); color: var(--txt-inverso);
+  box-shadow: var(--n-sm);
+}
+
+/* Variante fantasma: descartar, cancelar. Sigue teniendo relieve porque
+   sigue siendo pulsable. */
+.a-btn--fantasma { background: transparent; box-shadow: var(--n-xs); color: var(--txt-medio); }
+
+.a-btn--sm { min-height: 34px; padding: 0 var(--e-4); font: var(--t-ui-sm); }
+.a-btn--lg { min-height: 52px; padding: 0 var(--e-8); font: var(--t-ui-lg); }
+.a-btn--bloque { width: 100%; align-self: stretch; }
+
+/* ── a-icono · Boton de solo icono ─────────────────────────────────────
+   Circulo perfecto. El aspect-ratio evita el ovalo cuando el icono crece. */
+.a-icono {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; aspect-ratio: 1; padding: 0;
+  border-radius: var(--r-circle);
+  background: var(--sup-app); color: var(--txt-medio);
+  cursor: pointer; box-shadow: var(--n-sm);
+  transition: box-shadow var(--mov-rapido);
+}
+.a-icono:hover  { box-shadow: var(--n-md); color: var(--txt-fuerte); }
+.a-icono:active { box-shadow: var(--n-in-sm); }
+.a-icono--sm { width: 34px; }
+
+/* ── a-campo · Entrada de texto ────────────────────────────────────────
+   HUNDIDO: en neumorfismo un campo es un pozo donde se deposita el dato.
+   Es la metafora, y ademas distingue entrada de accion de un vistazo. */
+.a-campo {
+  width: 100%; min-height: 44px; padding: 0 var(--e-4);
+  border: 0; border-radius: var(--r-pill);
+  background: var(--sup-hundida); color: var(--txt-fuerte);
+  font: var(--t-ui);
+  box-shadow: var(--n-in-sm);
+  transition: box-shadow var(--mov-rapido);
+}
+.a-campo::placeholder { color: var(--txt-debil); }
+.a-campo:focus { box-shadow: var(--n-in), 0 0 0 2px var(--p-azul); outline: none; }
+.a-campo[aria-invalid="true"] { box-shadow: var(--n-in-sm), 0 0 0 2px var(--p-danger-500); }
+textarea.a-campo { min-height: 104px; padding: var(--e-3) var(--e-4); border-radius: var(--r-md); resize: vertical; }
+
+/* ── a-etiqueta · Label de formulario ──────────────────────────────── */
+.a-etiqueta {
+  display: block; margin-bottom: var(--e-2);
+  font: var(--t-ui-sm); color: var(--txt-medio);
+  text-transform: uppercase; letter-spacing: .8px;
+}
+.a-etiqueta[data-obligatorio]::after { content: " *"; color: var(--txt-error); }
+
+/* ── a-chip · Etiqueta informativa ─────────────────────────────────────
+   PLANO y OPACO. No se pulsa, asi que no sobresale. El relleno es opaco
+   porque un tinte con alpha hereda el fondo y su contraste cambia solo. */
+.a-chip {
+  display: inline-flex; align-items: center; gap: var(--e-1);
+  align-self: flex-start; width: fit-content; max-width: 100%;
+  padding: var(--e-1) var(--e-3);
+  border-radius: var(--r-pill);
+  background: var(--fill-neutro); color: var(--txt-medio);
+  font: var(--t-ui-sm);
+  box-shadow: none; cursor: default;
+}
+.a-chip--ok    { background: var(--fill-ok);    color: var(--txt-ok); }
+.a-chip--aviso { background: var(--fill-aviso); color: var(--txt-aviso); }
+.a-chip--error { background: var(--fill-error); color: var(--txt-error); }
+.a-chip--info  { background: var(--fill-info);  color: var(--txt-info); }
+/* ...salvo que de verdad sea pulsable (un filtro, por ejemplo) */
+a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); cursor: pointer; }
+
+/* ── a-punto · Indicador de estado ─────────────────────────────────────
+   Nunca va solo: el color no es informacion accesible por si mismo. */
+.a-punto { display: inline-block; width: 8px; height: 8px; border-radius: var(--r-circle); background: var(--txt-debil); }
+.a-punto--ok    { background: var(--p-success-500); }
+.a-punto--aviso { background: var(--p-warning-500); }
+.a-punto--error { background: var(--p-danger-500); }
+.a-punto--info  { background: var(--p-info-500); }
+
+/* ── a-interruptor · Switch ───────────────────────────────────────────
+   Carril hundido, pulsador en relieve: el pulgar sobresale del canal. */
+.a-interruptor { display: inline-flex; align-items: center; cursor: pointer; }
+.a-interruptor input { position: absolute; opacity: 0; width: 0; height: 0; }
+.a-interruptor .pista {
+  position: relative; width: 50px; height: 28px;
+  border-radius: var(--r-pill); background: var(--sup-hundida);
+  box-shadow: var(--n-in-sm); transition: background var(--mov-medio);
+}
+.a-interruptor .pulgar {
+  position: absolute; top: 3px; left: 3px; width: 22px; height: 22px;
+  border-radius: var(--r-circle); background: var(--sup-elevada);
+  box-shadow: var(--n-xs); transition: transform var(--mov-medio);
+}
+.a-interruptor input:checked + .pista { background: var(--p-success-500); }
+.a-interruptor input:checked + .pista .pulgar { transform: translateX(22px); }
+.a-interruptor input:focus-visible + .pista { outline: 2px solid var(--p-azul); outline-offset: 3px; }
+
+/* ── a-casilla · Checkbox ─────────────────────────────────────────────
+   Sin marcar es un pozo; marcada sobresale. */
+.a-casilla { display: inline-flex; align-items: center; gap: var(--e-2); cursor: pointer; font: var(--t-ui); }
+.a-casilla input { position: absolute; opacity: 0; width: 0; height: 0; }
+.a-casilla .caja {
+  display: grid; place-items: center; width: 24px; height: 24px;
+  border-radius: var(--r-sm); background: var(--sup-hundida);
+  box-shadow: var(--n-in-sm); color: transparent;
+  font-size: 13px; transition: box-shadow var(--mov-rapido), color var(--mov-rapido);
+}
+.a-casilla input:checked + .caja { background: var(--p-navy); color: var(--txt-inverso); box-shadow: var(--n-xs); }
+.a-casilla input:focus-visible + .caja { outline: 2px solid var(--p-azul); outline-offset: 3px; }
+
+/* ── a-barra · Barra de progreso ─────────────────────────────────────── */
+.a-barra { height: 8px; border-radius: var(--r-pill); background: var(--sup-hundida); box-shadow: var(--n-in-sm); overflow: hidden; }
+.a-barra > i { display: block; height: 100%; border-radius: var(--r-pill); background: var(--p-azul); transition: width var(--mov-medio); }
+
+/* ── a-enlace ────────────────────────────────────────────────────────── */
+.a-enlace { color: var(--txt-enlace); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.a-enlace:hover { color: var(--p-navy); }
+
+/* ── a-esqueleto · Carga ─────────────────────────────────────────────── */
+.a-esqueleto { border-radius: var(--r-sm); background: var(--sup-hundida); box-shadow: var(--n-in-sm); position: relative; overflow: hidden; }
+.a-esqueleto::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  animation: brillo 1.4s infinite;
+}
+@keyframes brillo { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .a-esqueleto::after { animation: none; } }

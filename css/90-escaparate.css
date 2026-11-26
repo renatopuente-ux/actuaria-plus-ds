@@ -1,0 +1,90 @@
+/* ═══════════════════════════════════════════════════════════════════════
+   ACTUARIA+ DS · 90 · ESCAPARATE
+   Chrome del catalogo. NO forma parte del sistema: vive aparte a proposito
+   para que nadie copie estilos de documentacion dentro de un producto.
+   ═══════════════════════════════════════════════════════════════════════ */
+.esc-topbar {
+  position: sticky; top: 0; z-index: var(--z-cabecera);
+  display: flex; align-items: center; gap: var(--e-4);
+  height: 56px; padding: 0 var(--e-6);
+  background: var(--p-navy); color: var(--txt-inverso);
+}
+.esc-marca { font: 700 19px/1 var(--ff-display); letter-spacing: .5px; color: var(--txt-inverso); text-decoration: none; }
+.esc-marca span { color: var(--p-naranja-soft); }
+.esc-version { font: var(--t-ui-sm); color: var(--p-naranja-soft); }
+
+.esc-shell { display: flex; align-items: flex-start; }
+
+.esc-nav {
+  position: sticky; top: 56px; flex: 0 0 216px;
+  height: calc(100vh - 56px); overflow-y: auto;
+  padding: var(--e-5) var(--e-3);
+  background: var(--sup-app); box-shadow: var(--n-in-sm);
+}
+.esc-nav-tit {
+  display: block; padding: var(--e-4) var(--e-3) var(--e-1);
+  font: var(--t-ui-sm); color: var(--txt-acento);
+  text-transform: uppercase; letter-spacing: 1.4px;
+}
+.esc-nav-link {
+  display: flex; align-items: center; gap: var(--e-2);
+  margin: var(--e-1) 0; padding: var(--e-2) var(--e-4);
+  border-radius: var(--r-pill);
+  background: rgba(255,255,255,.42); color: var(--txt-debil);
+  font: var(--t-ui); text-decoration: none;
+  box-shadow: var(--n-xs);
+  transition: background var(--mov-rapido), color var(--mov-rapido), box-shadow var(--mov-rapido);
+}
+.esc-nav-link b {
+  display: grid; place-items: center; width: 20px; height: 20px;
+  border-radius: var(--r-circle); background: var(--sup-hundida);
+  font: var(--t-ui-sm); color: var(--txt-medio);
+}
+.esc-nav-link:hover { background: #fff; color: var(--txt-fuerte); box-shadow: var(--n-sm); }
+.esc-nav-link.activo { background: var(--p-navy); color: var(--txt-inverso); box-shadow: var(--n-md); }
+.esc-nav-link.activo b { background: var(--p-naranja-soft); color: var(--p-navy); }
+
+.esc-main { flex: 1; min-width: 0; padding: var(--e-10) var(--e-12); max-width: 1180px; }
+
+.esc-cabecera { margin-bottom: var(--e-10); padding-bottom: var(--e-5); border-bottom: 2px solid var(--p-light); }
+.esc-cabecera h1 { font: var(--t-h1); color: var(--txt-fuerte); margin-bottom: var(--e-2); }
+.esc-cabecera p { font: var(--t-cuerpo); color: var(--txt-debil); max-width: 68ch; }
+
+/* Ficha de componente: el bloque que se repite por cada atomo/molecula */
+.ficha { margin-bottom: var(--e-12); }
+.ficha > h2 { font: var(--t-h3); color: var(--txt-fuerte); margin-bottom: var(--e-2); text-transform: uppercase; }
+.ficha > .resumen { font: var(--t-cuerpo); font-size: 15px; color: var(--txt-debil); margin-bottom: var(--e-4); max-width: 68ch; }
+.ficha .clase { display: inline-block; margin-bottom: var(--e-4); padding: 2px var(--e-2);
+  border-radius: var(--r-sm); background: var(--sup-hundida); color: var(--txt-acento);
+  font: 600 12px/18px ui-monospace, monospace; }
+
+.lienzo {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-5);
+  padding: var(--e-8); border-radius: var(--r-lg);
+  background: var(--sup-app); box-shadow: var(--n-in-sm);
+}
+.lienzo--col { flex-direction: column; align-items: flex-start; }
+.lienzo--oscuro { background: var(--p-navy); box-shadow: var(--n-in-dark); }
+
+.muestra { display: flex; flex-direction: column; align-items: flex-start; gap: var(--e-2); }
+.muestra > .pie { font: var(--t-ui-sm); color: var(--txt-debil); }
+.lienzo--oscuro .muestra > .pie { color: var(--p-naranja-soft); }
+
+/* Reglas de uso: lo que un dev necesita saber sin leer el CSS */
+.reglas { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-5); margin-top: var(--e-5); }
+.regla { padding: var(--e-4) var(--e-5); border-radius: var(--r-md); background: var(--sup-elevada); box-shadow: var(--n-sm); }
+.regla h3 { font: var(--t-ui); color: var(--txt-fuerte); margin-bottom: var(--e-2); text-transform: uppercase; letter-spacing: .6px; }
+.regla ul { font: var(--t-cuerpo); font-size: 14px; line-height: 23px; padding-left: var(--e-5); list-style: disc; }
+.regla--si { border-left: 4px solid var(--p-success-500); }
+.regla--no { border-left: 4px solid var(--p-danger-500); }
+
+.codigo {
+  margin-top: var(--e-4); padding: var(--e-4) var(--e-5);
+  border-radius: var(--r-md); background: #0E1430; color: #E6EAF5;
+  font: 400 13px/21px ui-monospace, monospace; overflow-x: auto; white-space: pre;
+}
+@media (max-width: 900px) {
+  .esc-nav { display: none; }
+  .esc-main { padding: var(--e-6) var(--e-5); }
+  .reglas { grid-template-columns: 1fr; }
+}
