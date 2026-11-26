@@ -60,8 +60,14 @@
 .a-btn--lg { min-height: 52px; padding: 0 var(--e-8); font: var(--t-ui-lg); }
 .a-btn--bloque { width: 100%; align-self: stretch; }
 
-/* ── a-icono · Boton de solo icono ─────────────────────────────────────
-   Circulo perfecto. El aspect-ratio evita el ovalo cuando el icono crece. */
+/* ── a-icono · BOTON de solo icono ─────────────────────────────────────
+   Es un BOTON: se pulsa. Por eso lleva relieve y por eso exige aria-label.
+   Circulo perfecto; el aspect-ratio evita el ovalo cuando el icono crece.
+
+   Si lo que quieres es un icono que solo INFORMA (el de una tarjeta de
+   KPI, el de una fila de estado), no uses esto: usa .a-medallon. Un
+   circulo con relieve invita a pulsarlo, y si no pasa nada el usuario
+   cree que la interfaz esta rota. */
 .a-icono {
   display: inline-flex; align-items: center; justify-content: center;
   width: 44px; aspect-ratio: 1; padding: 0;
@@ -73,6 +79,13 @@
 .a-icono:hover  { box-shadow: var(--n-md); color: var(--txt-fuerte); }
 .a-icono:active { box-shadow: var(--n-in-sm); }
 .a-icono--sm { width: 34px; }
+
+/* Red de seguridad: si .a-icono acaba en un <span> o un <div>, no es
+   pulsable, asi que se aplana solo en vez de mentir. Mas vale que se vea
+   plano de mas a que el usuario pulse algo que no responde. */
+span.a-icono, div.a-icono, i.a-icono {
+  box-shadow: none; cursor: default; background: var(--fill-neutro);
+}
 
 /* ── a-campo · Entrada de texto ────────────────────────────────────────
    Dos senales a la vez, y ninguna depende de la otra:
@@ -197,3 +210,28 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
   background-repeat: no-repeat;
 }
 .a-select:focus { box-shadow: var(--n-in), 0 0 0 2px var(--p-azul); outline: none; }
+
+/* ── a-medallon · Icono INFORMATIVO ────────────────────────────────────
+   Circulo plano. No se pulsa, no tiene relieve, no tiene cursor de mano.
+   Es el contenedor del icono de una tarjeta de KPI o de una fila de
+   estado: acompana al dato, no ofrece una accion.
+
+   Si el icono aporta significado, el texto de al lado debe repetirlo:
+   el color y la forma por si solos no son informacion accesible. Si es
+   puramente decorativo, marcarlo aria-hidden="true" para que el lector
+   de pantalla no lo anuncie. */
+.a-medallon {
+  display: inline-grid; place-items: center;
+  width: 44px; aspect-ratio: 1;
+  border-radius: var(--r-circle);
+  background: var(--fill-neutro); color: var(--txt-medio);
+  font-size: 18px;
+  box-shadow: none; cursor: default;
+}
+.a-medallon--ok    { background: var(--fill-ok);    color: var(--txt-ok); }
+.a-medallon--aviso { background: var(--fill-aviso); color: var(--txt-aviso); }
+.a-medallon--error { background: var(--fill-error); color: var(--txt-error); }
+.a-medallon--info  { background: var(--fill-info);  color: var(--txt-info); }
+.a-medallon--marca { background: var(--p-navy);     color: var(--txt-inverso); }
+.a-medallon--sm { width: 32px; font-size: 14px; }
+.a-medallon--lg { width: 56px; font-size: 24px; }

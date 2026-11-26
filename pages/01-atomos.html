@@ -70,7 +70,9 @@
       <div class="muestra"><input class="a-campo" style="width:200px" placeholder="Se escribe">
         <span class="pie">RECTÁNGULO SUAVE · 12px</span></div>
       <div class="muestra"><button class="a-icono" aria-label="Ejemplo">&#8681;</button>
-        <span class="pie">CÍRCULO · solo icono</span></div>
+        <span class="pie">CÍRCULO CON RELIEVE · botón</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span>
+        <span class="pie">CÍRCULO PLANO · solo informa</span></div>
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Por qué 12px</h3><ul>
@@ -80,7 +82,7 @@
       <div class="regla regla--no"><h3>Nunca</h3><ul>
         <li>Campo con forma de píldora: compite visualmente con los botones</li>
         <li>Botón con esquina pequeña: deja de distinguirse de una tarjeta</li>
-        <li>Radio a media altura (22px) en un campo: eso ya es una píldora</li></ul></div>
+        <li>Radio a media altura (22px) en un campo: eso ya es una píldora</li><li>Círculo <strong>con relieve</strong> para algo que solo informa: el usuario lo pulsará y creerá que está roto</li></ul></div>
     </div>
   </section>
 
@@ -107,7 +109,7 @@
   <section class="ficha" id="icono">
     <h2>Botón de icono</h2>
     <span class="clase">.a-icono</span>
-    <p class="resumen">Acción sin texto. Círculo perfecto. Obligatorio <code>aria-label</code>: sin él, un lector de pantalla anuncia un botón vacío.</p>
+    <p class="resumen">Acción sin texto. Círculo perfecto <strong>y con relieve: se pulsa</strong>. Obligatorio <code>aria-label</code>, o un lector de pantalla anuncia un botón vacío. Si el icono solo informa, usa <a class="a-enlace" href="#medallon">.a-medallon</a>.</p>
     <div class="lienzo">
       <div class="muestra"><button class="a-icono" aria-label="Descargar informe">&#8681;</button><span class="pie">descargar</span></div>
       <div class="muestra"><button class="a-icono" aria-label="Filtrar">&#9776;</button><span class="pie">filtrar</span></div>
@@ -119,6 +121,34 @@
       <div class="regla regla--no"><h3>Nunca</h3><ul><li>Iconos ambiguos sin etiqueta visible al lado</li><li>Omitir <code>aria-label</code></li><li>Usarlo para la acción principal de una pantalla</li></ul></div>
     </div>
     <pre class="codigo">&lt;button class="a-icono" aria-label="Descargar informe"&gt;&#8681;&lt;/button&gt;</pre>
+  </section>
+
+  <section class="ficha" id="medallon">
+    <h2>Icono informativo</h2>
+    <span class="clase">.a-medallon</span>
+    <p class="resumen">El mismo círculo, <strong>sin relieve</strong>. Acompaña a un dato; no ofrece
+       una acción. Existe porque un círculo en relieve invita a pulsarlo, y si al pulsar no pasa
+       nada el usuario concluye que la interfaz está rota.</p>
+    <div class="lienzo">
+      <div class="muestra"><span class="a-medallon a-medallon--marca" aria-hidden="true">&#128202;</span><span class="pie">marca · KPI</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span><span class="pie">ok</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--aviso" aria-hidden="true">!</span><span class="pie">aviso</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--error" aria-hidden="true">&times;</span><span class="pie">error</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--sm" aria-hidden="true">&#8681;</span><span class="pie">sm · 32px</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--lg a-medallon--info" aria-hidden="true">&#8364;</span><span class="pie">lg · 56px</span></div>
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul>
+        <li>Icono de una tarjeta de KPI o de una fila de estado</li>
+        <li>El icono refuerza un texto que ya dice lo mismo</li>
+        <li>Es decorativo: entonces <code>aria-hidden="true"</code></li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul>
+        <li>Para algo pulsable: eso es <code>.a-icono</code>, con relieve y <code>aria-label</code></li>
+        <li>Como única fuente de información: el color y la forma no son accesibles por sí solos</li>
+        <li>Darle <code>cursor:pointer</code> &laquo;para que se vea vivo&raquo;</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;span class="a-medallon a-medallon--ok" aria-hidden="true"&gt;&#10003;&lt;/span&gt;
+&lt;span&gt;Finalizado&lt;/span&gt;   &lt;!-- el texto dice lo mismo que el icono --&gt;</pre>
   </section>
   <section class="ficha" id="campo">
     <h2>Campo de texto</h2>
