@@ -101,6 +101,19 @@
   --r-sm: 8px;  --r-md: 16px;  --r-lg: 24px;  --r-xl: 32px;
   --r-pill: 999px;  --r-circle: 50%;
 
+  /* ── 2 · SEMANTICO · la FORMA tambien dice la funcion ────────────────
+     Segunda senal, independiente del relieve, para que la distincion
+     sobreviva aunque alguien toque las sombras:
+
+       PILDORA COMPLETA  -> se pulsa   (boton, boton de icono)
+       RECTANGULO SUAVE  -> se escribe (campo, select, area de texto)
+
+     12px sobre una altura de 44px: las esquinas se ablandan pero la caja
+     sigue leyendose rectangular, que es lo que el ojo asocia a "aqui se
+     escribe". A 22px (media altura) seria una pildora y competiria con
+     los botones. */
+  --r-campo: 12px;
+
   /* ── 3 · NEUMORFISMO · la luz viene de arriba-izquierda ──────────────
      Dos sombras SIEMPRE y en pareja: una clara arriba-izquierda y una
      oscura abajo-derecha. Una sola sombra es Material, no neumorfismo.

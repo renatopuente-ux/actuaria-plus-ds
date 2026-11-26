@@ -60,6 +60,30 @@
     </div>
   </section>
 
+  <section class="ficha" id="forma">
+    <h2>La ley de forma</h2>
+    <p class="resumen">Segunda señal, <strong>independiente del relieve</strong>. La redundancia es
+       deliberada: si alguien toca las sombras, la forma sigue diciendo para qué sirve cada cosa.</p>
+    <div class="lienzo">
+      <div class="muestra"><button class="a-btn a-btn--principal">Se pulsa</button>
+        <span class="pie">PÍLDORA COMPLETA · 999px</span></div>
+      <div class="muestra"><input class="a-campo" style="width:200px" placeholder="Se escribe">
+        <span class="pie">RECTÁNGULO SUAVE · 12px</span></div>
+      <div class="muestra"><button class="a-icono" aria-label="Ejemplo">&#8681;</button>
+        <span class="pie">CÍRCULO · solo icono</span></div>
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Por qué 12px</h3><ul>
+        <li>Sobre 44px de alto, las esquinas se ablandan pero la caja sigue leyéndose rectangular</li>
+        <li>Es lo que el ojo asocia a &laquo;aquí se escribe&raquo;</li>
+        <li>La píldora completa queda libre para la acción, sin competencia</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul>
+        <li>Campo con forma de píldora: compite visualmente con los botones</li>
+        <li>Botón con esquina pequeña: deja de distinguirse de una tarjeta</li>
+        <li>Radio a media altura (22px) en un campo: eso ya es una píldora</li></ul></div>
+    </div>
+  </section>
+
   <section class="ficha" id="boton">
     <h2>Botón</h2>
     <span class="clase">.a-btn</span>
@@ -98,16 +122,18 @@
   </section>
   <section class="ficha" id="campo">
     <h2>Campo de texto</h2>
-    <span class="clase">.a-campo</span>
-    <p class="resumen">Entrada de datos. <strong>Hundido</strong>: en neumorfismo un campo es un pozo donde se deposita el dato. Esa metáfora separa de un vistazo lo que se escribe de lo que se pulsa.</p>
+    <span class="clase">.a-campo · .a-select</span>
+    <p class="resumen">Entrada de datos. <strong>Hundido y rectangular</strong>: el pozo es la metáfora neumórfica del dato depositado, y el rectángulo suave de 12px deja la píldora completa reservada a los botones. Dos señales, ninguna dependiente de la otra.</p>
     <div class="lienzo">
       <div class="muestra" style="min-width:280px"><label class="a-etiqueta" for="c1" data-obligatorio>Razón social</label><input class="a-campo" id="c1" placeholder="YUPANA ANALYTICS S.A."><span class="pie">normal</span></div>
       <div class="muestra" style="min-width:280px"><label class="a-etiqueta" for="c2">Tasa de descuento</label><input class="a-campo" id="c2" value="5.85" aria-invalid="true"><span class="pie" style="color:var(--txt-error)">error · anillo rojo</span></div>
+      <div class="muestra" style="min-width:280px"><label class="a-etiqueta" for="c3">Normativa</label><select class="a-select" id="c3"><option>NIC 19</option><option>NIIF 17</option></select><span class="pie">select · misma forma</span></div>
+      <div class="muestra" style="min-width:280px;flex:1"><label class="a-etiqueta" for="c4">Notas del actuario</label><textarea class="a-campo" id="c4" placeholder="Observaciones sobre las hipótesis..."></textarea><span class="pie">área de texto</span></div>
 
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Cualquier dato que el usuario escriba o pegue</li><li>Marcar los obligatorios con <code>data-obligatorio</code> en la etiqueta</li><li>Usar <code>aria-invalid</code> y un mensaje que diga cómo arreglarlo</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Ponerle relieve: parecería un botón</li><li>Usar solo el color rojo para indicar error</li><li>Placeholder como sustituto de la etiqueta: desaparece al escribir</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Ponerle relieve: parecería un botón</li><li>Darle píldora completa: compite con los botones</li><li>Usar solo el color rojo para indicar error</li><li>Placeholder como sustituto de la etiqueta: desaparece al escribir</li></ul></div>
     </div>
     <pre class="codigo">&lt;label class="a-etiqueta" for="c1" data-obligatorio&gt;Razón social&lt;/label&gt;
 &lt;input class="a-campo" id="c1" placeholder="YUPANA ANALYTICS S.A."&gt;</pre>
