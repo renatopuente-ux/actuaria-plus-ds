@@ -10,8 +10,8 @@
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=21152c8a">
-<link rel="stylesheet" href="../css/02-atomos.css?v=09d2dbb7">
-<link rel="stylesheet" href="../css/90-escaparate.css?v=af0fb8b4">
+<link rel="stylesheet" href="../css/02-atomos.css?v=a4b84766">
+<link rel="stylesheet" href="../css/90-escaparate.css?v=bc627615">
 </head>
 <body>
 <a class="sr-only" href="#principal">Saltar al contenido</a>
@@ -44,18 +44,16 @@
     <p class="resumen">Se cumplen en todo el sistema y no admiten excepciones. Entre las tres dejan
        claro qué puede tocar el usuario sin que tenga que probar nada.</p>
     <div class="lienzo">
-      <div class="muestra"><button class="a-btn">Se pulsa</button><span class="pie">RELIEVE · píldora</span></div>
-      <div class="muestra"><input class="a-campo" style="width:190px" placeholder="Se escribe"><span class="pie">HUNDIDO · rectángulo</span></div>
-      <div class="muestra"><span class="a-chip a-chip--ok">Solo informa</span><span class="pie">PLANO · opaco</span></div>
-      <div class="muestra"><button class="a-icono" aria-label="Ejemplo"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4-4-4M4 16h12"/></svg></button><span class="pie">CÍRCULO · acción sin texto</span></div>
-      <div class="muestra"><span class="a-medallon a-medallon--ok" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg></span><span class="pie">CÍRCULO PLANO · informa</span></div>
+      <div class="muestra"><button class="a-btn">Se pulsa</button><span class="pie">Relieve: se pulsa</span></div>
+      <div class="muestra"><input class="a-campo" style="width:190px" placeholder="Se escribe"><span class="pie">Hundido: se escribe</span></div>
+      <div class="muestra"><span class="a-chip a-chip--ok">Solo informa</span><span class="pie">Plano: solo informa</span></div>
+      <div class="muestra"><button class="a-icono" aria-label="Ejemplo"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4-4-4M4 16h12"/></svg></button><span class="pie">Acción sin texto</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--ok" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg></span><span class="pie">Icono que solo informa</span></div>
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Las leyes</h3><ul>
-        <li><strong>Relieve</strong> = se pulsa · <strong>hundido</strong> = se escribe ·
-            <strong>plano y opaco</strong> = solo informa</li>
-        <li><strong>Píldora</strong> para la acción, <strong>rectángulo de 12px</strong> para la entrada,
-            <strong>círculo</strong> para el icono</li>
+        <li><strong>Relieve</strong> si se pulsa. <strong>Hundido</strong> si se escribe. <strong>Plano y opaco</strong> si solo informa</li>
+        <li><strong>Píldora</strong> en la acción. <strong>Rectángulo de 12px</strong> en la entrada. <strong>Círculo</strong> en el icono</li>
         <li>La <strong>sombra la decide el sustrato</strong>, nunca el color del elemento</li></ul></div>
       <div class="regla regla--no"><h3>Cómo se rompen</h3><ul>
         <li>Dar relieve a tarjetas y paneles: si todo sobresale, nada sobresale</li>
@@ -72,11 +70,11 @@
     <div class="lienzo">
       <div class="muestra"><span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span><span class="pie">principal + anillo · acción de la pantalla</span></div>
       <div class="muestra"><button class="a-btn">Guardar borrador</button><span class="pie">por defecto</span></div>
-      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · aro · cualquier tamaño</span></div>
+      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">Acento, en aro</span></div>
       <div class="muestra"><button class="a-btn a-btn--fantasma">Cancelar</button><span class="pie">fantasma · descartar</span></div>
       <div class="muestra"><button class="a-btn" disabled>Siguiente</button><span class="pie">deshabilitado</span></div>
-      <div class="muestra"><button class="a-btn a-btn--sm">Pequeño</button><span class="pie">sm · 34px</span></div>
-      <div class="muestra"><button class="a-btn a-btn--lg">Grande</button><span class="pie">lg · 52px</span></div>
+      <div class="muestra"><button class="a-btn a-btn--sm">Pequeño</button><span class="pie">Pequeño</span></div>
+      <div class="muestra"><button class="a-btn a-btn--lg">Grande</button><span class="pie">Grande</span></div>
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La acción es real y el usuario puede ejecutarla ahora</li><li>Necesitas jerarquía: principal &gt; por defecto &gt; fantasma</li><li>El deshabilitado explica por qué lo está, con texto o tooltip</li></ul></div>
@@ -102,16 +100,16 @@
         <button class="a-btn a-btn--acento a-btn--sm">Solicitar</button>
         <button class="a-btn a-btn--acento">Solicitar estudio</button>
         <button class="a-btn a-btn--acento a-btn--lg">Solicitar estudio</button>
-        <span class="pie" style="margin:0">aro · 34 / 44 / 52px · WCAG2 15.51 · APCA 93.5</span>
+        <span class="pie" style="margin:0">Aro, en los tres tamaños. Contraste 15.51</span>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:var(--e-6);align-items:center;width:100%">
         <button class="a-btn a-btn--acento-solido">Solicitar estudio</button>
-        <span class="pie" style="margin:0">sólido · solo 52px / 19px / 700 · APCA &minus;68.6</span>
+        <span class="pie" style="margin:0">Relleno sólido, solo en tamaño grande</span>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:var(--e-6);align-items:center;width:100%">
         <button class="a-btn a-btn--principal a-btn--sm">Calcular</button>
         <button class="a-btn a-btn--principal">Calcular provisión</button>
-        <span class="pie" style="margin:0">navy · blanco 15.92 · APCA &minus;105 · escala sin límite</span>
+        <span class="pie" style="margin:0">Navy, escala sin límite. Contraste 15.92</span>
       </div>
     </div>
     <div class="reglas">
@@ -158,7 +156,7 @@
       <div class="muestra"><button class="a-icono" aria-label="Descargar informe"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4-4-4M4 16h12"/></svg></button><span class="pie">descargar</span></div>
       <div class="muestra"><button class="a-icono" aria-label="Filtrar"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 5h14M6 10h8M9 15h2"/></svg></button><span class="pie">filtrar</span></div>
       <div class="muestra"><button class="a-icono" aria-label="Compartir"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 13 13 7m0 0H8m5 0v5"/><rect x="3" y="3" width="14" height="14" rx="4"/></svg></button><span class="pie">compartir</span></div>
-      <div class="muestra"><button class="a-icono a-icono--sm" aria-label="Cerrar"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button><span class="pie">sm · 34px</span></div>
+      <div class="muestra"><button class="a-icono a-icono--sm" aria-label="Cerrar"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button><span class="pie">Pequeño</span></div>
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El icono es inequívoco: cerrar, descargar, añadir</li><li>El espacio es escaso: barras de herramientas, filas de tabla</li></ul></div>
@@ -172,12 +170,12 @@
     <span class="clase">.a-medallon</span>
     <p class="resumen">El mismo círculo, <strong>sin relieve</strong>. Acompaña a un dato; no ofrece una acción.</p>
     <div class="lienzo">
-      <div class="muestra"><span class="a-medallon a-medallon--marca" aria-hidden="true"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h14M6 14V9m4 5V5m4 9v-6"/></svg></span><span class="pie">marca · KPI</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--marca" aria-hidden="true"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17h14M6 14V9m4 5V5m4 9v-6"/></svg></span><span class="pie">Indicador</span></div>
       <div class="muestra"><span class="a-medallon a-medallon--ok" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg></span><span class="pie">ok</span></div>
       <div class="muestra"><span class="a-medallon a-medallon--aviso" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M10 5v6m0 3.5v.5"/></svg></span><span class="pie">aviso</span></div>
       <div class="muestra"><span class="a-medallon a-medallon--error" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></span><span class="pie">error</span></div>
-      <div class="muestra"><span class="a-medallon a-medallon--sm" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4-4-4M4 16h12"/></svg></span><span class="pie">sm · 32px</span></div>
-      <div class="muestra"><span class="a-medallon a-medallon--lg a-medallon--info" aria-hidden="true"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5.5A5.5 5.5 0 0 0 6 10a5.5 5.5 0 0 0 8 4.5M4 9h7M4 12h7"/></svg></span><span class="pie">lg · 56px</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--sm" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4-4-4M4 16h12"/></svg></span><span class="pie">Pequeño</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--lg a-medallon--info" aria-hidden="true"><svg viewBox="0 0 20 20" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5.5A5.5 5.5 0 0 0 6 10a5.5 5.5 0 0 0 8 4.5M4 9h7M4 12h7"/></svg></span><span class="pie">Grande</span></div>
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Icono de una tarjeta de KPI o de una fila de estado</li><li>El icono refuerza un texto que ya dice lo mismo</li><li>Es decorativo: entonces <code>aria-hidden="true"</code></li></ul></div>
@@ -228,11 +226,11 @@
     <span class="clase">.a-chip</span>
     <p class="resumen">Dato categórico en una palabra. <strong>Plano y con relleno opaco</strong>: no se pulsa. Los colores no llevan <code>alpha</code>, así que su contraste no cambia con el fondo.</p>
     <div class="lienzo">
-      <div class="muestra"><span class="a-chip a-chip--ok">Finalizado</span><span class="pie">ok · 5.45:1</span></div>
-      <div class="muestra"><span class="a-chip a-chip--aviso">Pendiente</span><span class="pie">aviso · 6.58:1</span></div>
-      <div class="muestra"><span class="a-chip a-chip--error">Vencido</span><span class="pie">error · 4.63:1</span></div>
-      <div class="muestra"><span class="a-chip a-chip--info">En revisión</span><span class="pie">info · 8.60:1</span></div>
-      <div class="muestra"><span class="a-chip">Borrador</span><span class="pie">neutro · 6.99:1</span></div>
+      <div class="muestra"><span class="a-chip a-chip--ok">Finalizado</span><span class="pie">Finalizado</span></div>
+      <div class="muestra"><span class="a-chip a-chip--aviso">Pendiente</span><span class="pie">Pendiente</span></div>
+      <div class="muestra"><span class="a-chip a-chip--error">Vencido</span><span class="pie">Vencido</span></div>
+      <div class="muestra"><span class="a-chip a-chip--info">En revisión</span><span class="pie">En revisión</span></div>
+      <div class="muestra"><span class="a-chip">Borrador</span><span class="pie">Borrador</span></div>
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Estado de una fila, un expediente o un estudio</li><li>El texto basta para entenderlo sin ver el color</li></ul></div>
@@ -266,10 +264,10 @@
     <span class="clase">.a-barra · .a-esqueleto</span>
     <p class="resumen">Avance y espera. Ambos hundidos: son superficies pasivas, no se tocan.</p>
     <div class="lienzo">
-      <div class="muestra"><div class="a-barra" style="width:200px"><i style="width:62%"></i></div><span class="pie">barra · 62 %</span></div>
+      <div class="muestra"><div class="a-barra" style="width:200px"><i style="width:62%"></i></div><span class="pie">Avance del 62 %</span></div>
       <div class="muestra"><div class="a-barra a-barra--ok" style="width:200px"><i style="width:100%"></i></div><span class="pie">completada</span></div>
-      <div class="muestra"><div class="a-esqueleto" style="width:200px;height:14px"></div><span class="pie">esqueleto · línea</span></div>
-      <div class="muestra"><div class="a-esqueleto" style="width:56px;height:56px;border-radius:50%"></div><span class="pie">esqueleto · círculo</span></div>
+      <div class="muestra"><div class="a-esqueleto" style="width:200px;height:14px"></div><span class="pie">Esqueleto de línea</span></div>
+      <div class="muestra"><div class="a-esqueleto" style="width:56px;height:56px;border-radius:50%"></div><span class="pie">Esqueleto circular</span></div>
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Barra: el avance es medible y conocido</li><li>Esqueleto: se conoce la forma de lo que va a llegar</li><li>Barra con <code>role="progressbar"</code> y sus valores</li></ul></div>

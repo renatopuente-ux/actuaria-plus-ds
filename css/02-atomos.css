@@ -33,7 +33,7 @@
 .a-btn[disabled],
 .a-btn[aria-disabled="true"] {
   box-shadow: none; background: var(--sup-hundida);
-  color: var(--txt-debil); cursor: not-allowed; opacity: .7;
+  color: var(--txt-debil); cursor: not-allowed; opacity: .45;
 }
 
 /* Variante principal: la accion de sistema. Navy solido.
@@ -315,3 +315,29 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 .a-anillo > .a-btn:not(.a-btn--principal):not(.a-btn--acento-solido) { box-shadow: var(--n-sm); }
 .a-anillo:has(> .a-btn:not(.a-btn--principal):not(.a-btn--acento-solido)) { padding: 0; box-shadow: none; background: none; }
 .sup-inversa .a-anillo { background: var(--p-navy); box-shadow: var(--n-dark); }
+
+/* ── Cifras tabulares ─────────────────────────────────────────────────
+   En columnas de datos, precios y contadores las cifras deben ocupar el
+   mismo ancho; si no, la columna salta cada vez que cambia un digito. */
+.a-dato, .a-tabla td, .a-tabla th, .cifra { font-variant-numeric: tabular-nums; }
+
+/* ── Movimiento reducido ──────────────────────────────────────────────
+   Quien lo pide en su sistema operativo no ve animacion, pero SI ve el
+   estado final: se anulan duracion y desplazamiento, nunca el resultado. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ── Tamano de entrada ────────────────────────────────────────────────
+   16px MINIMO en todo campo editable. Por debajo, iOS hace zoom
+   automatico al enfocar y desplaza la maquetacion entera. No es estetica,
+   es una restriccion de la plataforma.
+
+   Va al FINAL del archivo a proposito: las reglas de arriba usan el atajo
+   `font:`, que reinicia font-size. Declararlo antes no sirve de nada. */
+.a-campo, .a-select, .a-area, input, textarea, select { font-size: 16px; }

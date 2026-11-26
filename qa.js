@@ -77,11 +77,70 @@
     if (r > e.getBoundingClientRect().height / 2 - 2) F('forma', `${nombre(e)} es una pildora y deberia ser rectangular`);
   });
 
-  /* 8 · MOVIMIENTO entre 150 y 300 ms: por debajo no se percibe, por
-     encima estorba. */
-  [...document.querySelectorAll('.a-btn, .a-icono, .a-anillo, .a-campo')].filter(visible).forEach(e => {
-    const d = getComputedStyle(e).transitionDuration.split(',').map(x => parseFloat(x) * 1000).filter(x => x > 0);
-    d.forEach(ms => { if (ms < 100 || ms > 400) F('movimiento', `${nombre(e)} transiciona en ${ms}ms, fuera de 100-400`); });
+  /* 8 · MOVIMIENTO. No se impone un corte universal de duracion: la pauta
+     correcta es que el tiempo salga de un TOKEN compartido, elegido por
+     distancia y complejidad, no de un numero suelto en cada regla. Lo que
+     si es universal: respetar reduced-motion y animar solo propiedades
+     compuestas. */
+  {
+    const tokens = new Set(['--mov-rapido', '--mov-medio', '--mov-lento']
+      .map(t => getComputedStyle(document.documentElement).getPropertyValue(t).trim())
+      .filter(Boolean).map(v => parseFloat(v) * (v.includes('ms') ? 1 : 1000)));
+    /* Con reduced-motion activo TODA duracion cae a 0.01ms a proposito:
+       exigir ahi el token convierte el acierto en 29 fallos. */
+    const rm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    [...document.querySelectorAll('.a-btn, .a-icono, .a-anillo, .a-campo')].filter(visible).forEach(e => {
+      const cs = getComputedStyle(e);
+      if (!rm) cs.transitionDuration.split(',').map(x => parseFloat(x) * 1000).filter(x => x > 0)
+        .forEach(ms => { if (tokens.size && !tokens.has(ms)) F('movimiento', `${nombre(e)} usa ${ms}ms, que no es un token de movimiento`); });
+      /* solo transform y opacity llegan al compositor; animar width, height,
+         top o left obliga a recalcular la maquetacion en cada fotograma */
+      cs.transitionProperty.split(',').map(s => s.trim()).forEach(prop => {
+        if (/^(width|height|top|left|right|bottom|margin|padding)/.test(prop))
+          F('movimiento', `${nombre(e)} anima ${prop}, que provoca reflujo`);
+      });
+    });
+    /* NO se lee cssRules: en file:// toda hoja enlazada lanza excepcion y
+       el catch daba por ausente lo que si estaba. Se comprueba el
+       COMPORTAMIENTO: si el navegador emula reduced-motion, la duracion
+       real tiene que desplomarse. La prueba la dispara el runner. */
+    if (window.__qaReducedMotion === 'activa') {
+      const e = document.querySelector('.a-btn');
+      const ms = parseFloat(getComputedStyle(e).transitionDuration) * 1000;
+      if (ms > 50) F('movimiento', `con reduced-motion activo la transicion sigue en ${ms}ms`);
+    }
+  }
+
+  /* 8b · ENTRADA A 16PX. Por debajo, iOS hace zoom al enfocar el campo y
+     desplaza toda la maquetacion. No es estetica, es la plataforma. */
+  [...document.querySelectorAll('input:not([type=checkbox]):not([type=radio]), select, textarea')]
+    .filter(visible).forEach(e => {
+      const px = parseFloat(getComputedStyle(e).fontSize);
+      if (px < 16) F('entrada-16px', `${nombre(e)} tiene ${px}px, iOS hara zoom al enfocarlo`);
+    });
+
+  /* 8c · MEDIDA DE LINEA. Por encima de 80 caracteres el ojo pierde el
+     renglon al volver a la izquierda. */
+  [...document.querySelectorAll('p, li')].filter(visible).forEach(e => {
+    if (e.children.length > 2 || !e.textContent.trim()) return;
+    /* Medir con la unidad ch REAL del elemento, no con fontSize*0.5: el
+       ancho del cero depende de la fuente y la estimacion se desvia un
+       30% en Prompt, inventando fallos que no existen. */
+    const sonda = document.createElement('span');
+    sonda.style.cssText = 'position:absolute;visibility:hidden;width:1ch';
+    e.appendChild(sonda);
+    const anchoCh = sonda.getBoundingClientRect().width;
+    sonda.remove();
+    if (!anchoCh) return;
+    const ch = e.getBoundingClientRect().width / anchoCh;
+    if (ch > 80) F('medida', `${nombre(e)} mide ${Math.round(ch)} caracteres, maximo 80`);
+  });
+
+  /* 8d · CADENAS DE METADATOS unidas con punto medio: plantilla reconocible
+     que aparece sea cual sea el contenido. Mejor prosa corta. */
+  [...document.querySelectorAll('.pie, p, li, figcaption')].filter(visible).forEach(e => {
+    if ((e.textContent.match(/\s·\s/g) || []).length >= 2)
+      F('plantilla', `${nombre(e)} encadena metadatos con punto medio`);
   });
 
   /* 9 · ICONOS EMOJI. Cambian de forma en cada sistema operativo y no

@@ -57,7 +57,7 @@
 .ficha > .resumen { font: var(--t-cuerpo); font-size: 15px; color: var(--txt-debil); margin-bottom: var(--e-4); max-width: 68ch; }
 .ficha .clase { display: inline-block; margin-bottom: var(--e-4); padding: 2px var(--e-2);
   border-radius: var(--r-sm); background: var(--sup-hundida); color: var(--txt-acento);
-  font: 600 12px/18px ui-monospace, monospace; }
+  font: 600 13px/18px var(--ff-ui); letter-spacing: .01em; }
 
 .lienzo {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-5);
@@ -104,3 +104,8 @@
   background: var(--sup-hundida); color: var(--txt-debil);
   font: var(--t-ui-sm);
 }
+
+/* ── Medida de linea ──────────────────────────────────────────────────
+   65-75 caracteres. Mas largo y el ojo pierde el renglon al volver. */
+.resumen, .ficha > p, .esc-cabecera p { max-width: 68ch; }
+.regla li { max-width: 62ch; }
