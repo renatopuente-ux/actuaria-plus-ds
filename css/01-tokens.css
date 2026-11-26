@@ -115,26 +115,53 @@
   --r-campo: 12px;
 
   /* ── 3 · NEUMORFISMO · la luz viene de arriba-izquierda ──────────────
-     Dos sombras SIEMPRE y en pareja: una clara arriba-izquierda y una
-     oscura abajo-derecha. Una sola sombra es Material, no neumorfismo.
-     La oscura se tinta con el NAVY DE MARCA (21,31,71), no con un gris
-     azulado generico: el brandbook prohibe inventar color. */
-  --luz:    255,255,255;
-  --sombra: 21,31,71;
+     Las dos sombras van en COLOR SOLIDO, no en rgba. Es lo que hacen las
+     librerias establecidas y la razon por la que su relieve se lee: un
+     rgba de baja alpha compuesto sobre la superficie queda demasiado
+     claro y el volumen desaparece.
+
+     El color no se elige a ojo, se calcula:
+         oscura = superficie x k
+         clara  = superficie x (2-k)   -> en superficies claras satura a blanco
+
+     k = 0.76 (decision del equipo). Para referencia, themesberg usa 0.80 y
+     neumorphism.io 0.85; 0.76 es deliberadamente mas marcado.
+
+     LAS CUATRO SOMBRAS SIEMPRE
+     Cada token declara las dos externas Y las dos internas, poniendo a
+     cero las que no actuan. box-shadow solo interpola entre listas de la
+     MISMA longitud: sin esto, pasar de relieve a hundido salta de golpe en
+     vez de animarse. Se nota en cada :active. */
+  --neu-oscura: #b0b3b9;   /* #E8ECF4 x 0.76 */
+  --neu-clara:  #ffffff;   /* #E8ECF4 x 1.24, saturado */
 
   /* relieve: sobresale -> se puede pulsar */
-  --n-xs: 2px 2px 4px rgba(var(--sombra),.09), -1px -1px 3px rgba(var(--luz),.85);
-  --n-sm: 3px 3px 8px rgba(var(--sombra),.10), -2px -2px 6px rgba(var(--luz),.90);
-  --n-md: 6px 6px 16px rgba(var(--sombra),.13), -5px -5px 13px rgba(var(--luz),.92);
-  --n-lg: 10px 10px 28px rgba(var(--sombra),.16), -8px -8px 22px rgba(var(--luz),.95);
+  --n-xs: 2px 2px 5px var(--neu-oscura), -2px -2px 4px var(--neu-clara),
+          inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara);
+  --n-sm: 4px 4px 9px var(--neu-oscura), -3px -3px 7px var(--neu-clara),
+          inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara);
+  --n-md: 6px 6px 14px var(--neu-oscura), -5px -5px 12px var(--neu-clara),
+          inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara);
+  --n-lg: 10px 10px 22px var(--neu-oscura), -8px -8px 18px var(--neu-clara),
+          inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara);
 
   /* hundido: se mete -> campo, carril, superficie pasiva */
-  --n-in-sm: inset 2px 2px 5px rgba(var(--sombra),.10), inset -1px -1px 4px rgba(var(--luz),.90);
-  --n-in:    inset 4px 4px 9px rgba(var(--sombra),.13), inset -3px -3px 7px rgba(var(--luz),.92);
+  --n-in-sm: 0 0 0 var(--neu-oscura), 0 0 0 var(--neu-clara),
+             inset 3px 3px 6px var(--neu-oscura), inset -2px -2px 5px var(--neu-clara);
+  --n-in:    0 0 0 var(--neu-oscura), 0 0 0 var(--neu-clara),
+             inset 5px 5px 10px var(--neu-oscura), inset -4px -4px 8px var(--neu-clara);
 
-  /* sobre superficie oscura la luz blanca no existe: se usa un navy claro */
-  --n-dark:    4px 4px 11px rgba(4,8,24,.55), -3px -3px 9px rgba(86,104,165,.26);
-  --n-in-dark: inset 3px 3px 8px rgba(4,8,24,.55), inset -2px -2px 6px rgba(86,104,165,.24);
+  /* ── 3 · Superficie oscura: su propia pareja ─────────────────────────
+     Un tema trae sus sombras, no se parchea componente a componente.
+     Sobre navy la clara NO es simetrica: x1.24 daria #1a2658, casi
+     invisible. El ojo necesita mas elevacion sobre fondo oscuro, asi que
+     se aclara mas (x1.6), lo que ademas acerca el tono al azul de marca. */
+  --neu-oscura-inv: #101836;   /* #151F47 x 0.76 */
+  --neu-clara-inv:  #223272;   /* #151F47 x 1.60 */
+  --n-dark: 4px 4px 10px var(--neu-oscura-inv), -3px -3px 8px var(--neu-clara-inv),
+            inset 0 0 0 var(--neu-oscura-inv), inset 0 0 0 var(--neu-clara-inv);
+  --n-in-dark: 0 0 0 var(--neu-oscura-inv), 0 0 0 var(--neu-clara-inv),
+               inset 4px 4px 8px var(--neu-oscura-inv), inset -3px -3px 6px var(--neu-clara-inv);
 
   /* ── 3 · Movimiento ──────────────────────────────────────────────── */
   --mov-rapido: .14s cubic-bezier(.4,0,.2,1);

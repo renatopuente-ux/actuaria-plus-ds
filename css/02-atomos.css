@@ -41,7 +41,8 @@
   background: var(--p-navy); color: var(--txt-inverso);
   box-shadow: var(--n-dark);
 }
-.a-btn--principal:hover  { box-shadow: 5px 5px 14px rgba(4,8,24,.6), -4px -4px 11px rgba(86,104,165,.3); }
+.a-btn--principal:hover  { box-shadow: 6px 6px 14px var(--neu-oscura-inv), -5px -5px 11px var(--neu-clara-inv),
+                                        inset 0 0 0 var(--neu-oscura-inv), inset 0 0 0 var(--neu-clara-inv); }
 .a-btn--principal:active { box-shadow: var(--n-in-dark); }
 
 /* Variante de acento: UNA por pantalla, y solo para la accion comercial.
@@ -88,6 +89,10 @@ span.a-icono, div.a-icono, i.a-icono {
 }
 
 /* ── a-campo · Entrada de texto ────────────────────────────────────────
+   El anillo de foco es OUTLINE, no box-shadow. Dos razones: no altera la
+   longitud de la lista de sombras (que rompia la animacion) y no compite
+   con el relieve. themesberg resuelve el foco con un inset identico al
+   :active, y con teclado deja de distinguirse lo enfocado de lo pulsado.
    Dos senales a la vez, y ninguna depende de la otra:
      HUNDIDO            -> en neumorfismo el campo es un pozo donde se
                            deposita el dato
@@ -105,8 +110,8 @@ span.a-icono, div.a-icono, i.a-icono {
   transition: box-shadow var(--mov-rapido);
 }
 .a-campo::placeholder { color: var(--txt-debil); }
-.a-campo:focus { box-shadow: var(--n-in), 0 0 0 2px var(--p-azul); outline: none; }
-.a-campo[aria-invalid="true"] { box-shadow: var(--n-in-sm), 0 0 0 2px var(--p-danger-500); }
+.a-campo:focus { box-shadow: var(--n-in); outline: 2px solid var(--p-azul); outline-offset: 2px; }
+.a-campo[aria-invalid="true"] { box-shadow: var(--n-in-sm); outline: 2px solid var(--p-danger-500); outline-offset: 2px; }
 textarea.a-campo { min-height: 104px; padding: var(--e-3) var(--e-4); border-radius: var(--r-campo); resize: vertical; }
 
 /* ── a-etiqueta · Label de formulario ──────────────────────────────── */
@@ -209,7 +214,7 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
   background-size: 6px 6px, 6px 6px;
   background-repeat: no-repeat;
 }
-.a-select:focus { box-shadow: var(--n-in), 0 0 0 2px var(--p-azul); outline: none; }
+.a-select:focus { box-shadow: var(--n-in); outline: 2px solid var(--p-azul); outline-offset: 2px; }
 
 /* ── a-medallon · Icono INFORMATIVO ────────────────────────────────────
    Circulo plano. No se pulsa, no tiene relieve, no tiene cursor de mano.

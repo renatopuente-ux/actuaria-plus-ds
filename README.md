@@ -22,6 +22,28 @@ Medido en producción (`act-compass`, v2.0.3):
 
 ---
 
+## El relieve, en números
+
+La sombra no se elige a ojo. Va en **color sólido** —no `rgba`— y se calcula:
+
+```
+oscura = superficie × k          #E8ECF4 × 0.76 = #b0b3b9
+clara  = superficie × (2 − k)    satura a #ffffff
+```
+
+**k = 0.76.** Para referencia: themesberg usa 0.80 y neumorphism.io 0.85.
+Elegido comparando las tres en el [laboratorio de intensidad](pages/00-intensidad.html).
+
+Cada token declara **las cuatro sombras** —las dos externas y las dos internas—
+poniendo a cero las que no actúan. `box-shadow` solo interpola entre listas de
+la misma longitud: sin eso, pasar de relieve a hundido salta de golpe en cada
+`:active`.
+
+El foco es `outline`, nunca `box-shadow`: mantiene la longitud de la lista y no
+compite con el relieve.
+
+---
+
 ## La ley de relieve
 
 Vale para todo el sistema y no admite excepciones:

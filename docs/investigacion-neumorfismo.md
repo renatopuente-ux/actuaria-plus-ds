@@ -160,11 +160,24 @@ Actuaria va por delante y conviene no perderlo al subir la intensidad.
 
 ---
 
-## Decisiones que quedan abiertas
+## Decisiones tomadas
 
-1. **Subir la intensidad a k = 0.80** (equivalente a themesberg) o quedarse en
-   un término medio como 0.84.
-2. **Adoptar las cuatro sombras siempre**, para que relieve ↔ hundido se anime.
-3. **Subir las parejas de sombra a nivel de tema** (claro / navy) en lugar de
-   excepciones por componente.
-4. Añadir los seis componentes que faltan y la plataforma sí usa.
+1. **k = 0.76** → `#b0b3b9`. Más marcado que themesberg (0.80) y que
+   neumorphism.io (0.85). Decisión del equipo tras comparar en el
+   [laboratorio de intensidad](../pages/00-intensidad.html). ✅ aplicado
+2. **Las cuatro sombras siempre declaradas**, con ceros en las inactivas.
+   `relieve ↔ hundido` ya se anima. ✅ aplicado
+3. **Pareja propia para la superficie navy**, a nivel de tema.
+   Sobre oscuro la clara **no** es simétrica: ×1.24 daría `#1a2658`, casi
+   invisible. Se aclara ×1.6 → `#223272`, lo que además acerca el tono al azul
+   de marca. ✅ aplicado
+4. **El foco pasó de `box-shadow` a `outline`.** Dos motivos: mantenía la
+   longitud de la lista (si no, la animación volvía a saltar) y no compite con
+   el relieve. Es justo lo contrario de lo que hace themesberg, que resuelve el
+   foco con un inset idéntico al `:active` y deja de distinguirse con teclado.
+
+## Pendiente
+
+- Añadir los seis componentes que faltan y la plataforma sí usa: pasos, línea
+  de tiempo, tabla, diálogo, paginación, acordeón.
+- Evaluar la sombra teñida por estado (`neomo`) para error y aviso.
