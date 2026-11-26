@@ -164,7 +164,7 @@ Actuaria va por delante y conviene no perderlo al subir la intensidad.
 
 1. **k = 0.76** → `#b0b3b9`. Más marcado que themesberg (0.80) y que
    neumorphism.io (0.85). Decisión del equipo tras comparar en el
-   [laboratorio de intensidad](../pages/00-intensidad.html). ✅ aplicado
+   el laboratorio de intensidad. ✅ aplicado
 2. **Las cuatro sombras siempre declaradas**, con ceros en las inactivas.
    `relieve ↔ hundido` ya se anima. ✅ aplicado
 3. **Pareja propia para la superficie navy**, a nivel de tema.

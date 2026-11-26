@@ -9,9 +9,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
-<link rel="stylesheet" href="../css/01-tokens.css?v=86b7bd21">
-<link rel="stylesheet" href="../css/02-atomos.css?v=6500147c">
-<link rel="stylesheet" href="../css/90-escaparate.css?v=47f1fb61">
+<link rel="stylesheet" href="../css/01-tokens.css?v=21152c8a">
+<link rel="stylesheet" href="../css/02-atomos.css?v=591463a2">
+<link rel="stylesheet" href="../css/90-escaparate.css?v=5c61aeb9">
 </head>
 <body>
 <a class="sr-only" href="#principal">Saltar al contenido</a>
@@ -23,14 +23,13 @@
   <nav class="esc-nav" aria-label="Capas del design system">
     <span class="esc-nav-tit">Atomic Design</span>
     <a class="esc-nav-link" href="../pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
-    <a class="esc-nav-link" href="../pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
-    <a class="esc-nav-link" href="../pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
-    <a class="esc-nav-link" href="../pages/04-plantillas.html" data-capa="4"><b>4</b> Plantillas</a>
-    <a class="esc-nav-link" href="../pages/05-paginas.html" data-capa="5"><b>5</b> Páginas</a>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true" data-capa="2"><b>2</b> Moléculas</span>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true" data-capa="3"><b>3</b> Organismos</span>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true" data-capa="4"><b>4</b> Plantillas</span>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true" data-capa="5"><b>5</b> Páginas</span>
     <span class="esc-nav-tit">Fundamentos</span>
-    <a class="esc-nav-link" href="../pages/00-tokens.html">Tokens</a>
-    <a class="esc-nav-link" href="../pages/00-intensidad.html">Intensidad</a>
-    <a class="esc-nav-link" href="../docs/principios.html">Principios</a>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true">Tokens</span>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true">Principios</span>
   </nav>
   <main class="esc-main" id="principal">
   <div class="esc-cabecera">
@@ -40,147 +39,88 @@
        eso ya es una molécula.</p>
   </div>
 
-  <section class="ficha">
-    <h2>La ley de relieve</h2>
-    <p class="resumen">Vale para todo el sistema y no admite excepciones. Es lo que permite al
-       actuario saber qué puede tocar sin probar nada.</p>
+  <section class="ficha" id="leyes">
+    <h2>Las tres leyes</h2>
+    <p class="resumen">Se cumplen en todo el sistema y no admiten excepciones. Entre las tres dejan
+       claro qué puede tocar el usuario sin que tenga que probar nada.</p>
     <div class="lienzo">
-      <div class="muestra"><button class="a-btn">Se pulsa</button><span class="pie">RELIEVE</span></div>
-      <div class="muestra"><input class="a-campo" style="width:190px" placeholder="Se escribe"><span class="pie">HUNDIDO</span></div>
-      <div class="muestra"><span class="a-chip a-chip--ok">Solo informa</span><span class="pie">PLANO</span></div>
+      <div class="muestra"><button class="a-btn">Se pulsa</button><span class="pie">RELIEVE · píldora</span></div>
+      <div class="muestra"><input class="a-campo" style="width:190px" placeholder="Se escribe"><span class="pie">HUNDIDO · rectángulo</span></div>
+      <div class="muestra"><span class="a-chip a-chip--ok">Solo informa</span><span class="pie">PLANO · opaco</span></div>
+      <div class="muestra"><button class="a-icono" aria-label="Ejemplo">&#8681;</button><span class="pie">CÍRCULO · acción sin texto</span></div>
+      <div class="muestra"><span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span><span class="pie">CÍRCULO PLANO · informa</span></div>
     </div>
     <div class="reglas">
-      <div class="regla regla--si"><h3>Por qué funciona</h3><ul>
-        <li>Es binaria: no hay estado intermedio que interpretar</li>
-        <li>Sobrevive al daltonismo: la señal es la sombra, no el color</li>
-        <li>Un componente nuevo se clasifica solo respondiendo &laquo;¿se pulsa?&raquo;</li></ul></div>
-      <div class="regla regla--no"><h3>Cómo se rompe</h3><ul>
-        <li>Dar relieve a las tarjetas: si todo sobresale, nada sobresale</li>
-        <li>Hundir los chips para que &laquo;no parezcan botones&raquo;: sigue siendo neumorfismo</li>
-        <li>Quitar el relieve a un botón por estética</li></ul></div>
+      <div class="regla regla--si"><h3>Las leyes</h3><ul>
+        <li><strong>Relieve</strong> = se pulsa · <strong>hundido</strong> = se escribe ·
+            <strong>plano y opaco</strong> = solo informa</li>
+        <li><strong>Píldora</strong> para la acción, <strong>rectángulo de 12px</strong> para la entrada,
+            <strong>círculo</strong> para el icono</li>
+        <li>La <strong>sombra la decide el sustrato</strong>, nunca el color del elemento</li></ul></div>
+      <div class="regla regla--no"><h3>Cómo se rompen</h3><ul>
+        <li>Dar relieve a tarjetas y paneles: si todo sobresale, nada sobresale</li>
+        <li>Campo con forma de píldora: compite con los botones</li>
+        <li>Círculo con relieve para algo que solo informa: el usuario lo pulsará y creerá que está roto</li>
+        <li>Rellenos con <code>rgba</code>: su contraste cambia según el fondo</li></ul></div>
     </div>
-  </section>
-
-  <section class="ficha" id="forma">
-    <h2>La ley de forma</h2>
-    <p class="resumen">Segunda señal, <strong>independiente del relieve</strong>. La redundancia es
-       deliberada: si alguien toca las sombras, la forma sigue diciendo para qué sirve cada cosa.</p>
-    <div class="lienzo">
-      <div class="muestra"><button class="a-btn a-btn--principal">Se pulsa</button>
-        <span class="pie">PÍLDORA COMPLETA · 999px</span></div>
-      <div class="muestra"><input class="a-campo" style="width:200px" placeholder="Se escribe">
-        <span class="pie">RECTÁNGULO SUAVE · 12px</span></div>
-      <div class="muestra"><button class="a-icono" aria-label="Ejemplo">&#8681;</button>
-        <span class="pie">CÍRCULO CON RELIEVE · botón</span></div>
-      <div class="muestra"><span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span>
-        <span class="pie">CÍRCULO PLANO · solo informa</span></div>
-    </div>
-    <div class="reglas">
-      <div class="regla regla--si"><h3>Por qué 12px</h3><ul>
-        <li>Sobre 44px de alto, las esquinas se ablandan pero la caja sigue leyéndose rectangular</li>
-        <li>Es lo que el ojo asocia a &laquo;aquí se escribe&raquo;</li>
-        <li>La píldora completa queda libre para la acción, sin competencia</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul>
-        <li>Campo con forma de píldora: compite visualmente con los botones</li>
-        <li>Botón con esquina pequeña: deja de distinguirse de una tarjeta</li>
-        <li>Radio a media altura (22px) en un campo: eso ya es una píldora</li><li>Círculo <strong>con relieve</strong> para algo que solo informa: el usuario lo pulsará y creerá que está roto</li></ul></div>
-    </div>
-  </section>
-
-
-  <section class="ficha" id="sustrato">
-    <h2>La sombra pertenece al sustrato</h2>
-    <p class="resumen">Teníamos un error de categoría: al botón navy se le aplicaba la pareja de
-       sombras <strong>del navy</strong> mientras se apoyaba sobre un lienzo <strong>claro</strong>.
-       De ahí la mancha azulada. La luz no sabe de qué color es el objeto: lo que se oscurece o se
-       ilumina es la <strong>superficie donde cae la sombra</strong>.</p>
-    <div class="lienzo lienzo--col" style="gap:var(--e-8)">
-      <div style="display:flex;flex-wrap:wrap;gap:var(--e-8);align-items:flex-start">
-        <div class="muestra">
-          <span style="display:inline-flex;padding:0;border-radius:999px;background:var(--p-navy);
-                       color:#fff;font:var(--t-ui);min-height:44px;align-items:center;padding:0 24px;
-                       box-shadow:4px 4px 10px #101836, -3px -3px 8px #223272">Calcular provisión</span>
-          <span class="pie" style="color:var(--txt-error)">A · antes — sombra del navy sobre claro</span>
-        </div>
-        <div class="muestra">
-          <button class="a-btn a-btn--principal">Calcular provisión</button>
-          <span class="pie">B · sombra del sustrato</span>
-        </div>
-        <div class="muestra">
-          <span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span>
-          <span class="pie" style="color:var(--txt-ok);font-weight:700">C · anillo · ELEGIDA</span>
-        </div>
-      </div>
-      <div style="display:flex;flex-wrap:wrap;gap:var(--e-8);align-items:flex-start">
-        <div class="muestra">
-          <span class="a-anillo"><button class="a-btn a-btn--acento">Solicitar estudio</button></span>
-          <span class="pie">el anillo también sirve al acento</span>
-        </div>
-      </div>
-    </div>
-    <div class="reglas">
-      <div class="regla regla--si"><h3>Por qué el anillo es correcto</h3><ul>
-        <li>El neumorfismo extruye un objeto de <strong>su propia superficie</strong>: un elemento de
-            otro color nunca puede estar realmente extruido</li>
-        <li>El anillo resuelve la contradicción: lo extruido es <strong>el anillo</strong>, que sí es
-            del color del lienzo, y la pastilla navy se apoya dentro, plana</li>
-        <li>No proyecta color sobre el fondo, así que funciona igual sobre blanco o sobre gris</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul>
-        <li>Usar <code>--n-dark</code> en un elemento que se apoya sobre lienzo claro</li>
-        <li>Poner anillo a todos los botones: si todo destaca, nada destaca</li>
-        <li>Dejar sombra al botón que va dentro del anillo: la sombra la lleva el anillo</li></ul></div>
-    </div>
-    <pre class="codigo">&lt;!-- B · la pastilla navy toma la sombra del lienzo --&gt;
-&lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;
-
-&lt;!-- C · anillo: lo extruido es el halo, la pastilla se apoya dentro --&gt;
-&lt;span class="a-anillo"&gt;
-  &lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;
-&lt;/span&gt;</pre>
   </section>
 
   <section class="ficha" id="boton">
     <h2>Botón</h2>
-    <span class="clase">.a-btn · .a-anillo</span>
-    <p class="resumen">La acción. Siempre en píldora y siempre en relieve: es la señal de que se puede pulsar. El acento naranja usa el <strong>#DF5E2D oficial</strong> del brandbook, con texto <code>#0B1230</code> para alcanzar 5.05:1. Se reserva a UNA acción por pantalla.</p>
+    <span class="clase">.a-btn</span>
+    <p class="resumen">La acción. Siempre en píldora y siempre en relieve. El acento usa el naranja oficial <code>#DF5E2D</code> con texto <code>#0B1230</code>, que da 5.05:1.</p>
     <div class="lienzo">
       <div class="muestra"><span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span><span class="pie">principal + anillo · acción de la pantalla</span></div>
       <div class="muestra"><button class="a-btn">Guardar borrador</button><span class="pie">por defecto</span></div>
-      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · #DF5E2D oficial · 5.05:1</span></div>
+      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · una por pantalla</span></div>
       <div class="muestra"><button class="a-btn a-btn--fantasma">Cancelar</button><span class="pie">fantasma · descartar</span></div>
-      <div class="muestra"><button class="a-btn" disabled>Siguiente</button><span class="pie">deshabilitado · se aplana</span></div>
+      <div class="muestra"><button class="a-btn" disabled>Siguiente</button><span class="pie">deshabilitado</span></div>
       <div class="muestra"><button class="a-btn a-btn--sm">Pequeño</button><span class="pie">sm · 34px</span></div>
       <div class="muestra"><button class="a-btn a-btn--lg">Grande</button><span class="pie">lg · 52px</span></div>
-
     </div>
     <div class="reglas">
-      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La acción es real y el usuario puede ejecutarla ahora</li><li>Necesitas jerarquía: principal &gt; por defecto &gt; fantasma</li><li>El botón deshabilitado explica por qué lo está (tooltip o texto)</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Dos botones de acento compitiendo en la misma vista</li><li>Poner texto blanco sobre el naranja: da 3.64:1 e incumple AA — es lo que hace hoy la web</li><li>Oscurecer el naranja para salvar el contraste: el brandbook prohíbe inventar color</li><li>Radio pequeño: deja de distinguirse de una tarjeta</li><li>Quitar el relieve para que &laquo;se vea más limpio&raquo;: pierde la señal de pulsable</li></ul></div>
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La acción es real y el usuario puede ejecutarla ahora</li><li>Necesitas jerarquía: principal &gt; por defecto &gt; fantasma</li><li>El deshabilitado explica por qué lo está, con texto o tooltip</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Dos acentos compitiendo en la misma vista</li><li>Texto blanco sobre el naranja: da 3.64:1 e incumple AA</li><li>Oscurecer el naranja para salvar contraste: el brandbook prohíbe inventar color</li><li>Quitar el relieve por estética: pierde la señal de pulsable</li></ul></div>
     </div>
-    <pre class="codigo">&lt;!-- accion principal de la pantalla: dentro del anillo --&gt;
-&lt;span class="a-anillo"&gt;
+    <pre class="codigo">&lt;span class="a-anillo"&gt;
   &lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;
 &lt;/span&gt;
 
-&lt;!-- acciones secundarias: sin anillo --&gt;
 &lt;button class="a-btn"&gt;Guardar borrador&lt;/button&gt;
-&lt;button class="a-btn a-btn--fantasma"&gt;Cancelar&lt;/button&gt;
-
-&lt;!-- acento comercial: naranja oficial, UNA por pantalla --&gt;
-&lt;button class="a-btn a-btn--acento"&gt;Solicitar estudio&lt;/button&gt;</pre>
+&lt;button class="a-btn a-btn--acento"&gt;Solicitar estudio&lt;/button&gt;
+&lt;button class="a-btn a-btn--fantasma"&gt;Cancelar&lt;/button&gt;</pre>
   </section>
+
+  <section class="ficha" id="anillo">
+    <h2>Anillo</h2>
+    <span class="clase">.a-anillo</span>
+    <p class="resumen">Halo del color de la superficie que envuelve al botón. Es el tratamiento de la <strong>acción principal de cada pantalla</strong>. El neumorfismo extruye un objeto de su propia superficie, así que una pastilla navy nunca puede estar realmente extruida: lo que se extruye es <strong>el anillo</strong>, y la pastilla se apoya dentro, plana.</p>
+    <div class="lienzo">
+      <div class="muestra"><span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span><span class="pie">sobre acción de sistema</span></div>
+      <div class="muestra"><span class="a-anillo"><button class="a-btn a-btn--acento">Solicitar estudio</button></span><span class="pie">sobre acento comercial</span></div>
+      <div class="muestra"><span class="a-anillo"><button class="a-icono a-icono--sm" aria-label="Añadir">+</button></span><span class="pie">sobre botón de icono</span></div>
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Es la acción principal de la pantalla, una sola</li><li>El botón es de otro color que el lienzo y no debe proyectar ese color</li><li>Hace falta presencia sin recurrir a más tamaño</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Poner anillo a todos los botones: si todo destaca, nada destaca</li><li>Dejar sombra al botón de dentro: la sombra la lleva el anillo</li><li>Anidar un anillo dentro de otro</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;span class="a-anillo"&gt;
+  &lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;
+&lt;/span&gt;</pre>
+  </section>
+
   <section class="ficha" id="icono">
     <h2>Botón de icono</h2>
     <span class="clase">.a-icono</span>
-    <p class="resumen">Acción sin texto. Círculo perfecto <strong>y con relieve: se pulsa</strong>. Obligatorio <code>aria-label</code>, o un lector de pantalla anuncia un botón vacío. Si el icono solo informa, usa <a class="a-enlace" href="#medallon">.a-medallon</a>.</p>
+    <p class="resumen">Acción sin texto. Círculo perfecto y con relieve: se pulsa. Obligatorio <code>aria-label</code>, o un lector de pantalla anuncia un botón vacío.</p>
     <div class="lienzo">
       <div class="muestra"><button class="a-icono" aria-label="Descargar informe">&#8681;</button><span class="pie">descargar</span></div>
       <div class="muestra"><button class="a-icono" aria-label="Filtrar">&#9776;</button><span class="pie">filtrar</span></div>
+      <div class="muestra"><button class="a-icono" aria-label="Compartir">&#8599;</button><span class="pie">compartir</span></div>
       <div class="muestra"><button class="a-icono a-icono--sm" aria-label="Cerrar">&times;</button><span class="pie">sm · 34px</span></div>
-
     </div>
     <div class="reglas">
-      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El icono es inequívoco (cerrar, descargar, más)</li><li>El espacio es escaso: barras de herramientas, filas de tabla</li></ul></div>
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El icono es inequívoco: cerrar, descargar, añadir</li><li>El espacio es escaso: barras de herramientas, filas de tabla</li></ul></div>
       <div class="regla regla--no"><h3>Nunca</h3><ul><li>Iconos ambiguos sin etiqueta visible al lado</li><li>Omitir <code>aria-label</code></li><li>Usarlo para la acción principal de una pantalla</li></ul></div>
     </div>
     <pre class="codigo">&lt;button class="a-icono" aria-label="Descargar informe"&gt;&#8681;&lt;/button&gt;</pre>
@@ -189,9 +129,7 @@
   <section class="ficha" id="medallon">
     <h2>Icono informativo</h2>
     <span class="clase">.a-medallon</span>
-    <p class="resumen">El mismo círculo, <strong>sin relieve</strong>. Acompaña a un dato; no ofrece
-       una acción. Existe porque un círculo en relieve invita a pulsarlo, y si al pulsar no pasa
-       nada el usuario concluye que la interfaz está rota.</p>
+    <p class="resumen">El mismo círculo, <strong>sin relieve</strong>. Acompaña a un dato; no ofrece una acción.</p>
     <div class="lienzo">
       <div class="muestra"><span class="a-medallon a-medallon--marca" aria-hidden="true">&#128202;</span><span class="pie">marca · KPI</span></div>
       <div class="muestra"><span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span><span class="pie">ok</span></div>
@@ -201,86 +139,105 @@
       <div class="muestra"><span class="a-medallon a-medallon--lg a-medallon--info" aria-hidden="true">&#8364;</span><span class="pie">lg · 56px</span></div>
     </div>
     <div class="reglas">
-      <div class="regla regla--si"><h3>Usar cuando</h3><ul>
-        <li>Icono de una tarjeta de KPI o de una fila de estado</li>
-        <li>El icono refuerza un texto que ya dice lo mismo</li>
-        <li>Es decorativo: entonces <code>aria-hidden="true"</code></li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul>
-        <li>Para algo pulsable: eso es <code>.a-icono</code>, con relieve y <code>aria-label</code></li>
-        <li>Como única fuente de información: el color y la forma no son accesibles por sí solos</li>
-        <li>Darle <code>cursor:pointer</code> &laquo;para que se vea vivo&raquo;</li></ul></div>
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Icono de una tarjeta de KPI o de una fila de estado</li><li>El icono refuerza un texto que ya dice lo mismo</li><li>Es decorativo: entonces <code>aria-hidden="true"</code></li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Para algo pulsable: eso es <code>.a-icono</code>, con relieve y <code>aria-label</code></li><li>Como única fuente de información: el color y la forma no son accesibles por sí solos</li><li>Darle <code>cursor:pointer</code></li></ul></div>
     </div>
     <pre class="codigo">&lt;span class="a-medallon a-medallon--ok" aria-hidden="true"&gt;&#10003;&lt;/span&gt;
 &lt;span&gt;Finalizado&lt;/span&gt;   &lt;!-- el texto dice lo mismo que el icono --&gt;</pre>
   </section>
+
   <section class="ficha" id="campo">
     <h2>Campo de texto</h2>
-    <span class="clase">.a-campo · .a-select</span>
-    <p class="resumen">Entrada de datos. <strong>Hundido y rectangular</strong>: el pozo es la metáfora neumórfica del dato depositado, y el rectángulo suave de 12px deja la píldora completa reservada a los botones. Dos señales, ninguna dependiente de la otra.</p>
+    <span class="clase">.a-campo</span>
+    <p class="resumen">La entrada. Hundida, porque se escribe dentro, y <strong>rectangular con esquinas de 12px</strong>: conserva su forma para no confundirse con un botón. El foco es un <code>outline</code>, no una sombra.</p>
     <div class="lienzo">
-      <div class="muestra" style="min-width:280px"><label class="a-etiqueta" for="c1" data-obligatorio>Razón social</label><input class="a-campo" id="c1" placeholder="YUPANA ANALYTICS S.A."><span class="pie">normal</span></div>
-      <div class="muestra" style="min-width:280px"><label class="a-etiqueta" for="c2">Tasa de descuento</label><input class="a-campo" id="c2" value="5.85" aria-invalid="true"><span class="pie" style="color:var(--txt-error)">error · anillo rojo</span></div>
-      <div class="muestra" style="min-width:280px"><label class="a-etiqueta" for="c3">Normativa</label><select class="a-select" id="c3"><option>NIC 19</option><option>NIIF 17</option></select><span class="pie">select · misma forma</span></div>
-      <div class="muestra" style="min-width:280px;flex:1"><label class="a-etiqueta" for="c4">Notas del actuario</label><textarea class="a-campo" id="c4" placeholder="Observaciones sobre las hipótesis..."></textarea><span class="pie">área de texto</span></div>
-
+      <div class="muestra"><input class="a-campo" placeholder="Tasa de descuento"><span class="pie">por defecto</span></div>
+      <div class="muestra"><input class="a-campo" value="4,25 %"><span class="pie">con valor</span></div>
+      <div class="muestra"><input class="a-campo" value="−1,5" aria-invalid="true"><span class="pie">inválido</span></div>
+      <div class="muestra"><input class="a-campo" value="Cerrado" disabled><span class="pie">deshabilitado</span></div>
+      <div class="muestra"><textarea class="a-campo a-area" rows="2">Hipótesis actuariales</textarea><span class="pie">área de texto</span></div>
     </div>
     <div class="reglas">
-      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Cualquier dato que el usuario escriba o pegue</li><li>Marcar los obligatorios con <code>data-obligatorio</code> en la etiqueta</li><li>Usar <code>aria-invalid</code> y un mensaje que diga cómo arreglarlo</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Ponerle relieve: parecería un botón</li><li>Darle píldora completa: compite con los botones</li><li>Usar solo el color rojo para indicar error</li><li>Placeholder como sustituto de la etiqueta: desaparece al escribir</li></ul></div>
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Cualquier entrada de texto, número o fecha</li><li>El campo inválido explica el error con texto, no solo con el borde</li><li>Siempre con <code>&lt;label&gt;</code> asociado</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Forma de píldora: es la señal reservada a los botones</li><li>Relieve: el usuario esperaría pulsarlo, no escribir en él</li><li>Usar el <code>placeholder</code> como etiqueta: desaparece al escribir</li></ul></div>
     </div>
-    <pre class="codigo">&lt;label class="a-etiqueta" for="c1" data-obligatorio&gt;Razón social&lt;/label&gt;
-&lt;input class="a-campo" id="c1" placeholder="YUPANA ANALYTICS S.A."&gt;</pre>
+    <pre class="codigo">&lt;label class="a-etiqueta" for="tasa"&gt;Tasa de descuento&lt;/label&gt;
+&lt;input class="a-campo" id="tasa" placeholder="4,25 %"&gt;</pre>
   </section>
+
+  <section class="ficha" id="select">
+    <h2>Desplegable</h2>
+    <span class="clase">.a-select</span>
+    <p class="resumen">Elección entre opciones cerradas. Misma forma rectangular que el campo, porque pertenece a la misma familia de entrada.</p>
+    <div class="lienzo">
+      <div class="muestra"><select class="a-select"><option>Método de valuación</option><option>Crédito unitario proyectado</option><option>Edad de entrada</option></select><span class="pie">por defecto</span></div>
+      <div class="muestra"><select class="a-select" disabled><option>Bloqueado</option></select><span class="pie">deshabilitado</span></div>
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Entre 3 y 12 opciones conocidas y estables</li><li>La opción por defecto es la más probable</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Para dos opciones: eso es un interruptor</li><li>Para más de 12: hace falta un buscador</li><li>Dejar la primera opción como instrucción sin valor real</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;select class="a-select"&gt;
+  &lt;option&gt;Crédito unitario proyectado&lt;/option&gt;
+&lt;/select&gt;</pre>
+  </section>
+
   <section class="ficha" id="chip">
-    <h2>Chip de estado</h2>
+    <h2>Etiqueta de estado</h2>
     <span class="clase">.a-chip</span>
-    <p class="resumen">Informa, no actúa. <strong>Plano y opaco</strong>. Opaco importa: un relleno con alpha hereda la superficie de debajo, y el mismo chip medido daba 8:1 sobre claro y 1.3:1 sobre navy.</p>
+    <p class="resumen">Dato categórico en una palabra. <strong>Plano y con relleno opaco</strong>: no se pulsa. Los colores no llevan <code>alpha</code>, así que su contraste no cambia con el fondo.</p>
     <div class="lienzo">
       <div class="muestra"><span class="a-chip a-chip--ok">Finalizado</span><span class="pie">ok · 5.45:1</span></div>
       <div class="muestra"><span class="a-chip a-chip--aviso">Pendiente</span><span class="pie">aviso · 6.58:1</span></div>
-      <div class="muestra"><span class="a-chip a-chip--error">Rechazado</span><span class="pie">error · 4.63:1</span></div>
-      <div class="muestra"><span class="a-chip a-chip--info">Solicitado</span><span class="pie">info · 8.60:1</span></div>
+      <div class="muestra"><span class="a-chip a-chip--error">Vencido</span><span class="pie">error · 4.63:1</span></div>
+      <div class="muestra"><span class="a-chip a-chip--info">En revisión</span><span class="pie">info · 8.60:1</span></div>
       <div class="muestra"><span class="a-chip">Borrador</span><span class="pie">neutro · 6.99:1</span></div>
-
     </div>
     <div class="reglas">
-      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Estado de una fila, una valuación o un pedido</li><li>Metadato corto: plan, normativa, periodo</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Darle relieve: fingiría que se puede pulsar</li><li>Rellenos con <code>rgba</code>: el contraste cambia según el fondo</li><li>Usar los niveles <code>500</code> del brandbook como color de texto: no llegan a 4.5:1</li></ul></div>
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Estado de una fila, un expediente o un estudio</li><li>El texto basta para entenderlo sin ver el color</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Para filtrar: un filtro se pulsa y necesita relieve</li><li>Rellenos con <code>rgba</code></li><li>Más de dos chips seguidos en una misma celda</li></ul></div>
     </div>
     <pre class="codigo">&lt;span class="a-chip a-chip--ok"&gt;Finalizado&lt;/span&gt;</pre>
   </section>
+
   <section class="ficha" id="control">
     <h2>Interruptor y casilla</h2>
-    <span class="clase">.a-interruptor · a-casilla</span>
-    <p class="resumen">Decisiones binarias. El carril va hundido y el pulgar en relieve: el pulgar sobresale del canal, que es exactamente lo que hace un interruptor físico.</p>
+    <span class="clase">.a-interruptor · .a-casilla</span>
+    <p class="resumen">Decisiones binarias. El carril va hundido y el pulgar en relieve: lo que sobresale es lo que se arrastra. El interruptor aplica el cambio al momento; la casilla espera a que se confirme.</p>
     <div class="lienzo">
       <div class="muestra"><label class="a-interruptor"><input type="checkbox" checked><span class="pista"><span class="pulgar"></span></span></label><span class="pie">activado</span></div>
       <div class="muestra"><label class="a-interruptor"><input type="checkbox"><span class="pista"><span class="pulgar"></span></span></label><span class="pie">desactivado</span></div>
-      <div class="muestra"><label class="a-casilla"><input type="checkbox" checked><span class="caja">&#10003;</span> Incluir desahucio</label><span class="pie">casilla marcada</span></div>
-      <div class="muestra"><label class="a-casilla"><input type="checkbox"><span class="caja">&#10003;</span> Incluir bonificación</label><span class="pie">casilla sin marcar</span></div>
-
+      <div class="muestra"><label class="a-casilla"><input type="checkbox" checked><span class="caja"></span><span>Incluir inflación</span></label><span class="pie">marcada</span></div>
+      <div class="muestra"><label class="a-casilla"><input type="checkbox"><span class="caja"></span><span>Prorratear</span></label><span class="pie">sin marcar</span></div>
     </div>
     <div class="reglas">
-      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Interruptor: el cambio se aplica al instante</li><li>Casilla: el cambio se confirma al enviar el formulario</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Interruptor para algo que requiere confirmar después</li><li>Interruptor sin etiqueta: no se sabe qué activa</li><li>Más de 5 casillas sueltas sin agrupar</li></ul></div>
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Interruptor: el efecto es inmediato y reversible</li><li>Casilla: forma parte de un formulario que se envía</li><li>Siempre con etiqueta de texto al lado</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Interruptor para algo que requiere confirmar</li><li>Casilla para activar algo al instante</li><li>Interruptor sin etiqueta: no se sabe qué activa</li></ul></div>
     </div>
-    <pre class="codigo">&lt;label class="a-interruptor"&gt;&lt;input type="checkbox"&gt;
-  &lt;span class="pista"&gt;&lt;span class="pulgar"&gt;&lt;/span&gt;&lt;/span&gt;&lt;/label&gt;</pre>
+    <pre class="codigo">&lt;label class="a-interruptor"&gt;
+  &lt;input type="checkbox" checked&gt;
+  &lt;span class="pista"&gt;&lt;span class="pulgar"&gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/label&gt;</pre>
   </section>
-  <section class="ficha" id="progreso">
-    <h2>Barra y esqueleto</h2>
-    <span class="clase">.a-barra · a-esqueleto</span>
-    <p class="resumen">Espera. La barra sirve cuando se conoce el porcentaje; el esqueleto, cuando no. Ambos van hundidos: son superficie, no acción.</p>
-    <div class="lienzo">
-      <div class="muestra" style="min-width:300px"><div class="a-barra"><i style="width:62%"></i></div><span class="pie">barra · 62%</span></div>
-      <div class="muestra" style="min-width:300px"><div class="a-esqueleto" style="height:14px;width:100%"></div><div class="a-esqueleto" style="height:14px;width:70%;margin-top:8px"></div><span class="pie">esqueleto · carga desconocida</span></div>
 
+  <section class="ficha" id="progreso">
+    <h2>Progreso y carga</h2>
+    <span class="clase">.a-barra · .a-esqueleto</span>
+    <p class="resumen">Avance y espera. Ambos hundidos: son superficies pasivas, no se tocan.</p>
+    <div class="lienzo">
+      <div class="muestra"><div class="a-barra" style="width:200px"><i style="width:62%"></i></div><span class="pie">barra · 62 %</span></div>
+      <div class="muestra"><div class="a-barra a-barra--ok" style="width:200px"><i style="width:100%"></i></div><span class="pie">completada</span></div>
+      <div class="muestra"><div class="a-esqueleto" style="width:200px;height:14px"></div><span class="pie">esqueleto · línea</span></div>
+      <div class="muestra"><div class="a-esqueleto" style="width:56px;height:56px;border-radius:50%"></div><span class="pie">esqueleto · círculo</span></div>
     </div>
     <div class="reglas">
-      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Barra: subida de nómina, cálculo con progreso real</li><li>Esqueleto: primera carga de una tabla o un panel</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Barra con porcentaje inventado para &laquo;tranquilizar&raquo;</li><li>Esqueleto con forma distinta del contenido que va a llegar</li><li>Animar sin respetar <code>prefers-reduced-motion</code></li></ul></div>
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Barra: el avance es medible y conocido</li><li>Esqueleto: se conoce la forma de lo que va a llegar</li><li>Barra con <code>role="progressbar"</code> y sus valores</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Esqueleto para esperas de menos de 300 ms: parpadea</li><li>Barra sin porcentaje numérico cuando el dato importa</li><li>Animar el esqueleto si está activo <code>prefers-reduced-motion</code></li></ul></div>
     </div>
-    <pre class="codigo">&lt;div class="a-barra"&gt;&lt;i style="width:62%"&gt;&lt;/i&gt;&lt;/div&gt;</pre>
+    <pre class="codigo">&lt;div class="a-barra" role="progressbar" aria-valuenow="62"
+     aria-valuemin="0" aria-valuemax="100"&gt;
+  &lt;i style="width:62%"&gt;&lt;/i&gt;
+&lt;/div&gt;</pre>
   </section>
   
   

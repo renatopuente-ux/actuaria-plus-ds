@@ -88,3 +88,18 @@
   .esc-main { padding: var(--e-6) var(--e-5); }
   .reglas { grid-template-columns: 1fr; }
 }
+
+/* Pendiente de construir. Plano y opaco, sin cursor: la ley de relieve dice
+   que si no se puede pulsar, no sobresale. */
+.esc-nav-link--pendiente,
+.capa-card--pendiente {
+  box-shadow: none; background: transparent;
+  color: var(--txt-debil); opacity: .55; cursor: default;
+}
+.capa-card--pendiente { background: var(--sup-app); opacity: .7; }
+.capa-pendiente {
+  display: inline-block; margin-top: var(--e-2);
+  padding: 2px var(--e-3); border-radius: var(--r-pill);
+  background: var(--sup-hundida); color: var(--txt-debil);
+  font: var(--t-ui-sm);
+}

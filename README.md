@@ -32,7 +32,7 @@ clara  = superficie × (2 − k)    satura a #ffffff
 ```
 
 **k = 0.76.** Para referencia: themesberg usa 0.80 y neumorphism.io 0.85.
-Elegido comparando las tres en el [laboratorio de intensidad](pages/00-intensidad.html).
+
 
 Cada token declara **las cuatro sombras** —las dos externas y las dos internas—
 poniendo a cero las que no actúan. `box-shadow` solo interpola entre listas de

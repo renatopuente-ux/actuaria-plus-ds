@@ -38,13 +38,10 @@
 
 /* Variante principal: la accion de sistema. Navy solido.
 
-   LA SOMBRA PERTENECE AL SUSTRATO, NO AL ELEMENTO.
-   Error que cometimos: aplicar al boton navy la pareja de sombras DEL NAVY
-   (--n-dark) mientras el boton se apoya sobre un lienzo CLARO. El resultado
-   era una mancha azulada sucia alrededor del boton. La luz no sabe de que
-   color es el objeto: lo que oscurece o ilumina es la SUPERFICIE donde cae
-   la sombra. Sobre lienzo claro va la pareja clara; --n-dark queda
-   reservado a elementos que viven sobre una superficie navy. */
+   LA SOMBRA PERTENECE AL SUSTRATO, NO AL ELEMENTO. La luz no sabe de que
+   color es el objeto: lo que se oscurece o se ilumina es la SUPERFICIE
+   donde cae la sombra. Sobre lienzo claro va la pareja clara; --n-dark se
+   reserva a elementos que viven sobre una superficie navy. */
 .a-btn--principal {
   background: var(--p-navy); color: var(--txt-inverso);
   box-shadow: var(--n-sm);
@@ -58,17 +55,14 @@
 
 /* Variante de acento: UNA por pantalla, y solo para la accion comercial.
 
-   EL NARANJA ES EL OFICIAL, #DF5E2D. Antes se usaba un naranja oscurecido
-   inventado para salvar el contraste con texto blanco — justo lo que el
-   brandbook prohibe. La solucion correcta no era cambiar el naranja sino
-   cambiar el TEXTO:
+   Naranja OFICIAL #DF5E2D. El contraste se resuelve con el TEXTO, nunca
+   oscureciendo la marca:
 
-     blanco  sobre #DF5E2D = 3.64  incumple AA (y es lo que hace hoy la web)
+     blanco  sobre #DF5E2D = 3.64  incumple AA
      navy    sobre #DF5E2D = 4.38  AA-large, se queda corto a 14px
-     #0B1230 sobre #DF5E2D = 5.05  AA a cualquier tamano   <- este
+     #0B1230 sobre #DF5E2D = 5.05  AA a cualquier tamano   <- el elegido
 
-   #0B1230 es --txt-fuerte, un token que ya existia en el sistema. Naranja
-   de marca intacto y contraste resuelto sin inventar color. */
+   #0B1230 es --txt-fuerte, un token que ya existe en el sistema. */
 .a-btn--acento {
   background: var(--p-naranja); color: var(--txt-fuerte);
   box-shadow: var(--n-sm);
@@ -110,10 +104,10 @@ span.a-icono, div.a-icono, i.a-icono {
 }
 
 /* ── a-campo · Entrada de texto ────────────────────────────────────────
-   El anillo de foco es OUTLINE, no box-shadow. Dos razones: no altera la
-   longitud de la lista de sombras (que rompia la animacion) y no compite
-   con el relieve. themesberg resuelve el foco con un inset identico al
-   :active, y con teclado deja de distinguirse lo enfocado de lo pulsado.
+   El anillo de foco es OUTLINE, no box-shadow. Dos razones: mantiene la
+   longitud de la lista de sombras, de la que depende la animacion, y no
+   compite con el relieve. Resolverlo con un inset lo haria indistinguible
+   del :active para quien navega con teclado.
    Dos senales a la vez, y ninguna depende de la otra:
      HUNDIDO            -> en neumorfismo el campo es un pozo donde se
                            deposita el dato
@@ -264,18 +258,16 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 
 /* ── a-anillo · Halo neumorfico · TRATAMIENTO POR DEFECTO DE LA ACCION
       PRINCIPAL (decidido comparando A/B/C) ─────────────────────────────
-   Un anillo del color de la superficie que envuelve al boton. Nace en
-   actuaria.com, donde se adopto para evitar la sombra sucia bajo el boton
-   navy — y resulta ser la solucion neumorficamente CORRECTA, no un parche:
+   Un anillo del color de la superficie que envuelve al boton.
 
-   el neumorfismo extruye un objeto de su propia superficie, asi que un
+   El neumorfismo extruye un objeto de SU PROPIA superficie, asi que un
    elemento de otro color nunca puede estar realmente extruido. El anillo
    resuelve la contradiccion: lo extruido es EL ANILLO, que si es del color
-   del lienzo, y la pastilla navy se apoya dentro, plana.
+   del lienzo, y la pastilla se apoya dentro, plana. Por eso funciona igual
+   sobre blanco que sobre gris: no proyecta color.
 
-   Usar cuando el boton navy o naranja deba destacar sobre lienzo claro sin
-   proyectar color. Reservarlo a UNA accion por pantalla: si todo lleva
-   anillo, el anillo deja de destacar nada. */
+   Es el tratamiento de la accion principal de cada pantalla, UNA por
+   pantalla: si todo lleva anillo, el anillo deja de destacar nada. */
 .a-anillo {
   display: inline-flex;
   align-self: flex-start; width: fit-content;
