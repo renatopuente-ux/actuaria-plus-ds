@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=21152c8a">
-<link rel="stylesheet" href="../css/02-atomos.css?v=52707315">
+<link rel="stylesheet" href="../css/02-atomos.css?v=4f1f22df">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=5c61aeb9">
 </head>
 <body>
@@ -68,11 +68,11 @@
   <section class="ficha" id="boton">
     <h2>Botón</h2>
     <span class="clase">.a-btn</span>
-    <p class="resumen">La acción. Siempre en píldora y siempre en relieve. El acento usa el naranja oficial <code>#DF5E2D</code> con <strong>texto blanco a 19px/700</strong>: APCA Lc&nbsp;&minus;68.6, y al superar los 18.66px en negrita también cumple WCAG&nbsp;2 como texto grande.</p>
+    <p class="resumen">La acción. Siempre en píldora y siempre en relieve. El acento es un <strong>rol, no un botón</strong>. Por defecto va como aro naranja sobre la superficie, que funciona a cualquier tamaño; el relleno sólido se reserva a tamaño grande.</p>
     <div class="lienzo">
       <div class="muestra"><span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span><span class="pie">principal + anillo · acción de la pantalla</span></div>
       <div class="muestra"><button class="a-btn">Guardar borrador</button><span class="pie">por defecto</span></div>
-      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · #DF5E2D · blanco · APCA −68.6</span></div>
+      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · aro · cualquier tamaño</span></div>
       <div class="muestra"><button class="a-btn a-btn--fantasma">Cancelar</button><span class="pie">fantasma · descartar</span></div>
       <div class="muestra"><button class="a-btn" disabled>Siguiente</button><span class="pie">deshabilitado</span></div>
       <div class="muestra"><button class="a-btn a-btn--sm">Pequeño</button><span class="pie">sm · 34px</span></div>
@@ -89,6 +89,48 @@
 &lt;button class="a-btn"&gt;Guardar borrador&lt;/button&gt;
 &lt;button class="a-btn a-btn--acento"&gt;Solicitar estudio&lt;/button&gt;
 &lt;button class="a-btn a-btn--fantasma"&gt;Cancelar&lt;/button&gt;</pre>
+  </section>
+
+  <section class="ficha" id="acento">
+    <h2>El acento, a escala</h2>
+    <p class="resumen">El naranja <code>#DF5E2D</code> es un tono <strong>oscuro y saturado</strong>:
+       con texto blanco da WCAG&nbsp;2 3.64, que solo cumple si el texto es grande. Eso vale para una
+       portada, no para pantallas densas. Por eso el acento tiene dos formas, y la que escala es la
+       que viene por defecto.</p>
+    <div class="lienzo lienzo--col" style="gap:var(--e-7)">
+      <div style="display:flex;flex-wrap:wrap;gap:var(--e-6);align-items:center">
+        <button class="a-btn a-btn--acento a-btn--sm">Solicitar</button>
+        <button class="a-btn a-btn--acento">Solicitar estudio</button>
+        <button class="a-btn a-btn--acento a-btn--lg">Solicitar estudio</button>
+        <span class="pie" style="margin:0">aro · 34 / 44 / 52px · WCAG2 15.51 · APCA 93.5</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--e-6);align-items:center">
+        <button class="a-btn a-btn--acento-solido">Solicitar estudio</button>
+        <span class="pie" style="margin:0">sólido · solo 52px / 19px / 700 · APCA &minus;68.6</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--e-6);align-items:center">
+        <button class="a-btn a-btn--principal a-btn--sm">Calcular</button>
+        <button class="a-btn a-btn--principal">Calcular provisión</button>
+        <span class="pie" style="margin:0">navy · blanco 15.92 · APCA &minus;105 · escala sin límite</span>
+      </div>
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Qué usar en cada sitio</h3><ul>
+        <li><strong>Barra de herramientas, tabla, formulario denso</strong> → aro, a 34 o 44px</li>
+        <li><strong>Hero, estado vacío, pantalla de bienvenida</strong> → sólido a 52px</li>
+        <li><strong>Acción de sistema recurrente</strong> → navy, que aguanta cualquier tamaño</li>
+        <li>El aro da 3.07 contra la superficie y cumple el 3:1 que WCAG&nbsp;1.4.11 pide a los bordes de control</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul>
+        <li>Relleno naranja por debajo de 19px/700: el blanco cae a 3.64 y deja de cumplir</li>
+        <li>Texto oscuro sobre el relleno naranja: WCAG&nbsp;2 lo aprueba, pero APCA da 39.8 y no se lee</li>
+        <li>Oscurecer el naranja para que encaje: el brandbook prohíbe inventar color</li>
+        <li>Más de un acento por pantalla, sea de la forma que sea</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;!-- plataforma: denso, escala a cualquier tamano --&gt;
+&lt;button class="a-btn a-btn--acento a-btn--sm"&gt;Solicitar&lt;/button&gt;
+
+&lt;!-- hero o estado vacio: solo aqui el relleno solido --&gt;
+&lt;button class="a-btn a-btn--acento-solido"&gt;Solicitar estudio&lt;/button&gt;</pre>
   </section>
 
   <section class="ficha" id="anillo">

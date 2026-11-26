@@ -53,36 +53,44 @@
 .sup-inversa .a-btn--principal          { box-shadow: var(--n-dark); }
 .sup-inversa .a-btn--principal:active   { box-shadow: var(--n-in-dark); }
 
-/* Variante de acento: UNA por pantalla, y solo para la accion comercial.
-   Naranja OFICIAL #DF5E2D con TEXTO BLANCO.
+/* ── ACENTO ───────────────────────────────────────────────────────────
+   El acento es un ROL, no un unico boton. El naranja #DF5E2D es un tono
+   OSCURO y saturado: con texto blanco da WCAG2 3.64, que solo cumple si
+   el texto es grande (>=18.66px en negrita). Eso sirve para una portada,
+   no para una plataforma con pantallas densas.
 
-   Los dos modelos de contraste se contradicen aqui, y hay que saber por que:
+   Por eso el acento tiene dos formas y la compacta es la POR DEFECTO:
 
-                      WCAG 2    APCA Lc
-     blanco           3.64      -68.6    <- elegido
-     #0B1230          5.05       39.8
+     .a-btn--acento          aro naranja sobre la superficie, texto oscuro
+                             WCAG2 15.51 · APCA 93.5 · vale a CUALQUIER
+                             tamano, incluido 34px. El aro da 3.07 contra
+                             la superficie y cumple el 3:1 que WCAG 1.4.11
+                             exige a los bordes de control.
 
-   WCAG 2 es poco fiable en tonos medios saturados: su formula sobrepondera
-   el offset +0.05 en luminancias bajas, y como #DF5E2D es un naranja
-   OSCURO, el modelo lo trata como si fuera claro y premia el texto negro.
-   APCA, el modelo candidato de WCAG 3, lo mide perceptualmente y dice lo
-   contrario: Lc -68.6 con blanco es lectura comoda de cuerpo normal,
-   mientras que Lc 39.8 con texto oscuro no llega ni a minimo legible.
-   El ojo coincide con APCA, y lo mismo hacen Firefox (#E66000) o HubSpot
-   con naranjas de la misma oscuridad: texto blanco.
+     .a-btn--acento-solido   relleno naranja con blanco, solo >=19px/700.
+                             Reservado a heroes y estados vacios, donde un
+                             boton grande es natural.
 
-   PARA CUMPLIR TAMBIEN WCAG 2 el acento se fuerza a TEXTO GRANDE: 19px/700
-   supera el umbral de 18.66px en negrita, donde el minimo exigido baja a
-   3:1 y el 3.64 pasa. No es un apano: la accion comercial es la unica de
-   la pantalla y merece ese tamano. */
+   Asi el naranja nunca tiene que sostener texto pequeno. */
 .a-btn--acento {
-  background: var(--p-naranja); color: #fff;
+  background: var(--sup-app);
+  color: var(--txt-fuerte);
+  box-shadow: var(--n-sm);
+  border: 2px solid var(--p-naranja);
+}
+.a-btn--acento:hover  { box-shadow: var(--n-md); }
+.a-btn--acento:active { box-shadow: var(--n-in-sm); }
+
+/* Relleno solido: solo en tamano grande, por el contraste.
+   No existe .a-btn--acento-solido.a-btn--sm a proposito. */
+.a-btn--acento-solido {
+  background: var(--p-naranja); color: #fff; border: 0;
   box-shadow: var(--n-sm);
   min-height: 52px; padding: 0 var(--e-8);
-  font: 700 19px/26px var(--ff-ui);   /* >= 18.66px bold: texto grande WCAG 2 */
+  font: 700 19px/26px var(--ff-ui);
 }
-/* el tamano del acento no se reduce: a 14px el blanco dejaria de cumplir */
-.a-btn--acento.a-btn--sm { min-height: 52px; font: 700 19px/26px var(--ff-ui); }
+.a-btn--acento-solido:hover  { box-shadow: var(--n-md); }
+.a-btn--acento-solido:active { box-shadow: var(--n-in-sm); }
 
 /* Variante fantasma: descartar, cancelar. Sigue teniendo relieve porque
    sigue siendo pulsable. */
