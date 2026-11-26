@@ -23,18 +23,25 @@
       .forEach(v => F('var-fantasma', `${v} se usa en un style= y resuelve a vacio`));
   }
 
-  /* 2 · SOLAPES. Dos elementos interactivos hermanos no pueden pisarse:
-     si se pisan, uno de los dos no se puede pulsar. */
+  /* 2 · ALCANZABILIDAD. La pregunta util no es si dos cajas se tocan
+     —un boton de limpiar vive DENTRO de su campo a proposito— sino si
+     cada elemento interactivo recibe de verdad el clic. Se le pregunta al
+     navegador con elementFromPoint en el centro del elemento: si quien
+     responde no es el ni un descendiente suyo, hay algo tapandolo. */
   {
-    const act = [...document.querySelectorAll('button, a[href], input, select, .a-anillo')].filter(visible);
-    for (let i = 0; i < act.length; i++) for (let j = i + 1; j < act.length; j++) {
-      const a = act[i], b = act[j];
-      if (a.contains(b) || b.contains(a)) continue;
-      const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
-      const x = Math.min(ra.right, rb.right) - Math.max(ra.left, rb.left);
-      const y = Math.min(ra.bottom, rb.bottom) - Math.max(ra.top, rb.top);
-      if (x > 1 && y > 1) F('solape', `${nombre(a)} pisa ${nombre(b)} en ${Math.round(x)}x${Math.round(y)}px`);
-    }
+    const act = [...document.querySelectorAll('button:not([disabled]), a[href], input, select, textarea')]
+      .filter(visible).filter(e => !e.classList.contains('sr-only'));
+    act.forEach(e => {
+      const r = e.getBoundingClientRect();
+      const cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      if (cx < 0 || cy < 0 || cx > innerWidth || cy > innerHeight) return;
+      const arriba = document.elementFromPoint(cx, cy);
+      if (!arriba) return;
+      if (arriba === e || e.contains(arriba) || arriba.contains(e)) return;
+      /* una etiqueta que envuelve a su control no lo tapa: lo reenvia */
+      if (arriba.closest('label') && arriba.closest('label').contains(e)) return;
+      F('tapado', `${nombre(e)} no recibe el clic en su centro: lo intercepta ${nombre(arriba)}`);
+    });
   }
 
   /* 3 · AREA TACTIL. WCAG 2.2 (2.5.8) pide 24x24 CSS px como minimo; el

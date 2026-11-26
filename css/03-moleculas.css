@@ -1,0 +1,218 @@
+/* ╔══════════════════════════════════════════════════════════════════╗
+   ║  2 · MOLECULAS                                                   ║
+   ║  Grupos de atomos que juntos hacen UN trabajo. Una molecula no   ║
+   ║  introduce color ni sombra propios: solo compone.                ║
+   ║                                                                  ║
+   ║  Escritorio primero. Las medidas densas valen con raton; bajo    ║
+   ║  `pointer: coarse` los atomos ya crecen solos.                   ║
+   ╚══════════════════════════════════════════════════════════════════╝ */
+
+/* ── m-campo · Grupo de campo ──────────────────────────────────────────
+   Etiqueta ENCIMA, ayuda debajo de la etiqueta, error debajo del campo y
+   en linea. El error se anuncia con role=alert, nunca solo con el borde
+   rojo: el color por si solo no es accesible. */
+.m-campo { display: flex; flex-direction: column; gap: var(--e-2); max-width: 420px; }
+.m-campo .ayuda { font: var(--t-ui-sm); color: var(--txt-debil); }
+.m-campo .error {
+  display: flex; align-items: center; gap: var(--e-2);
+  font: var(--t-ui-sm); color: var(--txt-error);
+}
+.m-campo .error svg { flex: none; }
+.m-campo .cuenta { align-self: flex-end; font: var(--t-ui-sm); color: var(--txt-debil);
+  font-variant-numeric: tabular-nums; }
+.m-campo--obligatorio > .a-etiqueta::after {
+  content: "*"; margin-left: 4px; color: var(--txt-error);
+}
+
+/* ── m-busqueda · Buscador ─────────────────────────────────────────────
+   Campo hundido con el icono DENTRO. El boton de limpiar solo existe
+   cuando hay texto. */
+.m-busqueda { position: relative; display: flex; align-items: center; max-width: 420px; }
+.m-busqueda > svg {
+  position: absolute; left: var(--e-4); pointer-events: none; color: var(--txt-debil);
+}
+.m-busqueda .a-campo { width: 100%; padding-left: 42px; padding-right: 40px; }
+.m-busqueda .limpiar {
+  position: absolute; right: 6px;
+  display: grid; place-items: center; width: 26px; height: 26px;
+  border: 0; border-radius: var(--r-circle); cursor: pointer;
+  background: var(--sup-app); color: var(--txt-medio);
+  box-shadow: var(--n-xs);
+  transition: box-shadow var(--mov-rapido);
+}
+.m-busqueda .limpiar:active { box-shadow: var(--n-in-sm); }
+
+/* ── m-kpi · Indicador ─────────────────────────────────────────────────
+   Dato grande con su variacion. La variacion NO se codifica solo con
+   color: lleva flecha y signo. */
+.m-kpi {
+  display: flex; align-items: flex-start; gap: var(--e-4);
+  padding: var(--e-5) var(--e-6);
+  border-radius: var(--r-lg);
+  background: var(--sup-app);
+  box-shadow: var(--n-sm);
+  min-width: 232px;
+}
+.m-kpi .cuerpo { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.m-kpi .rotulo {
+  font: var(--t-ui-sm); color: var(--txt-debil);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.m-kpi .cifra { font: var(--t-dato); color: var(--txt-fuerte); font-variant-numeric: tabular-nums; }
+.m-kpi .delta {
+  display: inline-flex; align-items: center; gap: 4px;
+  font: var(--t-ui-sm); font-variant-numeric: tabular-nums;
+}
+.m-kpi .delta--sube { color: var(--txt-ok); }
+.m-kpi .delta--baja { color: var(--txt-error); }
+.m-kpi .delta--igual { color: var(--txt-debil); }
+
+/* ── m-pasos · Pasos de un asistente ───────────────────────────────────
+   Lista ordenada real, con aria-current="step" en el actual. El estado
+   no depende del color: el hecho lleva marca de verificacion y el actual
+   va hundido. */
+.m-pasos { display: flex; flex-wrap: wrap; gap: var(--e-2); list-style: none; padding: 0; margin: 0; }
+.m-pasos li { display: flex; align-items: center; gap: var(--e-2); }
+.m-pasos .paso {
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  min-height: 34px; padding: 0 var(--e-4);
+  border: 0; border-radius: var(--r-pill);
+  background: var(--sup-app); color: var(--txt-medio);
+  font: var(--t-ui); cursor: pointer;
+  box-shadow: var(--n-xs);
+  transition: box-shadow var(--mov-rapido), color var(--mov-rapido);
+}
+.m-pasos .paso:hover { box-shadow: var(--n-sm); }
+.m-pasos .paso[aria-current="step"] {
+  box-shadow: var(--n-in-sm); color: var(--txt-fuerte); font-weight: 700;
+}
+.m-pasos .paso[disabled] { box-shadow: none; opacity: .45; cursor: not-allowed; }
+.m-pasos .indice {
+  display: grid; place-items: center;
+  width: 20px; height: 20px; border-radius: var(--r-circle);
+  background: var(--sup-hundida); color: var(--txt-medio);
+  font: 700 11px/1 var(--ff-ui); font-variant-numeric: tabular-nums;
+}
+.m-pasos .paso--hecho .indice { background: var(--fill-ok); color: var(--txt-ok); }
+.m-pasos .union { width: 18px; height: 2px; border-radius: 2px; background: var(--p-light); }
+
+/* ── m-tabla · Tabla de datos ──────────────────────────────────────────
+   Cifras tabulares siempre: sin ellas la columna salta al cambiar un
+   digito. La cabecera ordenable es un boton de verdad, con aria-sort en
+   su th. */
+.m-tabla { width: 100%; border-collapse: collapse; font: var(--t-ui); }
+.m-tabla th, .m-tabla td {
+  padding: var(--e-3) var(--e-4); text-align: left;
+  border-bottom: 1px solid var(--p-light);
+}
+.m-tabla th { font: var(--t-ui-sm); color: var(--txt-debil); font-weight: 700; white-space: nowrap; }
+.m-tabla td { color: var(--txt-medio); }
+.m-tabla .num { text-align: right; font-variant-numeric: tabular-nums; color: var(--txt-fuerte); }
+.m-tabla tbody tr:hover { background: var(--sup-hundida); }
+.m-tabla .orden {
+  /* Cabecera ordenable: ES un boton, asi que cumple la ley de relieve y
+     el minimo de 24px de alto. Sin eso parece texto y nadie la pulsa. */
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  min-height: 26px; padding: 0 var(--e-3);
+  margin: -2px calc(var(--e-3) * -1);
+  border: 0; border-radius: var(--r-pill);
+  background: var(--sup-app); color: inherit;
+  font: inherit; cursor: pointer;
+  box-shadow: var(--n-xs);
+  transition: box-shadow var(--mov-rapido);
+}
+.m-tabla .orden:hover { box-shadow: var(--n-sm); }
+.m-tabla .orden svg { opacity: .45; transition: opacity var(--mov-rapido); }
+.m-tabla th[aria-sort] .orden { box-shadow: var(--n-in-sm); color: var(--txt-enlace); }
+.m-tabla th[aria-sort] .orden svg { opacity: 1; }
+.m-tabla .acciones { display: flex; gap: var(--e-2); justify-content: flex-end; }
+
+/* ── m-paginacion ──────────────────────────────────────────────────────
+   Dentro de un <nav> con nombre. La pagina actual se marca con
+   aria-current="page", no solo con un color distinto. */
+.m-paginacion { display: flex; align-items: center; gap: var(--e-2); }
+.m-paginacion .rango {
+  margin-right: var(--e-3); font: var(--t-ui-sm); color: var(--txt-debil);
+  font-variant-numeric: tabular-nums;
+}
+.m-paginacion .pag {
+  min-width: 32px; height: 32px; padding: 0 var(--e-2);
+  border: 0; border-radius: var(--r-pill);
+  background: var(--sup-app); color: var(--txt-medio);
+  font: var(--t-ui); font-variant-numeric: tabular-nums; cursor: pointer;
+  box-shadow: var(--n-xs);
+  transition: box-shadow var(--mov-rapido);
+}
+.m-paginacion .pag:hover { box-shadow: var(--n-sm); }
+.m-paginacion .pag[aria-current="page"] {
+  box-shadow: var(--n-in-sm); color: var(--txt-fuerte); font-weight: 700;
+}
+.m-paginacion .pag[disabled] { box-shadow: none; opacity: .45; cursor: not-allowed; }
+
+/* ── m-filtros · Barra de filtros ──────────────────────────────────────
+   Un filtro SE PULSA, asi que lleva relieve y es un boton con
+   aria-pressed. No confundir con la etiqueta de estado, que es plana. */
+.m-filtros { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3); }
+.m-filtros .filtro {
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  min-height: 32px; padding: 0 var(--e-4);
+  border: 0; border-radius: var(--r-pill);
+  background: var(--sup-app); color: var(--txt-medio);
+  font: var(--t-ui); cursor: pointer;
+  box-shadow: var(--n-xs);
+  transition: box-shadow var(--mov-rapido), color var(--mov-rapido);
+}
+.m-filtros .filtro:hover { box-shadow: var(--n-sm); }
+.m-filtros .filtro[aria-pressed="true"] {
+  box-shadow: var(--n-in-sm); color: var(--txt-enlace); font-weight: 700;
+}
+.m-filtros .separador { width: 1px; height: 20px; background: var(--p-light); }
+
+/* ── m-alerta · Mensaje de sistema ─────────────────────────────────────
+   Rellenos OPACOS. Siempre icono ademas del color, y role=alert solo en
+   el de error: los demas usan role=status para no interrumpir. */
+.m-alerta {
+  display: flex; align-items: flex-start; gap: var(--e-3);
+  padding: var(--e-4) var(--e-5);
+  border-radius: var(--r-md);
+  font: var(--t-ui);
+  max-width: 68ch;
+}
+.m-alerta svg { flex: none; margin-top: 1px; }
+.m-alerta .texto { display: flex; flex-direction: column; gap: 2px; }
+.m-alerta strong { color: inherit; }
+.m-alerta--info  { background: var(--fill-info);   color: var(--txt-info); }
+.m-alerta--ok    { background: var(--fill-ok);     color: var(--txt-ok); }
+.m-alerta--aviso { background: var(--fill-aviso);  color: var(--txt-aviso); }
+.m-alerta--error { background: var(--fill-error);  color: var(--txt-error); }
+
+/* ── m-vacio · Estado vacio ────────────────────────────────────────────
+   Una pantalla vacia es una invitacion a actuar: siempre lleva la accion
+   que la llena. Nunca un dibujo con 'no hay datos' y nada mas. */
+.m-vacio {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  gap: var(--e-4); padding: var(--e-12) var(--e-8);
+  border-radius: var(--r-lg);
+  background: var(--sup-app);
+  box-shadow: var(--n-in-sm);
+}
+.m-vacio h3 { font: var(--t-h3); color: var(--txt-fuerte); }
+.m-vacio p { font: var(--t-cuerpo); color: var(--txt-debil); max-width: 46ch; }
+
+/* ── Puntero grueso ───────────────────────────────────────────────────
+   Las medidas de arriba son de ESCRITORIO, que es donde vive la
+   plataforma. Con el dedo, todo control sube a 44px de alto: los atomos
+   ya lo hacen solos, pero los controles propios de las moleculas
+   (limpiar, paso, filtro, pagina, cabecera ordenable) no heredan esa
+   regla y hay que subirlos aqui. */
+@media (pointer: coarse) {
+  .m-busqueda .limpiar { width: 44px; height: 44px; right: 2px; }
+  .m-busqueda .a-campo { padding-right: 52px; }
+  .m-pasos .paso,
+  .m-filtros .filtro,
+  .m-paginacion .pag,
+  .m-tabla .orden { min-height: 44px; }
+  .m-paginacion .pag { min-width: 44px; }
+  .m-tabla .orden { padding: 0 var(--e-4); }
+  .m-tabla th, .m-tabla td { padding: var(--e-4); }
+}
