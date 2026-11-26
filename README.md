@@ -42,6 +42,29 @@ la misma longitud: sin eso, pasar de relieve a hundido salta de golpe en cada
 El foco es `outline`, nunca `box-shadow`: mantiene la longitud de la lista y no
 compite con el relieve.
 
+### La sombra pertenece al sustrato
+
+La pareja de sombras la decide **la superficie sobre la que cae**, nunca el color
+del elemento. Un botón navy sobre lienzo claro proyecta la sombra *clara*; solo
+los elementos que viven sobre la barra navy usan `--n-dark`.
+
+Y como el neumorfismo extruye un objeto de **su propia** superficie, un elemento
+de otro color nunca puede estar realmente extruido. Por eso la acción principal
+va dentro de un **anillo** (`.a-anillo`): lo extruido es el anillo, del color del
+lienzo, y la pastilla navy se apoya dentro, plana. Es la solución que ya usa
+actuaria.com.
+
+### El acento usa el naranja oficial
+
+`#DF5E2D` del brandbook, sin tocar. El contraste se resuelve con el **texto**,
+no oscureciendo la marca:
+
+| Texto sobre `#DF5E2D` | Ratio | |
+|---|---|---|
+| blanco | 3.64 | incumple AA — es lo que hace hoy la web |
+| navy `#151F47` | 4.38 | AA-large, corto a 14px |
+| **`#0B1230`** | **5.05** | **AA a cualquier tamaño** |
+
 ---
 
 ## La ley de relieve

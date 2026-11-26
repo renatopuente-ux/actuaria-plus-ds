@@ -53,7 +53,13 @@
   --txt-medio:    #3A4568;   /*  7.9:1 */
   --txt-debil:    #55607F;   /*  5.3:1 */
   --txt-inverso:  var(--p-white);
-  --txt-acento:   #A8431C;   /*  5.1:1 — naranja legible como TEXTO */
+  /* DERIVADO, NO DE MARCA. El naranja oficial #DF5E2D da 3.07:1 sobre la
+     superficie: no sirve como texto pequeno. El brandbook lo define como
+     ACENTO (el 10% de la regla 60/30/10), es decir RELLENO, no texto.
+     Este oscurecido existe solo para etiquetas pequenas y esta declarado
+     como brecha: si el equipo de marca define un naranja de texto, se
+     sustituye por el suyo. */
+  --txt-acento:   #A8431C;   /*  5.1:1 — derivado, no normativo */
   --txt-enlace:   #1D3F8F;   /*  8.2:1 */
 
   /* ── 2 · SEMANTICO · estados como TEXTO (los 500 no sirven) ─────── */

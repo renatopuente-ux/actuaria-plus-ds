@@ -9,8 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
-<link rel="stylesheet" href="../css/01-tokens.css?v=6ff3f15f">
-<link rel="stylesheet" href="../css/02-atomos.css?v=f66e715c">
+<link rel="stylesheet" href="../css/01-tokens.css?v=86b7bd21">
+<link rel="stylesheet" href="../css/02-atomos.css?v=6500147c">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=47f1fb61">
 </head>
 <body>
@@ -108,7 +108,7 @@
         </div>
         <div class="muestra">
           <span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span>
-          <span class="pie">C · anillo · como en actuaria.com</span>
+          <span class="pie" style="color:var(--txt-ok);font-weight:700">C · anillo · ELEGIDA</span>
         </div>
       </div>
       <div style="display:flex;flex-wrap:wrap;gap:var(--e-8);align-items:flex-start">
@@ -142,11 +142,11 @@
   <section class="ficha" id="boton">
     <h2>Botón</h2>
     <span class="clase">.a-btn · .a-anillo</span>
-    <p class="resumen">La acción. Siempre en píldora y siempre en relieve: es la señal de que se puede pulsar. El acento naranja se reserva para UNA acción por pantalla.</p>
+    <p class="resumen">La acción. Siempre en píldora y siempre en relieve: es la señal de que se puede pulsar. El acento naranja usa el <strong>#DF5E2D oficial</strong> del brandbook, con texto <code>#0B1230</code> para alcanzar 5.05:1. Se reserva a UNA acción por pantalla.</p>
     <div class="lienzo">
-      <div class="muestra"><button class="a-btn a-btn--principal">Calcular provisión</button><span class="pie">principal · acción de sistema</span></div>
+      <div class="muestra"><span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span><span class="pie">principal + anillo · acción de la pantalla</span></div>
       <div class="muestra"><button class="a-btn">Guardar borrador</button><span class="pie">por defecto</span></div>
-      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · una por pantalla</span></div>
+      <div class="muestra"><button class="a-btn a-btn--acento">Solicitar estudio</button><span class="pie">acento · #DF5E2D oficial · 5.05:1</span></div>
       <div class="muestra"><button class="a-btn a-btn--fantasma">Cancelar</button><span class="pie">fantasma · descartar</span></div>
       <div class="muestra"><button class="a-btn" disabled>Siguiente</button><span class="pie">deshabilitado · se aplana</span></div>
       <div class="muestra"><button class="a-btn a-btn--sm">Pequeño</button><span class="pie">sm · 34px</span></div>
@@ -155,9 +155,19 @@
     </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La acción es real y el usuario puede ejecutarla ahora</li><li>Necesitas jerarquía: principal &gt; por defecto &gt; fantasma</li><li>El botón deshabilitado explica por qué lo está (tooltip o texto)</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Dos botones de acento compitiendo en la misma vista</li><li>Usar el naranja de marca puro como fondo con texto blanco: da 3.7:1</li><li>Radio pequeño: deja de distinguirse de una tarjeta</li><li>Quitar el relieve para que &laquo;se vea más limpio&raquo;: pierde la señal de pulsable</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Dos botones de acento compitiendo en la misma vista</li><li>Poner texto blanco sobre el naranja: da 3.64:1 e incumple AA — es lo que hace hoy la web</li><li>Oscurecer el naranja para salvar el contraste: el brandbook prohíbe inventar color</li><li>Radio pequeño: deja de distinguirse de una tarjeta</li><li>Quitar el relieve para que &laquo;se vea más limpio&raquo;: pierde la señal de pulsable</li></ul></div>
     </div>
-    <pre class="codigo">&lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;</pre>
+    <pre class="codigo">&lt;!-- accion principal de la pantalla: dentro del anillo --&gt;
+&lt;span class="a-anillo"&gt;
+  &lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;
+&lt;/span&gt;
+
+&lt;!-- acciones secundarias: sin anillo --&gt;
+&lt;button class="a-btn"&gt;Guardar borrador&lt;/button&gt;
+&lt;button class="a-btn a-btn--fantasma"&gt;Cancelar&lt;/button&gt;
+
+&lt;!-- acento comercial: naranja oficial, UNA por pantalla --&gt;
+&lt;button class="a-btn a-btn--acento"&gt;Solicitar estudio&lt;/button&gt;</pre>
   </section>
   <section class="ficha" id="icono">
     <h2>Botón de icono</h2>

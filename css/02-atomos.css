@@ -57,10 +57,20 @@
 .sup-inversa .a-btn--principal:active   { box-shadow: var(--n-in-dark); }
 
 /* Variante de acento: UNA por pantalla, y solo para la accion comercial.
-   El naranja de marca no sostiene texto blanco (3.7:1), asi que el relleno
-   es el naranja legible como texto, no el naranja puro. */
+
+   EL NARANJA ES EL OFICIAL, #DF5E2D. Antes se usaba un naranja oscurecido
+   inventado para salvar el contraste con texto blanco — justo lo que el
+   brandbook prohibe. La solucion correcta no era cambiar el naranja sino
+   cambiar el TEXTO:
+
+     blanco  sobre #DF5E2D = 3.64  incumple AA (y es lo que hace hoy la web)
+     navy    sobre #DF5E2D = 4.38  AA-large, se queda corto a 14px
+     #0B1230 sobre #DF5E2D = 5.05  AA a cualquier tamano   <- este
+
+   #0B1230 es --txt-fuerte, un token que ya existia en el sistema. Naranja
+   de marca intacto y contraste resuelto sin inventar color. */
 .a-btn--acento {
-  background: var(--txt-acento); color: var(--txt-inverso);
+  background: var(--p-naranja); color: var(--txt-fuerte);
   box-shadow: var(--n-sm);
 }
 
@@ -252,7 +262,8 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 .a-medallon--sm { width: 32px; font-size: 14px; }
 .a-medallon--lg { width: 56px; font-size: 24px; }
 
-/* ── a-anillo · Halo neumorfico ────────────────────────────────────────
+/* ── a-anillo · Halo neumorfico · TRATAMIENTO POR DEFECTO DE LA ACCION
+      PRINCIPAL (decidido comparando A/B/C) ─────────────────────────────
    Un anillo del color de la superficie que envuelve al boton. Nace en
    actuaria.com, donde se adopto para evitar la sombra sucia bajo el boton
    navy — y resulta ser la solucion neumorficamente CORRECTA, no un parche:
