@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intensidad · Actuaria+ Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
+<link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
+<link rel="stylesheet" href="../css/01-tokens.css?v=1bdbc725">
+<link rel="stylesheet" href="../css/02-atomos.css?v=1ed3111b">
+<link rel="stylesheet" href="../css/90-escaparate.css?v=47f1fb61">
+</head>
+<body>
+<a class="sr-only" href="#principal">Saltar al contenido</a>
+<header class="esc-topbar">
+  <a class="esc-marca" href="../index.html">ACTUARIA<span>+</span></a>
+  <span class="esc-version">DS v0.1.0</span>
+</header>
+<div class="esc-shell">
+  <nav class="esc-nav" aria-label="Capas del design system">
+    <span class="esc-nav-tit">Atomic Design</span>
+    <a class="esc-nav-link" href="../pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
+    <a class="esc-nav-link" href="../pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
+    <a class="esc-nav-link" href="../pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
+    <a class="esc-nav-link" href="../pages/04-plantillas.html" data-capa="4"><b>4</b> Plantillas</a>
+    <a class="esc-nav-link" href="../pages/05-paginas.html" data-capa="5"><b>5</b> Páginas</a>
+    <span class="esc-nav-tit">Fundamentos</span>
+    <a class="esc-nav-link" href="../pages/00-tokens.html">Tokens</a>
+    <a class="esc-nav-link" href="../pages/00-intensidad.html">Intensidad</a>
+    <a class="esc-nav-link" href="../docs/principios.html">Principios</a>
+  </nav>
+  <main class="esc-main" id="principal">
+  <div class="esc-cabecera">
+    <h1>Intensidad del relieve</h1>
+    <p>Las mismas piezas con tres intensidades de sombra. Elige mirando, no leyendo un número.
+       La sombra clara es <code>#ffffff</code> puro en los tres casos; lo único que cambia es la oscura.</p>
+  </div>
+
+  <style>
+[data-k="actual"] {
+  --sombra-solida: #cdd1de;
+  --n-xs: 2px 2px 4px var(--sombra-solida), -1px -1px 3px #fff;
+  --n-sm: 3px 3px 8px var(--sombra-solida), -2px -2px 6px #fff;
+  --n-md: 6px 6px 14px var(--sombra-solida), -5px -5px 12px #fff;
+  --n-in-sm: inset 2px 2px 5px var(--sombra-solida), inset -1px -1px 4px #fff;
+  --n-in: inset 4px 4px 9px var(--sombra-solida), inset -3px -3px 7px #fff;
+}
+[data-k="k84"] {
+  --sombra-solida: #c3c6cd;
+  --n-xs: 2px 2px 4px var(--sombra-solida), -1px -1px 3px #fff;
+  --n-sm: 3px 3px 8px var(--sombra-solida), -2px -2px 6px #fff;
+  --n-md: 6px 6px 14px var(--sombra-solida), -5px -5px 12px #fff;
+  --n-in-sm: inset 2px 2px 5px var(--sombra-solida), inset -1px -1px 4px #fff;
+  --n-in: inset 4px 4px 9px var(--sombra-solida), inset -3px -3px 7px #fff;
+}
+[data-k="k80"] {
+  --sombra-solida: #babdc3;
+  --n-xs: 2px 2px 4px var(--sombra-solida), -1px -1px 3px #fff;
+  --n-sm: 3px 3px 8px var(--sombra-solida), -2px -2px 6px #fff;
+  --n-md: 6px 6px 14px var(--sombra-solida), -5px -5px 12px #fff;
+  --n-in-sm: inset 2px 2px 5px var(--sombra-solida), inset -1px -1px 4px #fff;
+  --n-in: inset 4px 4px 9px var(--sombra-solida), inset -3px -3px 7px #fff;
+}
+  .comp-rejilla { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-6); margin-bottom: var(--e-12); }
+  .comp-col { padding: var(--e-6); border-radius: var(--r-lg); background: var(--sup-app); }
+  .comp-cab { margin-bottom: var(--e-6); padding-bottom: var(--e-3); border-bottom: 1px solid var(--p-light); }
+  .comp-cab h3 { font: var(--t-h3); color: var(--txt-fuerte); margin-bottom: 2px; }
+  .comp-hex { display: inline-block; padding: 1px var(--e-2); border-radius: var(--r-sm);
+    background: var(--sup-hundida); font: 600 12px/18px ui-monospace, monospace; color: var(--txt-acento); }
+  .comp-nota { display: block; margin-top: var(--e-1); font: var(--t-ui-sm); color: var(--txt-debil); }
+  .comp-fila { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-3); margin-bottom: var(--e-5); }
+  .comp-tarjeta { display: flex; flex-direction: column; gap: var(--e-1); padding: var(--e-4) var(--e-5);
+    border-radius: var(--r-md); background: var(--sup-app); box-shadow: var(--n-sm); }
+  .comp-tarjeta strong { font: var(--t-ui-sm); color: var(--txt-debil); text-transform: uppercase; letter-spacing: .6px; }
+  .comp-tarjeta .dato { font: var(--t-dato); color: var(--txt-fuerte); }
+  .lab { padding: var(--e-6); border-radius: var(--r-lg); background: var(--sup-app); box-shadow: var(--n-in-sm); }
+  .lab-ctl { display: flex; align-items: center; gap: var(--e-5); flex-wrap: wrap; margin-bottom: var(--e-6); }
+  .lab-ctl input[type=range] { flex: 1; min-width: 240px; }
+  .lab-val { font: var(--t-dato); font-size: 20px; color: var(--txt-fuerte); min-width: 190px; }
+  @media (max-width: 1100px) { .comp-rejilla { grid-template-columns: 1fr; } }
+  </style>
+
+  <section class="ficha">
+    <h2>Las tres candidatas</h2>
+    <div class="comp-rejilla">
+    <div class="comp-col" data-k="actual">
+      <div class="comp-cab"><h3>Actual · rgba</h3><span class="comp-hex">#cdd1de</span><span class="comp-nota">Lo que hay hoy en el sistema</span></div>
+      
+      <div class="comp-fila">
+        <button class="a-btn a-btn--principal">Calcular</button>
+        <button class="a-btn">Guardar</button>
+      </div>
+      <div class="comp-fila">
+        <button class="a-icono" aria-label="Descargar">&#8681;</button>
+        <button class="a-icono" aria-label="Filtrar">&#9776;</button>
+        <span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span>
+      </div>
+      <div class="comp-fila"><input class="a-campo" placeholder="Tasa de descuento"></div>
+      <div class="comp-fila">
+        <label class="a-interruptor"><input type="checkbox" checked><span class="pista"><span class="pulgar"></span></span></label>
+        <span class="a-chip a-chip--aviso">Pendiente</span>
+      </div>
+      <div class="comp-fila"><div class="a-barra" style="width:100%"><i style="width:62%"></i></div></div>
+      <div class="comp-tarjeta">
+        <strong>Provisión acumulada</strong>
+        <span class="dato">$6.79M</span>
+      </div>
+    </div>
+    <div class="comp-col" data-k="k84">
+      <div class="comp-cab"><h3>k = 0.84</h3><span class="comp-hex">#c3c6cd</span><span class="comp-nota">Punto medio</span></div>
+      
+      <div class="comp-fila">
+        <button class="a-btn a-btn--principal">Calcular</button>
+        <button class="a-btn">Guardar</button>
+      </div>
+      <div class="comp-fila">
+        <button class="a-icono" aria-label="Descargar">&#8681;</button>
+        <button class="a-icono" aria-label="Filtrar">&#9776;</button>
+        <span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span>
+      </div>
+      <div class="comp-fila"><input class="a-campo" placeholder="Tasa de descuento"></div>
+      <div class="comp-fila">
+        <label class="a-interruptor"><input type="checkbox" checked><span class="pista"><span class="pulgar"></span></span></label>
+        <span class="a-chip a-chip--aviso">Pendiente</span>
+      </div>
+      <div class="comp-fila"><div class="a-barra" style="width:100%"><i style="width:62%"></i></div></div>
+      <div class="comp-tarjeta">
+        <strong>Provisión acumulada</strong>
+        <span class="dato">$6.79M</span>
+      </div>
+    </div>
+    <div class="comp-col" data-k="k80">
+      <div class="comp-cab"><h3>k = 0.80</h3><span class="comp-hex">#babdc3</span><span class="comp-nota">Equivalente a themesberg</span></div>
+      
+      <div class="comp-fila">
+        <button class="a-btn a-btn--principal">Calcular</button>
+        <button class="a-btn">Guardar</button>
+      </div>
+      <div class="comp-fila">
+        <button class="a-icono" aria-label="Descargar">&#8681;</button>
+        <button class="a-icono" aria-label="Filtrar">&#9776;</button>
+        <span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span>
+      </div>
+      <div class="comp-fila"><input class="a-campo" placeholder="Tasa de descuento"></div>
+      <div class="comp-fila">
+        <label class="a-interruptor"><input type="checkbox" checked><span class="pista"><span class="pulgar"></span></span></label>
+        <span class="a-chip a-chip--aviso">Pendiente</span>
+      </div>
+      <div class="comp-fila"><div class="a-barra" style="width:100%"><i style="width:62%"></i></div></div>
+      <div class="comp-tarjeta">
+        <strong>Provisión acumulada</strong>
+        <span class="dato">$6.79M</span>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <section class="ficha" id="lab">
+    <h2>Probar cualquier valor</h2>
+    <p class="resumen">Mueve el control y mira las piezas de abajo. El valor se calcula igual que en
+       las librerías revisadas: <code>superficie &times; k</code>, con la luz siempre en blanco puro.</p>
+    <div class="lab">
+      <div class="lab-ctl">
+        <label class="a-etiqueta" for="k" style="margin:0">Factor k</label>
+        <input type="range" id="k" min="70" max="95" value="80" step="1">
+        <span class="lab-val" id="salida">k 0.80 &middot; #babdc3</span>
+      </div>
+      <div data-k="lab" id="zona">
+      <div class="comp-fila">
+        <button class="a-btn a-btn--principal">Calcular</button>
+        <button class="a-btn">Guardar</button>
+      </div>
+      <div class="comp-fila">
+        <button class="a-icono" aria-label="Descargar">&#8681;</button>
+        <button class="a-icono" aria-label="Filtrar">&#9776;</button>
+        <span class="a-medallon a-medallon--ok" aria-hidden="true">&#10003;</span>
+      </div>
+      <div class="comp-fila"><input class="a-campo" placeholder="Tasa de descuento"></div>
+      <div class="comp-fila">
+        <label class="a-interruptor"><input type="checkbox" checked><span class="pista"><span class="pulgar"></span></span></label>
+        <span class="a-chip a-chip--aviso">Pendiente</span>
+      </div>
+      <div class="comp-fila"><div class="a-barra" style="width:100%"><i style="width:62%"></i></div></div>
+      <div class="comp-tarjeta">
+        <strong>Provisión acumulada</strong>
+        <span class="dato">$6.79M</span>
+      </div></div>
+    </div>
+  </section>
+
+  <section class="ficha">
+    <h2>El salto que hoy no se anima</h2>
+    <p class="resumen">A la izquierda, como está ahora: al pulsar, la sombra <strong>salta</strong> porque
+       <code>box-shadow</code> solo interpola entre listas de la misma longitud. A la derecha, con las
+       cuatro sombras declaradas siempre y ceros en las inactivas. Mantén el botón pulsado para notarlo.</p>
+    <div class="lienzo">
+      <div class="muestra"><button class="a-btn salta">Salta</button><span class="pie">2 sombras · salta</span></div>
+      <div class="muestra"><button class="a-btn fluye">Fluye</button><span class="pie">4 sombras · transiciona</span></div>
+    </div>
+    <pre class="codigo">/* las cuatro SIEMPRE, con ceros en las que no actuan */
+.fluye {
+  box-shadow: 6px 6px 14px #babdc3, -5px -5px 12px #fff,
+              inset 0 0 0 #babdc3, inset 0 0 0 #fff;
+}
+.fluye:active {
+  box-shadow: 0 0 0 #babdc3, 0 0 0 #fff,
+              inset 4px 4px 9px #babdc3, inset -3px -3px 7px #fff;
+}</pre>
+  </section>
+
+  <style>
+  .salta, .fluye { transition: box-shadow .35s ease; }
+  .salta { box-shadow: 6px 6px 14px #babdc3, -5px -5px 12px #fff; }
+  .salta:active { box-shadow: inset 4px 4px 9px #babdc3, inset -3px -3px 7px #fff; }
+  .fluye { box-shadow: 6px 6px 14px #babdc3, -5px -5px 12px #fff, inset 0 0 0 #babdc3, inset 0 0 0 #fff; }
+  .fluye:active { box-shadow: 0 0 0 #babdc3, 0 0 0 #fff, inset 4px 4px 9px #babdc3, inset -3px -3px 7px #fff; }
+  </style>
+
+  <script>
+  (() => {
+    const r = document.getElementById('k'), out = document.getElementById('salida'),
+          zona = document.getElementById('zona');
+    const SUP = [232, 236, 244];
+    const pinta = () => {
+      const k = r.value / 100;
+      const c = '#' + SUP.map(v => Math.round(v * k).toString(16).padStart(2,'0')).join('');
+      out.textContent = `k ${k.toFixed(2)} \u00b7 ${c}`;
+      zona.style.setProperty('--sombra-solida', c);
+      zona.style.setProperty('--n-xs', `2px 2px 4px ${c}, -1px -1px 3px #fff`);
+      zona.style.setProperty('--n-sm', `3px 3px 8px ${c}, -2px -2px 6px #fff`);
+      zona.style.setProperty('--n-md', `6px 6px 14px ${c}, -5px -5px 12px #fff`);
+      zona.style.setProperty('--n-in-sm', `inset 2px 2px 5px ${c}, inset -1px -1px 4px #fff`);
+      zona.style.setProperty('--n-in', `inset 4px 4px 9px ${c}, inset -3px -3px 7px #fff`);
+    };
+    r.addEventListener('input', pinta); pinta();
+  })();
+  </script>
+  
+  </main>
+</div>
+<script src="../js/ds.js?v=c3c2bbb3"></script>
+<script>
+  /* Marca el enlace de la pagina actual.
+     Cuidado: en la raiz publicada la URL es /repo/ y pop() devuelve "",
+     y ''.endsWith('') es true -> se marcaban TODOS los enlaces. Hay que
+     normalizar el vacio a index.html antes de comparar. */
+  (() => {
+    const archivo = (location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.esc-nav-link').forEach(a => {
+      const destino = a.getAttribute('href').split('/').pop() || 'index.html';
+      if (destino === archivo) { a.classList.add('activo'); a.setAttribute('aria-current', 'page'); }
+    });
+  })();
+</script>
+</body>
+</html>
