@@ -111,13 +111,24 @@
     }
   }
 
-  /* 8b · ENTRADA A 16PX. Por debajo, iOS hace zoom al enfocar el campo y
-     desplaza toda la maquetacion. No es estetica, es la plataforma. */
-  [...document.querySelectorAll('input:not([type=checkbox]):not([type=radio]), select, textarea')]
-    .filter(visible).forEach(e => {
-      const px = parseFloat(getComputedStyle(e).fontSize);
-      if (px < 16) F('entrada-16px', `${nombre(e)} tiene ${px}px, iOS hara zoom al enfocarlo`);
-    });
+  /* 8b · ENTRADA A 16PX, SOLO EN PUNTERO GRUESO. El zoom automatico de
+     iOS al enfocar un campo de menos de 16px solo ocurre en dispositivos
+     tactiles. Exigirlo en escritorio roba densidad sin dar nada, y esta
+     plataforma esta construida para escritorio.
+     Se condiciona al puntero y no al ancho porque un iPad en horizontal
+     mide 1024px y sigue haciendo zoom. */
+  if (matchMedia('(pointer: coarse)').matches) {
+    [...document.querySelectorAll('input:not([type=checkbox]):not([type=radio]), select, textarea')]
+      .filter(visible).forEach(e => {
+        const px = parseFloat(getComputedStyle(e).fontSize);
+        if (px < 16) F('entrada-16px', `${nombre(e)} tiene ${px}px, iOS hara zoom al enfocarlo`);
+      });
+    /* y con el dedo, 44px de alto minimo */
+    [...document.querySelectorAll('button:not([disabled]), a[href], select')].filter(visible)
+      .forEach(e => { if (e.classList.contains('sr-only')) return;
+        const h = e.getBoundingClientRect().height;
+        if (h < 44) F('tactil-44', `${nombre(e)} mide ${Math.round(h)}px de alto, minimo 44 con el dedo`); });
+  }
 
   /* 8c · MEDIDA DE LINEA. Por encima de 80 caracteres el ojo pierde el
      renglon al volver a la izquierda. */

@@ -22,6 +22,40 @@ Medido en producción (`act-compass`, v2.0.3):
 
 ---
 
+## Quién manda cuando hay conflicto
+
+Este sistema se apoya en guías externas de UI/UX, y a veces se contradicen entre sí o
+con la marca. El orden es fijo:
+
+1. **La decisión del equipo de Actuaria.** Explícita y por encima de todo.
+2. **El brandbook.** Si un color, fuente o valor no aparece en `tokens.json` o en
+   `/brand`, no es de marca: no se inventa.
+3. **Las guías externas** (`frontend-design` de Anthropic, `bencium-controlled-ux-designer`,
+   `ui-ux-pro-max`). Valiosas, pero subordinadas.
+
+Conflictos ya resueltos por esta regla:
+
+| Guía externa dice | Aquí se hace | Por qué |
+|---|---|---|
+| Nada de sombras como señal de affordance (*honestidad material*) | Sistema neumórfico, relieve = pulsable | Decisión del equipo |
+| Nada de etiquetas en mayúsculas | Titulares en caja alta | Lo exige el brandbook |
+| Diseñar *mobile-first* | **Escritorio primero** | Actuaria+ y ActuaFast se usan en escritorio |
+
+## La plataforma es de escritorio
+
+Abre en móvil, pero la experiencia está construida para pantalla grande y densa. Eso
+decide dos cosas que suelen darse por universales:
+
+- **Campos a 15px en escritorio, 16px solo con puntero grueso.** El mínimo de 16px existe
+  porque iOS hace zoom al enfocar un campo más pequeño, y eso solo pasa en táctil.
+- **Objetivos de 38px con ratón, 44px con el dedo.** Con puntero fino, WCAG 2.2 exige
+  24×24; los 44 son de táctil.
+
+Ambas reglas se condicionan al **puntero**, no al ancho: un iPad en horizontal mide
+1024px y sigue comportándose como táctil.
+
+---
+
 ## El relieve, en números
 
 La sombra no se elige a ojo. Va en **color sólido** —no `rgba`— y se calcula:

@@ -333,11 +333,38 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
   }
 }
 
-/* ── Tamano de entrada ────────────────────────────────────────────────
-   16px MINIMO en todo campo editable. Por debajo, iOS hace zoom
-   automatico al enfocar y desplaza la maquetacion entera. No es estetica,
-   es una restriccion de la plataforma.
+/* ── Tamano de entrada · ESCRITORIO PRIMERO ───────────────────────────
+   Actuaria+ y ActuaFast se usan en escritorio. Abren en movil, pero la
+   experiencia esta construida para pantalla grande y densa.
 
-   Va al FINAL del archivo a proposito: las reglas de arriba usan el atajo
-   `font:`, que reinicia font-size. Declararlo antes no sirve de nada. */
-.a-campo, .a-select, .a-area, input, textarea, select { font-size: 16px; }
+   El minimo de 16px en campos existe por UNA razon: iOS hace zoom
+   automatico al enfocar un campo mas pequeno. Eso solo ocurre en
+   dispositivos tactiles. En escritorio no aplica, y 16px en un formulario
+   denso roba espacio sin dar nada.
+
+   Por eso la regla se condiciona al PUNTERO, no al ancho: un iPad en
+   horizontal mide 1024px y sigue haciendo zoom, asi que un breakpoint por
+   ancho no lo cazaria. `pointer: coarse` si. */
+.a-campo, .a-select, .a-area { font-size: 15px; }
+
+@media (pointer: coarse) {
+  .a-campo, .a-select, .a-area, input, textarea, select { font-size: 16px; }
+  /* en tactil el dedo necesita mas superficie que el raton */
+  .a-btn, .a-icono { min-height: 44px; }
+  .a-btn--sm, .a-icono--sm { min-height: 44px; }
+}
+
+/* ── Densidad de escritorio ───────────────────────────────────────────
+   Con raton, el objetivo minimo que exige WCAG 2.2 en web es 24x24 CSS
+   px, no los 44 de tactil. Eso permite una escala mas compacta, que es lo
+   que pide una plataforma con muchas pantallas y mucha tabla. */
+@media (pointer: fine) {
+  .a-btn           { min-height: 38px; padding: 0 var(--e-5); }
+  .a-btn--sm       { min-height: 30px; padding: 0 var(--e-4); font-size: 13px; }
+  .a-btn--lg       { min-height: 46px; }
+  .a-icono         { width: 38px; height: 38px; }
+  .a-icono--sm     { width: 30px; height: 30px; }
+  .a-campo, .a-select { min-height: 38px; }
+  /* el acento solido conserva su tamano: su contraste depende de el */
+  .a-btn--acento-solido { min-height: 46px; }
+}
