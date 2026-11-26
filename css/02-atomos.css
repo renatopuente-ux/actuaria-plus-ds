@@ -92,6 +92,21 @@
 .a-btn--acento-solido:hover  { box-shadow: var(--n-md); }
 .a-btn--acento-solido:active { box-shadow: var(--n-in-sm); }
 
+/* Variante de peligro: borrar, sobrescribir, lo que no se deshace.
+
+   Usa --p-danger-500 #CC3333, NO el #FF4040 de los chips de estado. Los
+   dos son de marca; la diferencia es el contraste con el texto blanco:
+     #FF4040 + blanco = WCAG2 3.47 · APCA -66.1   incumple
+     #CC3333 + blanco = WCAG2 5.14 · APCA -79.4   pasa los dos
+   El rojo claro vale como RELLENO de una etiqueta que no lleva texto
+   encima; como fondo de un boton con texto, no. */
+.a-btn--peligro {
+  background: var(--p-danger-500); color: #fff;
+  box-shadow: var(--n-sm);
+}
+.a-btn--peligro:hover  { box-shadow: var(--n-md); }
+.a-btn--peligro:active { box-shadow: var(--n-in-sm); }
+
 /* Variante fantasma: descartar, cancelar. Sigue teniendo relieve porque
    sigue siendo pulsable. */
 .a-btn--fantasma { background: transparent; box-shadow: var(--n-xs); color: var(--txt-medio); }

@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Superposición · Actuaria+ Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
+<link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
+<link rel="stylesheet" href="../css/01-tokens.css?v=21152c8a">
+<link rel="stylesheet" href="../css/02-atomos.css?v=61ecdfb5">
+<link rel="stylesheet" href="../css/03-moleculas.css?v=6c61c07b">
+<link rel="stylesheet" href="../css/04-organismos.css?v=f95a6bb3">
+<link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
+<link rel="stylesheet" href="../css/90-escaparate.css?v=bc627615">
+</head>
+<body>
+<a class="sr-only" href="#principal">Saltar al contenido</a>
+<header class="esc-topbar">
+  <a class="esc-marca" href="../index.html">ACTUARIA<span>+</span></a>
+  <span class="esc-version">DS v0.1.0</span>
+</header>
+<div class="esc-shell">
+  <nav class="esc-nav" aria-label="Capas del design system">
+    <span class="esc-nav-tit">Atomic Design</span>
+    <a class="esc-nav-link" href="../pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
+    <a class="esc-nav-link" href="../pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
+    <a class="esc-nav-link" href="../pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
+    <a class="esc-nav-link" href="../pages/04-superposicion.html" data-capa="4">Superposición</a>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true" data-capa="5"><b>5</b> Páginas</span>
+    <span class="esc-nav-tit">Fundamentos</span>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true">Tokens</span>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true">Principios</span>
+  </nav>
+  <main class="esc-main" id="principal">
+  <div class="esc-cabecera">
+    <h1>Superposición</h1>
+    <p>Capas por encima del contenido, y donde más se rompe la accesibilidad. Por eso se apoyan en lo
+       que el navegador <strong>ya resuelve</strong>: <code>&lt;dialog&gt;</code> con
+       <code>showModal()</code> da foco atrapado, Escape, capa superior y fondo inerte;
+       <code>[popover]</code> da cierre al pulsar fuera. Reimplementarlo a mano es de donde salen los
+       diálogos de los que no se puede salir con teclado.</p>
+  </div>
+
+  <section class="ficha" id="dialogo">
+    <h2>Diálogo</h2>
+    <span class="clase">.s-dialogo</span>
+    <p class="resumen">Interrumpe. Solo para lo que no puede continuar sin respuesta. El foco entra al abrir, queda atrapado dentro, Escape cierra y <strong>el foco vuelve al botón que lo abrió</strong>.</p>
+    <div class="lienzo lienzo--col">
+      <div class="muestra-ancha" style="display:flex;gap:var(--e-4);flex-wrap:wrap">
+        <button class="a-btn" data-abre="dlg-confirma">Confirmar recálculo</button>
+        <button class="a-btn" data-abre="dlg-borra">Eliminar estudio</button>
+      </div>
+
+      <dialog class="s-dialogo" id="dlg-confirma" aria-labelledby="dlg-confirma-t" tabindex="-1">
+        <div class="s-dialogo__cabeza">
+          <h3 class="s-dialogo__titulo" id="dlg-confirma-t">Recalcular la provisión</h3>
+          <button class="a-icono a-icono--sm" data-cierra aria-label="Cerrar"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>
+        </div>
+        <div class="s-dialogo__cuerpo">
+          <p>Se volverán a valorar las 1 842 pólizas con las hipótesis actuales.
+             El cálculo anterior se conserva y podrás compararlos.</p>
+        </div>
+        <div class="s-dialogo__pie">
+          <button class="a-btn a-btn--fantasma" data-cierra>Cancelar</button>
+          <span class="a-anillo"><button class="a-btn a-btn--principal" data-cierra>Recalcular</button></span>
+        </div>
+      </dialog>
+
+      <dialog class="s-dialogo" id="dlg-borra" aria-labelledby="dlg-borra-t" tabindex="-1">
+        <div class="s-dialogo__cabeza">
+          <h3 class="s-dialogo__titulo" id="dlg-borra-t">Eliminar «Valuación 2026»</h3>
+          <button class="a-icono a-icono--sm" data-cierra aria-label="Cerrar"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>
+        </div>
+        <div class="s-dialogo__cuerpo">
+          <p>Se eliminarán el estudio y sus tres escenarios. Esta acción no se puede deshacer.</p>
+        </div>
+        <div class="s-dialogo__pie s-dialogo__pie--peligro">
+          <button class="a-btn a-btn--fantasma" data-cierra autofocus>Conservar estudio</button>
+          <button class="a-btn a-btn--peligro" data-cierra>Eliminar estudio</button>
+        </div>
+      </dialog>    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La acción es irreversible y hay que confirmarla</li><li>El texto del botón nombra la acción: «Eliminar estudio», no «Aceptar»</li><li>Se dice exactamente qué se va a borrar o cambiar</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Preguntar «¿Estás seguro?» con Sí/No antes de algo reversible: eso lleva Deshacer</li><li>Usarlo para avisos que no necesitan respuesta: eso es una alerta</li><li>Dejar el foco fuera al abrir o perderlo al cerrar</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;button class="a-btn" data-abre="dlg-borra"&gt;Eliminar&lt;/button&gt;
+
+&lt;dialog class="s-dialogo" id="dlg-borra" aria-labelledby="dlg-borra-t"&gt;
+  &lt;h3 id="dlg-borra-t"&gt;Eliminar «Valuación 2026»&lt;/h3&gt;
+  &lt;button class="a-btn a-btn--peligro" data-cierra&gt;Eliminar estudio&lt;/button&gt;
+&lt;/dialog&gt;</pre>
+  </section>
+
+  <section class="ficha" id="cajon">
+    <h2>Cajón lateral</h2>
+    <span class="clase">.s-cajon</span>
+    <p class="resumen">Para tareas largas que conviene hacer sin perder de vista el fondo: filtros avanzados, detalle de una fila. También es <code>&lt;dialog&gt;</code>, así que hereda el teclado completo.</p>
+    <div class="lienzo lienzo--col">
+      <div class="muestra-ancha">
+        <button class="a-btn" data-abre="cjn-filtros">Filtros avanzados</button>
+      </div>
+
+      <dialog class="s-cajon" id="cjn-filtros" aria-labelledby="cjn-t">
+        <div class="s-cajon__cabeza">
+          <h3 class="s-dialogo__titulo" id="cjn-t">Filtros avanzados</h3>
+          <button class="a-icono a-icono--sm" data-cierra aria-label="Cerrar filtros"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l8 8M14 6l-8 8"/></svg></button>
+        </div>
+        <div class="s-cajon__cuerpo">
+          <div style="display:flex;flex-direction:column;gap:var(--e-5)">
+            <div class="m-campo">
+              <label class="a-etiqueta" for="f-ramo">Ramo</label>
+              <select class="a-select" id="f-ramo"><option>Todos</option><option>Vida</option><option>Salud</option></select>
+            </div>
+            <div class="m-campo">
+              <label class="a-etiqueta" for="f-min">Provisión mínima</label>
+              <input class="a-campo" id="f-min" value="0" aria-describedby="f-min-a">
+              <span class="ayuda" id="f-min-a">En unidades monetarias</span>
+            </div>
+            <label class="a-casilla"><input type="checkbox" checked><span class="caja"></span><span>Solo con siniestros abiertos</span></label>
+          </div>
+        </div>
+        <div class="s-cajon__pie">
+          <button class="a-btn a-btn--fantasma" data-cierra>Limpiar</button>
+          <span class="a-anillo" style="margin-left:auto"><button class="a-btn a-btn--principal" data-cierra>Aplicar filtros</button></span>
+        </div>
+      </dialog>    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La tarea necesita varios campos y el contexto de atrás</li><li>El usuario puede cancelar sin perder lo que había</li><li>El pie deja siempre visible cómo aplicar y cómo salir</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Meter dentro un flujo con sus propios pasos: eso es una página</li><li>Abrir un cajón desde otro cajón</li><li>Aplicar los filtros al cerrar sin que el usuario lo pida</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;dialog class="s-cajon" id="cjn-filtros" aria-labelledby="cjn-t"&gt;
+  &lt;div class="s-cajon__cuerpo"&gt;...&lt;/div&gt;
+&lt;/dialog&gt;</pre>
+  </section>
+
+  <section class="ficha" id="menu">
+    <h2>Menú desplegable</h2>
+    <span class="clase">.s-menu</span>
+    <p class="resumen">Acciones sobre un elemento concreto. Usa <code>[popover]</code>, que da el cierre al pulsar fuera y la capa superior; las flechas del teclado las añade el sistema. Cada opción es un <code>&lt;button&gt;</code> de verdad.</p>
+    <div class="lienzo lienzo--col">
+      <div class="muestra-ancha" style="display:flex;gap:var(--e-4);align-items:center">
+        <button class="a-icono a-icono--sm" popovertarget="menu-fila" aria-label="Acciones de la póliza PL-00412"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="4.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="10" r="1.3" fill="currentColor" stroke="none"/><circle cx="10" cy="15.5" r="1.3" fill="currentColor" stroke="none"/></svg></button>
+        <span class="pie" style="margin:0">Acciones de una fila</span>
+      </div>
+      <div class="s-menu" popover id="menu-fila" role="menu" aria-label="Acciones de la póliza">
+        <span class="s-menu__rotulo">Póliza PL-00412</span>
+        <button class="s-menu__opcion" role="menuitem"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 16 .8-3.2 8-8 2.4 2.4-8 8L4 16Z"/></svg> Editar datos</button>
+        <button class="s-menu__opcion" role="menuitem"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="10" height="10" rx="1.5"/><path d="M13 6V4.5A1.5 1.5 0 0 0 11.5 3H5a2 2 0 0 0-2 2v6.5A1.5 1.5 0 0 0 4.5 13H6"/></svg> Duplicar</button>
+        <button class="s-menu__opcion" role="menuitem"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4-4-4M4 16h12"/></svg> Exportar a Excel</button>
+        <div class="s-menu__separador"></div>
+        <button class="s-menu__opcion" role="menuitem" aria-disabled="true"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 9.5v4.5M10 6.3v.2"/></svg> Ver histórico</button>
+        <button class="s-menu__opcion s-menu__opcion--peligro" role="menuitem"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h12M8 6V4.5h4V6m-6 0 .7 9.5a1 1 0 0 0 1 .9h4.6a1 1 0 0 0 1-.9L14 6"/></svg> Eliminar póliza</button>
+      </div>    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Hay más de tres acciones sobre un mismo elemento</li><li>El menú dice a qué elemento se aplica, como en el rótulo</li><li>La opción no disponible explica por qué lo está</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Opciones como <code>&lt;div&gt;</code> con <code>onclick</code>: no responden al teclado</li><li>Esconder ahí la acción principal de la fila</li><li>Un menú con una sola opción: eso es un botón</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;button popovertarget="menu-fila" aria-label="Acciones de PL-00412"&gt;…&lt;/button&gt;
+
+&lt;div class="s-menu" popover id="menu-fila" role="menu"&gt;
+  &lt;button class="s-menu__opcion" role="menuitem"&gt;Editar datos&lt;/button&gt;
+&lt;/div&gt;</pre>
+  </section>
+
+  <section class="ficha" id="globo">
+    <h2>Globo informativo</h2>
+    <span class="clase">.s-globo</span>
+    <p class="resumen">Contenido anclado a un disparador. A diferencia del menú, aquí dentro puede haber formulario o enlaces, así que el foco se queda dentro mientras esté abierto.</p>
+    <div class="lienzo lienzo--col">
+      <div class="muestra-ancha" style="display:flex;gap:var(--e-4);align-items:center">
+        <button class="a-btn a-btn--sm" popovertarget="globo-hip">Ver hipótesis aplicadas</button>
+        <span class="pie" style="margin:0">Detalle sin salir de la pantalla</span>
+      </div>
+      <div class="s-globo" popover id="globo-hip">
+        <p class="s-globo__titulo">Hipótesis del cálculo</p>
+        <dl style="display:grid;grid-template-columns:auto 1fr;gap:var(--e-2) var(--e-4);font:var(--t-ui)">
+          <dt style="color:var(--txt-debil)">Tabla</dt><dd>PERM/F 2000-P</dd>
+          <dt style="color:var(--txt-debil)">Tasa técnica</dt><dd style="font-variant-numeric:tabular-nums">2,75 %</dd>
+          <dt style="color:var(--txt-debil)">Rotación</dt><dd style="font-variant-numeric:tabular-nums">4,00 %</dd>
+        </dl>
+        <p style="margin-top:var(--e-4)"><a class="a-enlace" href="#globo">Editar hipótesis</a></p>
+      </div>    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Hay detalle que no cabe pero tampoco merece otra pantalla</li><li>El contenido incluye enlaces o campos que se usan con teclado</li><li>El disparador describe qué va a aparecer</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Usarlo para texto de una línea: eso es una pista</li><li>Meter dentro la única copia de un dato importante</li><li>Abrirlo al pasar el ratón: con teclado o dedo no ocurre</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;button popovertarget="globo-hip"&gt;Ver hipótesis&lt;/button&gt;
+&lt;div class="s-globo" popover id="globo-hip"&gt;...&lt;/div&gt;</pre>
+  </section>
+
+  <section class="ficha" id="pista">
+    <h2>Pista</h2>
+    <span class="clase">.s-pista</span>
+    <p class="resumen">Texto breve que <strong>adorna lo que ya se entiende</strong>. Se conecta con <code>aria-describedby</code>, porque si no, para un lector de pantalla no existe — y en táctil tampoco, que no hay ratón que posar.</p>
+    <div class="lienzo lienzo--col">
+      <div class="muestra-ancha" style="display:flex;gap:var(--e-5);align-items:center;flex-wrap:wrap">
+        <span style="display:inline-flex;align-items:center;gap:var(--e-2);font:var(--t-ui)">
+          Duración del pasivo
+          <button class="a-icono a-icono--sm" popovertarget="pista-dur"
+                  aria-label="Qué es la duración del pasivo" aria-describedby="pista-dur"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 9.5v4.5M10 6.3v.2"/></svg></button>
+        </span>
+        <span class="pie" style="margin:0">El icono es un botón, así que también funciona con teclado</span>
+      </div>
+      <div class="s-pista" popover id="pista-dur" role="tooltip">
+        Sensibilidad del valor del pasivo ante un cambio de un punto en la tasa.
+      </div>    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El término ya se entiende y la pista solo lo matiza</li><li>El disparador es un botón, no un <code>&lt;span&gt;</code></li><li>Se conecta con <code>aria-describedby</code></li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Poner ahí la única explicación de algo necesario</li><li>Abrirla solo al pasar el ratón: no existe en táctil</li><li>Meter enlaces o botones dentro: eso es un globo</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;button popovertarget="pista-dur" aria-describedby="pista-dur"
+        aria-label="Qué es la duración del pasivo"&gt;…&lt;/button&gt;
+&lt;div class="s-pista" popover id="pista-dur" role="tooltip"&gt;…&lt;/div&gt;</pre>
+  </section>
+
+  <section class="ficha" id="paleta">
+    <h2>Paleta de comandos</h2>
+    <span class="clase">.s-paleta</span>
+    <p class="resumen">Buscador de acciones. El atajo <kbd>Ctrl</kbd>+<kbd>K</kbd> lo abre, y además hay un botón visible: <strong>un atajo que no se ve no existe</strong> para quien no lo conoce.</p>
+    <div class="lienzo lienzo--col">
+      <div class="muestra-ancha" style="display:flex;gap:var(--e-4);align-items:center;flex-wrap:wrap">
+        <button class="a-btn" data-abre="paleta-comandos"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="m13.5 13.5 3 3"/></svg> Buscar acción <span class="s-paleta__atajo">Ctrl K</span></button>
+        <span class="pie" style="margin:0">Pruébalo también con el teclado</span>
+      </div>
+
+      <dialog class="s-paleta" id="paleta-comandos" aria-label="Buscar una acción">
+        <div class="s-paleta__busca">
+          <div class="m-busqueda" style="max-width:none"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="m13.5 13.5 3 3"/></svg>
+            <input class="a-campo" type="search" placeholder="Escribe una acción" aria-label="Buscar acción" autofocus>
+          </div>
+        </div>
+        <ul class="s-paleta__lista">
+          <li><button class="s-menu__opcion"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 5v10M5 10h10"/></svg> Crear estudio nuevo</button></li>
+          <li><button class="s-menu__opcion"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4-4-4M4 16h12"/></svg> Exportar cartera a Excel</button></li>
+          <li><button class="s-menu__opcion"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 16 .8-3.2 8-8 2.4 2.4-8 8L4 16Z"/></svg> Editar hipótesis del estudio</button></li>
+          <li><button class="s-menu__opcion"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="10" height="10" rx="1.5"/><path d="M13 6V4.5A1.5 1.5 0 0 0 11.5 3H5a2 2 0 0 0-2 2v6.5A1.5 1.5 0 0 0 4.5 13H6"/></svg> Duplicar escenario</button></li>
+          <li><button class="s-menu__opcion"><svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M10 9.5v4.5M10 6.3v.2"/></svg> Ver tablas biométricas</button></li>
+        </ul>
+        <p class="s-paleta__vacio" hidden>Ninguna acción coincide. Prueba con «estudio» o «exportar».</p>
+      </dialog>    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La plataforma tiene muchas acciones repartidas en pantallas</li><li>El atajo se muestra también como botón visible</li><li>Al no haber coincidencias se sugiere qué probar</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Dejar el atajo como única vía de acceso</li><li>Devolver una lista vacía sin decir nada</li><li>Incluir acciones que el usuario no puede ejecutar</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;dialog class="s-paleta" id="paleta" aria-label="Buscar una acción"&gt;
+  &lt;input class="a-campo" type="search" autofocus&gt;
+  &lt;ul class="s-paleta__lista"&gt;...&lt;/ul&gt;
+  &lt;p class="s-paleta__vacio" hidden&gt;Ninguna acción coincide.&lt;/p&gt;
+&lt;/dialog&gt;</pre>
+  </section>
+
+  <style>
+  .lienzo--col { flex-direction: column; align-items: stretch; gap: var(--e-6); }
+  .muestra-ancha { width: 100%; min-width: 0; }
+  kbd { padding: 1px 5px; border-radius: 4px; background: var(--sup-hundida);
+        font: var(--t-ui-sm); color: var(--txt-medio); }
+  </style>
+  
+  </main>
+</div>
+<script src="../js/ds.js?v=c3c2bbb3"></script>
+<script src="../js/superposicion.js?v=b81abd6e"></script>
+<script>
+  /* Marca el enlace de la pagina actual.
+     Cuidado: en la raiz publicada la URL es /repo/ y pop() devuelve "",
+     y ''.endsWith('') es true -> se marcaban TODOS los enlaces. Hay que
+     normalizar el vacio a index.html antes de comparar. */
+  (() => {
+    const archivo = (location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.esc-nav-link').forEach(a => {
+      const destino = a.getAttribute('href').split('/').pop() || 'index.html';
+      if (destino === archivo) { a.classList.add('activo'); a.setAttribute('aria-current', 'page'); }
+    });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+/* ╔══════════════════════════════════════════════════════════════════╗
+   ║  SUPERPOSICION                                                   ║
+   ║  Capas por encima del contenido. Son los componentes donde mas   ║
+   ║  se rompe la accesibilidad, asi que se apoyan en lo que el       ║
+   ║  navegador YA resuelve en vez de reimplementarlo:                ║
+   ║                                                                  ║
+   ║    <dialog> + showModal()  -> foco atrapado, Escape, capa        ║
+   ║                               superior e inerte el fondo         ║
+   ║    [popover]               -> cierre al pulsar fuera, capa       ║
+   ║                               superior y pila de anidados        ║
+   ║                                                                  ║
+   ║  Reimplementar esto a mano es de donde salen los dialogos de los ║
+   ║  que no se puede salir con teclado.                              ║
+   ╚══════════════════════════════════════════════════════════════════╝ */
+
+/* ── s-dialogo · Dialogo modal ─────────────────────────────────────────
+   Interrumpe. Solo para lo que no puede seguir sin respuesta. */
+.s-dialogo {
+  width: min(520px, calc(100vw - var(--e-8)));
+  padding: 0;
+  border: 1px solid var(--p-light);
+  border-radius: var(--r-lg);
+  background: var(--sup-elevada);
+  color: var(--txt-medio);
+}
+.s-dialogo::backdrop {
+  /* El velo se mide compuesto, no se copia una opacidad de otro proyecto:
+     navy de marca al 55% sobre blanco da un gris azulado que aisla el
+     primer plano sin apagar lo que hay detras. */
+  background: rgba(21, 31, 71, .55);
+}
+.s-dialogo__cabeza {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--e-4);
+  padding: var(--e-5) var(--e-6);
+  border-bottom: 1px solid var(--p-light);
+}
+.s-dialogo__titulo { font: var(--t-h3); color: var(--txt-fuerte); }
+.s-dialogo__cuerpo { padding: var(--e-6); font: var(--t-cuerpo); max-width: 62ch; }
+.s-dialogo__pie {
+  display: flex; align-items: center; justify-content: flex-end; gap: var(--e-3);
+  flex-wrap: wrap;
+  padding: var(--e-4) var(--e-6);
+  border-top: 1px solid var(--p-light);
+}
+/* El destructivo se separa del resto para que no se pulse por inercia */
+.s-dialogo__pie--peligro { justify-content: space-between; }
+
+/* ── s-cajon · Cajon lateral ───────────────────────────────────────────
+   Para tareas largas que necesitan ver el fondo: filtros avanzados,
+   detalle de una fila. Tambien es <dialog>, asi que hereda el teclado. */
+.s-cajon {
+  width: min(440px, calc(100vw - var(--e-10)));
+  max-width: none; height: 100%; max-height: 100%;
+  margin: 0 0 0 auto;            /* pegado a la derecha */
+  padding: 0;
+  border: 0; border-left: 1px solid var(--p-light);
+  border-radius: var(--r-lg) 0 0 var(--r-lg);
+  background: var(--sup-elevada);
+  color: var(--txt-medio);
+}
+.s-cajon::backdrop { background: rgba(21, 31, 71, .55); }
+.s-cajon__cabeza {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--e-4);
+  padding: var(--e-5) var(--e-6);
+  border-bottom: 1px solid var(--p-light);
+}
+.s-cajon__cuerpo { padding: var(--e-6); overflow-y: auto; }
+.s-cajon__pie {
+  display: flex; align-items: center; gap: var(--e-3);
+  padding: var(--e-4) var(--e-6);
+  border-top: 1px solid var(--p-light);
+}
+
+/* ── s-menu · Menu desplegable ─────────────────────────────────────────
+   [popover] da el cierre al pulsar fuera y la capa superior. Las opciones
+   son <button> de verdad, no <div> con onclick. */
+.s-menu {
+  min-width: 212px; padding: var(--e-2);
+  border: 1px solid var(--p-light);
+  border-radius: var(--r-md);
+  background: var(--sup-elevada);
+  box-shadow: 0 10px 28px rgba(21, 31, 71, .16);
+  position: absolute; margin: 0;
+}
+.s-menu__opcion {
+  display: flex; align-items: center; gap: var(--e-3); width: 100%;
+  min-height: 34px; padding: 0 var(--e-3);
+  border: 0; border-radius: var(--r-sm);
+  background: none; color: var(--txt-medio);
+  font: var(--t-ui); text-align: left; cursor: pointer;
+}
+.s-menu__opcion:hover { background: var(--sup-hundida); color: var(--txt-fuerte); }
+.s-menu__opcion[aria-disabled="true"] { opacity: .45; cursor: not-allowed; }
+.s-menu__opcion--peligro { color: var(--txt-error); }
+.s-menu__separador { height: 1px; margin: var(--e-2) 0; background: var(--p-light); }
+.s-menu__rotulo {
+  padding: var(--e-2) var(--e-3) var(--e-1);
+  font: var(--t-ui-sm); color: var(--txt-debil);
+}
+
+/* ── s-globo · Popover ─────────────────────────────────────────────────
+   Contenido enriquecido anclado a un disparador. A diferencia del menu,
+   aqui dentro puede haber formulario. */
+.s-globo {
+  width: min(320px, calc(100vw - var(--e-8)));
+  padding: var(--e-5);
+  border: 1px solid var(--p-light);
+  border-radius: var(--r-md);
+  background: var(--sup-elevada);
+  color: var(--txt-medio);
+  box-shadow: 0 10px 28px rgba(21, 31, 71, .16);
+  position: absolute; margin: 0;
+}
+.s-globo__titulo { font: var(--t-ui-lg); color: var(--txt-fuerte); margin-bottom: var(--e-2); }
+
+/* ── s-pista · Tooltip ─────────────────────────────────────────────────
+   SOLO adorna lo que ya se entiende. Nunca contiene la unica copia de un
+   dato, porque no existe en tactil ni para lector de pantalla si no se
+   conecta con aria-describedby. */
+.s-pista {
+  padding: var(--e-2) var(--e-3);
+  border: 0; border-radius: var(--r-sm);
+  background: var(--p-navy); color: var(--txt-inverso);
+  font: var(--t-ui-sm); max-width: 32ch;
+  position: absolute; margin: 0;
+  box-shadow: 0 6px 18px rgba(21, 31, 71, .22);
+}
+
+/* ── s-paleta · Paleta de comandos ─────────────────────────────────────
+   Dialogo con buscador. Atajo con teclado y, ademas, un boton visible:
+   un atajo que no se ve no existe para quien no lo conoce. */
+.s-paleta {
+  width: min(560px, calc(100vw - var(--e-8)));
+  margin-top: 10vh; padding: 0;
+  border: 1px solid var(--p-light);
+  border-radius: var(--r-lg);
+  background: var(--sup-elevada);
+}
+.s-paleta::backdrop { background: rgba(21, 31, 71, .55); }
+.s-paleta__busca { padding: var(--e-4); border-bottom: 1px solid var(--p-light); }
+.s-paleta__lista { max-height: 320px; overflow-y: auto; padding: var(--e-2); margin: 0; list-style: none; }
+.s-paleta__vacio { padding: var(--e-6); text-align: center; color: var(--txt-debil); font: var(--t-ui); }
+.s-paleta__atajo {
+  margin-left: auto; padding: 1px 6px;
+  border-radius: var(--r-sm); background: var(--sup-hundida);
+  color: var(--txt-debil); font: var(--t-ui-sm);
+}
+
+/* Puntero grueso: cada capa nueva necesita su bloque, no se hereda */
+@media (pointer: coarse) {
+  .s-menu__opcion { min-height: 44px; }
+  .s-cajon { width: min(100vw - var(--e-6), 440px); }
+}

@@ -44,6 +44,17 @@
     });
   }
 
+  /* 2b · IDENTIFICADORES REPETIDOS. getElementById devuelve el PRIMERO
+     del documento, asi que un id duplicado deja el cableado de JS
+     apuntando al elemento equivocado sin lanzar ningun error. Tambien
+     rompe aria-labelledby y aria-describedby, que resuelven igual. */
+  {
+    const cuenta = {};
+    document.querySelectorAll('[id]').forEach(e => { cuenta[e.id] = (cuenta[e.id] || 0) + 1; });
+    Object.entries(cuenta).filter(([, n]) => n > 1)
+      .forEach(([id, n]) => F('id-repetido', `«${id}» aparece ${n} veces`));
+  }
+
   /* 3 · AREA TACTIL. WCAG 2.2 (2.5.8) pide 24x24 CSS px como minimo; el
      sistema exige 34 porque es el tamano del boton pequeno. */
   [...document.querySelectorAll('button, a[href], input[type=checkbox], select')].filter(visible)
