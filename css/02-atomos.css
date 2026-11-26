@@ -36,14 +36,25 @@
   color: var(--txt-debil); cursor: not-allowed; opacity: .7;
 }
 
-/* Variante principal: la accion de sistema. Navy solido. */
+/* Variante principal: la accion de sistema. Navy solido.
+
+   LA SOMBRA PERTENECE AL SUSTRATO, NO AL ELEMENTO.
+   Error que cometimos: aplicar al boton navy la pareja de sombras DEL NAVY
+   (--n-dark) mientras el boton se apoya sobre un lienzo CLARO. El resultado
+   era una mancha azulada sucia alrededor del boton. La luz no sabe de que
+   color es el objeto: lo que oscurece o ilumina es la SUPERFICIE donde cae
+   la sombra. Sobre lienzo claro va la pareja clara; --n-dark queda
+   reservado a elementos que viven sobre una superficie navy. */
 .a-btn--principal {
   background: var(--p-navy); color: var(--txt-inverso);
-  box-shadow: var(--n-dark);
+  box-shadow: var(--n-sm);
 }
-.a-btn--principal:hover  { box-shadow: 6px 6px 14px var(--neu-oscura-inv), -5px -5px 11px var(--neu-clara-inv),
-                                        inset 0 0 0 var(--neu-oscura-inv), inset 0 0 0 var(--neu-clara-inv); }
-.a-btn--principal:active { box-shadow: var(--n-in-dark); }
+.a-btn--principal:hover  { box-shadow: var(--n-md); }
+.a-btn--principal:active { box-shadow: var(--n-in-sm); }
+
+/* Sobre superficie navy, el mismo boton cambia de pareja. El tema manda. */
+.sup-inversa .a-btn--principal          { box-shadow: var(--n-dark); }
+.sup-inversa .a-btn--principal:active   { box-shadow: var(--n-in-dark); }
 
 /* Variante de acento: UNA por pantalla, y solo para la accion comercial.
    El naranja de marca no sostiene texto blanco (3.7:1), asi que el relleno
@@ -240,3 +251,33 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 .a-medallon--marca { background: var(--p-navy);     color: var(--txt-inverso); }
 .a-medallon--sm { width: 32px; font-size: 14px; }
 .a-medallon--lg { width: 56px; font-size: 24px; }
+
+/* ── a-anillo · Halo neumorfico ────────────────────────────────────────
+   Un anillo del color de la superficie que envuelve al boton. Nace en
+   actuaria.com, donde se adopto para evitar la sombra sucia bajo el boton
+   navy — y resulta ser la solucion neumorficamente CORRECTA, no un parche:
+
+   el neumorfismo extruye un objeto de su propia superficie, asi que un
+   elemento de otro color nunca puede estar realmente extruido. El anillo
+   resuelve la contradiccion: lo extruido es EL ANILLO, que si es del color
+   del lienzo, y la pastilla navy se apoya dentro, plana.
+
+   Usar cuando el boton navy o naranja deba destacar sobre lienzo claro sin
+   proyectar color. Reservarlo a UNA accion por pantalla: si todo lleva
+   anillo, el anillo deja de destacar nada. */
+.a-anillo {
+  display: inline-flex;
+  align-self: flex-start; width: fit-content;
+  padding: 6px;
+  border-radius: var(--r-pill);
+  background: var(--sup-app);
+  box-shadow: var(--n-sm);
+  transition: box-shadow var(--mov-rapido);
+}
+.a-anillo:hover { box-shadow: var(--n-md); }
+.a-anillo:active { box-shadow: var(--n-in-sm); }
+/* el boton de dentro NO lleva sombra: la lleva el anillo */
+.a-anillo > .a-btn,
+.a-anillo > .a-btn:hover,
+.a-anillo > .a-btn:active { box-shadow: none; transform: none; }
+.sup-inversa .a-anillo { background: var(--p-navy); box-shadow: var(--n-dark); }

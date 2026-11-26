@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=6ff3f15f">
-<link rel="stylesheet" href="../css/02-atomos.css?v=6ec226f5">
+<link rel="stylesheet" href="../css/02-atomos.css?v=f66e715c">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=47f1fb61">
 </head>
 <body>
@@ -87,9 +87,61 @@
     </div>
   </section>
 
+
+  <section class="ficha" id="sustrato">
+    <h2>La sombra pertenece al sustrato</h2>
+    <p class="resumen">Teníamos un error de categoría: al botón navy se le aplicaba la pareja de
+       sombras <strong>del navy</strong> mientras se apoyaba sobre un lienzo <strong>claro</strong>.
+       De ahí la mancha azulada. La luz no sabe de qué color es el objeto: lo que se oscurece o se
+       ilumina es la <strong>superficie donde cae la sombra</strong>.</p>
+    <div class="lienzo lienzo--col" style="gap:var(--e-8)">
+      <div style="display:flex;flex-wrap:wrap;gap:var(--e-8);align-items:flex-start">
+        <div class="muestra">
+          <span style="display:inline-flex;padding:0;border-radius:999px;background:var(--p-navy);
+                       color:#fff;font:var(--t-ui);min-height:44px;align-items:center;padding:0 24px;
+                       box-shadow:4px 4px 10px #101836, -3px -3px 8px #223272">Calcular provisión</span>
+          <span class="pie" style="color:var(--txt-error)">A · antes — sombra del navy sobre claro</span>
+        </div>
+        <div class="muestra">
+          <button class="a-btn a-btn--principal">Calcular provisión</button>
+          <span class="pie">B · sombra del sustrato</span>
+        </div>
+        <div class="muestra">
+          <span class="a-anillo"><button class="a-btn a-btn--principal">Calcular provisión</button></span>
+          <span class="pie">C · anillo · como en actuaria.com</span>
+        </div>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--e-8);align-items:flex-start">
+        <div class="muestra">
+          <span class="a-anillo"><button class="a-btn a-btn--acento">Solicitar estudio</button></span>
+          <span class="pie">el anillo también sirve al acento</span>
+        </div>
+      </div>
+    </div>
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Por qué el anillo es correcto</h3><ul>
+        <li>El neumorfismo extruye un objeto de <strong>su propia superficie</strong>: un elemento de
+            otro color nunca puede estar realmente extruido</li>
+        <li>El anillo resuelve la contradicción: lo extruido es <strong>el anillo</strong>, que sí es
+            del color del lienzo, y la pastilla navy se apoya dentro, plana</li>
+        <li>No proyecta color sobre el fondo, así que funciona igual sobre blanco o sobre gris</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul>
+        <li>Usar <code>--n-dark</code> en un elemento que se apoya sobre lienzo claro</li>
+        <li>Poner anillo a todos los botones: si todo destaca, nada destaca</li>
+        <li>Dejar sombra al botón que va dentro del anillo: la sombra la lleva el anillo</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;!-- B · la pastilla navy toma la sombra del lienzo --&gt;
+&lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;
+
+&lt;!-- C · anillo: lo extruido es el halo, la pastilla se apoya dentro --&gt;
+&lt;span class="a-anillo"&gt;
+  &lt;button class="a-btn a-btn--principal"&gt;Calcular provisión&lt;/button&gt;
+&lt;/span&gt;</pre>
+  </section>
+
   <section class="ficha" id="boton">
     <h2>Botón</h2>
-    <span class="clase">.a-btn</span>
+    <span class="clase">.a-btn · .a-anillo</span>
     <p class="resumen">La acción. Siempre en píldora y siempre en relieve: es la señal de que se puede pulsar. El acento naranja se reserva para UNA acción por pantalla.</p>
     <div class="lienzo">
       <div class="muestra"><button class="a-btn a-btn--principal">Calcular provisión</button><span class="pie">principal · acción de sistema</span></div>
