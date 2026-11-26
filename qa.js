@@ -66,12 +66,57 @@
   /* 6 · LEY DE RELIEVE. Cliqueable sobresale; informativo, plano. */
   {
     const sombra = e => getComputedStyle(e).boxShadow;
-    const sobresale = s => s !== 'none' && /(^|,)\s*(?!inset)[^,]*[1-9]\d*px/.test(s.replace(/inset[^,]*/g, ''));
-    [...document.querySelectorAll('button:not([disabled]):not(.a-anillo > *), a.esc-nav-link[href]')].filter(visible)
-      .forEach(e => { if (e.closest('.a-anillo')) return;
-        if (!sobresale(sombra(e))) F('relieve', `cliqueable sin relieve: ${nombre(e)}`); });
-    [...document.querySelectorAll('.a-chip, .a-medallon')].filter(visible)
-      .forEach(e => { if (sobresale(sombra(e))) F('relieve', `informativo con relieve: ${nombre(e)}`); });
+    /* Separar la lista de sombras por comas SIN romper los rgb(), y mirar
+       cada entrada entera: 'inset' aparece al FINAL de la suya, asi que
+       recortar desde la palabra dejaba vivos sus desplazamientos y daba
+       por saliente una sombra hundida. */
+    const entradas = s => {
+      const out = []; let nivel = 0, act = '';
+      for (const ch of s) {
+        if (ch === '(') nivel++;
+        if (ch === ')') nivel--;
+        if (ch === ',' && nivel === 0) { out.push(act); act = ''; } else act += ch;
+      }
+      if (act.trim()) out.push(act);
+      return out;
+    };
+    const sobresale = s => s !== 'none' &&
+      entradas(s).some(x => !/\binset\b/.test(x) && /[1-9]\d*px/.test(x));
+    /* Un cliqueable tiene DOS formas legitimas:
+         en reposo   -> relieve, sobresale
+         pulsado     -> hundido, inset
+       Lo prohibido es plano del todo. Y el hundido solo vale si el
+       elemento ESTA en ese estado: un filtro apagado y hundido mentiria
+       igual que uno plano. */
+    const hundido = e => { const s = sombra(e);
+      return s !== 'none' && entradas(s).some(x => /\binset\b/.test(x) && /[1-9]\d*px/.test(x)); };
+    const pulsado = e =>
+      e.getAttribute('aria-pressed') === 'true' ||
+      e.hasAttribute('aria-current') ||
+      !!e.closest('[aria-sort]') ||
+      e.matches(':active');
+    [...document.querySelectorAll('button:not([disabled]), a.esc-nav-link[href]')].filter(visible)
+      .forEach(e => {
+        if (e.closest('.a-anillo')) return;            /* la sombra la lleva el anillo */
+        if (sobresale(sombra(e))) return;              /* en reposo, correcto */
+        if (hundido(e) && pulsado(e)) return;          /* pulsado, correcto */
+        if (hundido(e)) { F('relieve', `hundido sin estar activo: ${nombre(e)}`); return; }
+        F('relieve', `cliqueable sin relieve: ${nombre(e)}`);
+      });
+    /* GENERALIZADO: no basta con vigilar dos clases conocidas. Cualquier
+       elemento con relieve que NO se pueda pulsar miente, y el usuario lo
+       intenta y cree que esta roto. Ya ha pasado con el icono informativo
+       y con los pasos del asistente. */
+    const interactivo = e =>
+      e.matches('button, a[href], input, select, textarea, summary, [role=button], [role=link], [tabindex]:not([tabindex="-1"])') ||
+      !!e.closest('button, a[href], label') ||
+      !!e.querySelector('button, a[href], input, select, textarea');
+    [...document.querySelectorAll('.lienzo *, .m-kpi, .ficha > *')].filter(visible)
+      .forEach(e => {
+        if (interactivo(e)) return;
+        if (e.dataset.superficie === 'contenedor') return;   /* tarjetas y paneles, declarados */
+        if (sobresale(sombra(e))) F('relieve', `no se puede pulsar pero tiene relieve: ${nombre(e)}`);
+      });
   }
 
   /* 7 · FORMA. Pildora para la accion, rectangulo para la entrada. */

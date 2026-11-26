@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=21152c8a">
 <link rel="stylesheet" href="../css/02-atomos.css?v=80fb4f15">
-<link rel="stylesheet" href="../css/03-moleculas.css?v=4ec3bf50">
+<link rel="stylesheet" href="../css/03-moleculas.css?v=5a6c226d">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=bc627615">
 </head>
 <body>
@@ -147,24 +147,52 @@
   <section class="ficha" id="pasos">
     <h2>Pasos del asistente</h2>
     <span class="clase">.m-pasos</span>
-    <p class="resumen">Una lista ordenada de verdad, con <code>aria-current="step"</code> en el actual. El paso hecho lleva marca de verificación: el estado no depende del color.</p>
+    <p class="resumen">Dos variantes, y elegir mal rompe la ley de relieve. Por defecto el indicador
+       <strong>solo informa</strong>: dice en qué paso estás y va plano, porque la mayoría de asistentes
+       con validación no dejan saltar. La variante navegable es para los que sí permiten volver.</p>
     <div class="lienzo lienzo--col">
       <div class="muestra-ancha">
         <ol class="m-pasos">
+          <li><span class="paso paso--hecho"><span class="indice"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8 3.5 3.5L13 5"/></svg></span> Datos del colectivo</span><span class="union"></span></li>
+          <li><span class="paso paso--hecho"><span class="indice"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8 3.5 3.5L13 5"/></svg></span> Hipótesis</span><span class="union"></span></li>
+          <li><span class="paso" aria-current="step"><span class="indice">3</span> Tablas biométricas</span><span class="union"></span></li>
+          <li><span class="paso paso--futuro"><span class="indice">4</span> Resultados</span></li>
+        </ol>
+        <span class="pie">Por defecto: ninguno se pulsa</span>
+      </div>
+      <div class="muestra-ancha">
+        <ol class="m-pasos m-pasos--navegable">
           <li><button class="paso paso--hecho"><span class="indice"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8 3.5 3.5L13 5"/></svg></span> Datos del colectivo</button><span class="union"></span></li>
           <li><button class="paso paso--hecho"><span class="indice"><svg viewBox="0 0 16 16" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 8 3.5 3.5L13 5"/></svg></span> Hipótesis</button><span class="union"></span></li>
-          <li><button class="paso" aria-current="step"><span class="indice">3</span> Tablas biométricas</button><span class="union"></span></li>
-          <li><button class="paso" disabled><span class="indice">4</span> Resultados</button></li>
+          <li><span class="paso" aria-current="step"><span class="indice">3</span> Tablas biométricas</span><span class="union"></span></li>
+          <li><span class="paso paso--futuro"><span class="indice">4</span> Resultados</span></li>
         </ol>
-      </div>    </div>
-    <div class="reglas">
-      <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El flujo tiene principio y fin conocidos, como el alta de un estudio</li><li>El usuario puede volver a un paso ya completado</li><li>Cada paso se puede guardar sin perder lo anterior</li></ul></div>
-      <div class="regla regla--no"><h3>Nunca</h3><ul><li>Más de siete pasos visibles a la vez: agrúpalos</li><li>Permitir saltar a un paso que aún no tiene sus datos</li><li>Marcar el paso actual solo con color</li></ul></div>
+        <span class="pie">Navegable: solo los completados tienen relieve</span>
+      </div>
     </div>
-    <pre class="codigo">&lt;ol class="m-pasos"&gt;
+    <div class="reglas">
+      <div class="regla regla--si"><h3>Usar cuando</h3><ul>
+        <li>El flujo tiene principio y fin conocidos, como el alta de un estudio</li>
+        <li><strong>Informativo</strong> si el asistente valida cada paso y no deja saltar</li>
+        <li><strong>Navegable</strong> solo si volver a un paso anterior funciona de verdad</li>
+        <li>El paso completado lleva marca, no solo un color distinto</li></ul></div>
+      <div class="regla regla--no"><h3>Nunca</h3><ul>
+        <li>Dar relieve a un paso que no se puede pulsar: el usuario lo intentará y creerá que está roto</li>
+        <li>Hacer botón el paso <strong>actual</strong>: ya estás en él</li>
+        <li>Hacer botón un paso <strong>futuro</strong>: aún no tiene sus datos</li>
+        <li>Más de siete pasos visibles a la vez</li></ul></div>
+    </div>
+    <pre class="codigo">&lt;!-- por defecto: solo informa, nada se pulsa --&gt;
+&lt;ol class="m-pasos"&gt;
+  &lt;li&gt;&lt;span class="paso paso--hecho"&gt;...&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span class="paso" aria-current="step"&gt;...&lt;/span&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span class="paso paso--futuro"&gt;...&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- navegable: SOLO el completado es boton --&gt;
+&lt;ol class="m-pasos m-pasos--navegable"&gt;
   &lt;li&gt;&lt;button class="paso paso--hecho"&gt;...&lt;/button&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;button class="paso" aria-current="step"&gt;...&lt;/button&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;button class="paso" disabled&gt;...&lt;/button&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;span class="paso" aria-current="step"&gt;...&lt;/span&gt;&lt;/li&gt;
 &lt;/ol&gt;</pre>
   </section>
 

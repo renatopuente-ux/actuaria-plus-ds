@@ -46,11 +46,15 @@
    Dato grande con su variacion. La variacion NO se codifica solo con
    color: lleva flecha y signo. */
 .m-kpi {
+  /* PLANA. Un indicador informa, no se pulsa, y la ley de relieve dice
+     que lo que no se pulsa no sobresale. Se separa del lienzo por color
+     y borde, no por sombra: si cada tarjeta sobresale, el relieve deja
+     de significar «esto se puede pulsar». */
   display: flex; align-items: flex-start; gap: var(--e-4);
   padding: var(--e-5) var(--e-6);
   border-radius: var(--r-lg);
-  background: var(--sup-app);
-  box-shadow: var(--n-sm);
+  background: var(--sup-elevada);
+  border: 1px solid var(--p-light);
   min-width: 232px;
 }
 .m-kpi .cuerpo { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
@@ -68,33 +72,57 @@
 .m-kpi .delta--igual { color: var(--txt-debil); }
 
 /* ── m-pasos · Pasos de un asistente ───────────────────────────────────
-   Lista ordenada real, con aria-current="step" en el actual. El estado
-   no depende del color: el hecho lleva marca de verificacion y el actual
-   va hundido. */
+   DOS VARIANTES, y elegir mal rompe la ley de relieve.
+
+   Por defecto el indicador es INFORMATIVO: dice en que paso estas, pero
+   no se pulsa. Va plano y opaco, con <span>, porque la mayoria de
+   asistentes con validacion no dejan saltar de paso. Si se le da relieve,
+   el usuario lo pulsa, no pasa nada y cree que esta roto.
+
+   La variante --navegable es para asistentes que SI permiten volver. Solo
+   ahi los pasos completados son <button> con relieve. El paso actual y
+   los futuros nunca son boton: al actual ya has llegado y al futuro no
+   puedes ir.
+
+   Lista ordenada de verdad en ambos casos, con aria-current="step" en el
+   actual. El estado no depende del color: el hecho lleva marca de
+   verificacion y el actual va en negrita. */
 .m-pasos { display: flex; flex-wrap: wrap; gap: var(--e-2); list-style: none; padding: 0; margin: 0; }
 .m-pasos li { display: flex; align-items: center; gap: var(--e-2); }
+
+/* base comun: plano, sin sombra, sin cursor */
 .m-pasos .paso {
   display: inline-flex; align-items: center; gap: var(--e-2);
   min-height: 34px; padding: 0 var(--e-4);
   border: 0; border-radius: var(--r-pill);
-  background: var(--sup-app); color: var(--txt-medio);
-  font: var(--t-ui); cursor: pointer;
-  box-shadow: var(--n-xs);
-  transition: box-shadow var(--mov-rapido), color var(--mov-rapido);
+  background: var(--sup-hundida); color: var(--txt-debil);
+  font: var(--t-ui); text-align: left;
+  box-shadow: none; cursor: default;
 }
-.m-pasos .paso:hover { box-shadow: var(--n-sm); }
+.m-pasos .paso--hecho { color: var(--txt-medio); }
 .m-pasos .paso[aria-current="step"] {
-  box-shadow: var(--n-in-sm); color: var(--txt-fuerte); font-weight: 700;
+  background: var(--fill-info); color: var(--txt-info); font-weight: 700;
 }
-.m-pasos .paso[disabled] { box-shadow: none; opacity: .45; cursor: not-allowed; }
+.m-pasos .paso--futuro { opacity: .55; }
+
 .m-pasos .indice {
   display: grid; place-items: center;
   width: 20px; height: 20px; border-radius: var(--r-circle);
-  background: var(--sup-hundida); color: var(--txt-medio);
+  background: var(--p-light); color: var(--txt-medio);
   font: 700 11px/1 var(--ff-ui); font-variant-numeric: tabular-nums;
 }
 .m-pasos .paso--hecho .indice { background: var(--fill-ok); color: var(--txt-ok); }
+.m-pasos .paso[aria-current="step"] .indice { background: var(--p-navy); color: var(--txt-inverso); }
 .m-pasos .union { width: 18px; height: 2px; border-radius: 2px; background: var(--p-light); }
+
+/* variante navegable: SOLO el paso completado se vuelve boton de verdad */
+.m-pasos--navegable button.paso--hecho {
+  background: var(--sup-app); cursor: pointer;
+  box-shadow: var(--n-xs);
+  transition: box-shadow var(--mov-rapido);
+}
+.m-pasos--navegable button.paso--hecho:hover  { box-shadow: var(--n-sm); }
+.m-pasos--navegable button.paso--hecho:active { box-shadow: var(--n-in-sm); }
 
 /* ── m-tabla · Tabla de datos ──────────────────────────────────────────
    Cifras tabulares siempre: sin ellas la columna salta al cambiar un
@@ -208,7 +236,7 @@
 @media (pointer: coarse) {
   .m-busqueda .limpiar { width: 44px; height: 44px; right: 2px; }
   .m-busqueda .a-campo { padding-right: 52px; }
-  .m-pasos .paso,
+  .m-pasos--navegable button.paso,
   .m-filtros .filtro,
   .m-paginacion .pag,
   .m-tabla .orden { min-height: 44px; }
