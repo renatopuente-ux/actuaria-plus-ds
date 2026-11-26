@@ -32,24 +32,6 @@
     <a class="esc-nav-link" href="docs/principios.html">Principios</a>
   </nav>
   <main class="esc-main" id="principal">
-<a class="sr-only" href="#principal">Saltar al contenido</a>
-<header class="esc-topbar">
-  <a class="esc-marca" href="index.html">ACTUARIA<span>+</span></a>
-  <span class="esc-version">DS v0.1.0</span>
-</header>
-<div class="esc-shell">
-  <nav class="esc-nav" aria-label="Capas del design system">
-    <span class="esc-nav-tit">Atomic Design</span>
-    <a class="esc-nav-link" href="pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
-    <a class="esc-nav-link" href="pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
-    <a class="esc-nav-link" href="pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
-    <a class="esc-nav-link" href="pages/04-plantillas.html" data-capa="4"><b>4</b> Plantillas</a>
-    <a class="esc-nav-link" href="pages/05-paginas.html" data-capa="5"><b>5</b> Páginas</a>
-    <span class="esc-nav-tit">Fundamentos</span>
-    <a class="esc-nav-link" href="pages/00-tokens.html">Tokens</a>
-    <a class="esc-nav-link" href="docs/principios.html">Principios</a>
-  </nav>
-  <main class="esc-main" id="principal">
   <div class="esc-cabecera">
     <h1>Actuaria+ Design System</h1>
     <p>El sistema con el que se renueva la plataforma <strong>Actuaria+</strong>. Construido por capas
@@ -106,15 +88,22 @@
         o en <code style="color:var(--p-naranja-soft)">/brand</code>, NO es de marca: no lo inventes.&raquo;</p>
     </div>
   </section>
+  
   </main>
 </div>
 <script src="js/ds.js"></script>
 <script>
-  // marcar el enlace de la capa actual
-  (() => { const f = location.pathname.split('/').pop();
+  /* Marca el enlace de la pagina actual.
+     Cuidado: en la raiz publicada la URL es /repo/ y pop() devuelve "",
+     y ''.endsWith('') es true -> se marcaban TODOS los enlaces. Hay que
+     normalizar el vacio a index.html antes de comparar. */
+  (() => {
+    const archivo = (location.pathname.split('/').pop() || 'index.html');
     document.querySelectorAll('.esc-nav-link').forEach(a => {
-      if (a.getAttribute('href').endsWith(f)) { a.classList.add('activo'); a.setAttribute('aria-current','page'); }
-    }); })();
+      const destino = a.getAttribute('href').split('/').pop() || 'index.html';
+      if (destino === archivo) { a.classList.add('activo'); a.setAttribute('aria-current', 'page'); }
+    });
+  })();
 </script>
 </body>
 </html>
