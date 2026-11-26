@@ -74,15 +74,14 @@
 /* ── m-pasos · Pasos de un asistente ───────────────────────────────────
    DOS VARIANTES, y elegir mal rompe la ley de relieve.
 
-   Por defecto el indicador es INFORMATIVO: dice en que paso estas, pero
-   no se pulsa. Va plano y opaco, con <span>, porque la mayoria de
-   asistentes con validacion no dejan saltar de paso. Si se le da relieve,
-   el usuario lo pulsa, no pasa nada y cree que esta roto.
+   EN ACTUARIA+ SE USA --navegable: el asistente permite volver a un paso
+   anterior pulsandolo. Por eso ahi los pasos completados son <button> con
+   relieve. El paso actual y los futuros NUNCA son boton: al actual ya has
+   llegado y al futuro no puedes ir porque aun no tiene sus datos.
 
-   La variante --navegable es para asistentes que SI permiten volver. Solo
-   ahi los pasos completados son <button> con relieve. El paso actual y
-   los futuros nunca son boton: al actual ya has llegado y al futuro no
-   puedes ir.
+   La variante base, sin modificador, es para flujos que NO dejan saltar:
+   todo plano, con <span>. Darle relieve a un paso que no responde hace
+   que el usuario lo pulse, no pase nada y crea que esta roto.
 
    Lista ordenada de verdad en ambos casos, con aria-current="step" en el
    actual. El estado no depende del color: el hecho lleva marca de

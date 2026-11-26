@@ -1,0 +1,146 @@
+/* ╔══════════════════════════════════════════════════════════════════╗
+   ║  3 · ORGANISMOS                                                  ║
+   ║  Secciones completas de pantalla. Componen moleculas y atomos;   ║
+   ║  no inventan color, sombra ni espaciado propios.                 ║
+   ║                                                                  ║
+   ║  Ley de relieve, sin excepciones tampoco aqui: los organismos    ║
+   ║  son CONTENEDORES, asi que van planos o hundidos. El relieve se  ║
+   ║  reserva a lo que se pulsa.                                      ║
+   ╚══════════════════════════════════════════════════════════════════╝ */
+
+/* ── o-panel · Contenedor base ─────────────────────────────────────────
+   Plano, separado por color y borde. Si cada panel sobresaliera, el
+   relieve dejaria de significar «esto se puede pulsar». */
+.o-panel {
+  border-radius: var(--r-lg);
+  background: var(--sup-elevada);
+  border: 1px solid var(--p-light);
+  overflow: hidden;
+}
+.o-panel__cabeza {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--e-4); flex-wrap: wrap;
+  padding: var(--e-4) var(--e-6);
+  border-bottom: 1px solid var(--p-light);
+}
+.o-panel__titulo { font: var(--t-h3); color: var(--txt-fuerte); }
+.o-panel__cuerpo { padding: var(--e-6); }
+.o-panel__pie {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--e-4); flex-wrap: wrap;
+  padding: var(--e-4) var(--e-6);
+  border-top: 1px solid var(--p-light);
+}
+
+/* ── o-cabecera · Cabecera de un estudio ───────────────────────────────
+   Identidad a la izquierda, acciones a la derecha. Una sola accion
+   principal, y va con anillo. */
+.o-cabecera {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: var(--e-6); flex-wrap: wrap;
+  padding-bottom: var(--e-5);
+  border-bottom: 1px solid var(--p-light);
+}
+.o-cabecera__id { display: flex; flex-direction: column; gap: var(--e-2); min-width: 0; }
+.o-cabecera__ruta { display: flex; align-items: center; gap: var(--e-2); font: var(--t-ui-sm); color: var(--txt-debil); }
+.o-cabecera__ruta a {
+  /* Area de pulsacion de 24px de alto como minimo (WCAG 2.2 2.5.8).
+     Un enlace de ruta en linea mide lo que mide su texto, unos 16px, y
+     se queda corto. El padding negativo compensa para que no desplace
+     la linea de la ruta. */
+  display: inline-flex; align-items: center;
+  min-height: 24px; padding: 0 var(--e-2); margin: 0 calc(var(--e-2) * -1);
+  border-radius: var(--r-sm);
+  color: var(--txt-enlace);
+}
+.o-cabecera h1 { font: var(--t-h2); color: var(--txt-fuerte); }
+.o-cabecera__meta { display: flex; align-items: center; gap: var(--e-3); flex-wrap: wrap;
+  font: var(--t-ui-sm); color: var(--txt-debil); font-variant-numeric: tabular-nums; }
+.o-cabecera__acciones { display: flex; align-items: center; gap: var(--e-3); flex-wrap: wrap; }
+
+/* ── o-indicadores · Rejilla de KPI ────────────────────────────────────
+   Se adapta sola. Minimo 232px por tarjeta, que es lo que necesita la
+   cifra mas larga sin recortarse. */
+.o-indicadores {
+  display: grid; gap: var(--e-4);
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+}
+
+/* ── o-listado · Filtros + tabla + paginacion ──────────────────────────
+   El organismo que mas se usa. La tabla desborda en horizontal dentro de
+   su propia caja, nunca empuja la pagina entera. */
+.o-listado__barra {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--e-4); flex-wrap: wrap;
+  padding: var(--e-4) var(--e-6);
+  border-bottom: 1px solid var(--p-light);
+}
+.o-listado__scroll { overflow-x: auto; }
+.o-listado__pie {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--e-4); flex-wrap: wrap;
+  padding: var(--e-4) var(--e-6);
+  border-top: 1px solid var(--p-light);
+}
+
+/* ── o-asistente · Pasos + formulario + navegacion ─────────────────────
+   La navegacion va SIEMPRE visible al pie: avanzar a la derecha, volver
+   a la izquierda, y el destructivo separado de los dos. */
+.o-asistente__pasos { padding: var(--e-5) var(--e-6); border-bottom: 1px solid var(--p-light); }
+.o-asistente__campos { display: grid; gap: var(--e-5); grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+.o-asistente__nav { display: flex; align-items: center; gap: var(--e-3); }
+.o-asistente__nav--fin { margin-left: auto; }
+
+/* ── o-lateral · Barra de navegacion ───────────────────────────────────
+   Superficie navy, con SU pareja de sombras. El enlace activo va hundido
+   y ademas lleva aria-current: el estado no depende del color. */
+.o-lateral {
+  display: flex; flex-direction: column; gap: var(--e-5);
+  width: 240px; padding: var(--e-5) var(--e-4);
+  border-radius: var(--r-lg);
+  background: var(--p-navy);
+  color: var(--txt-inverso);
+}
+.o-lateral__grupo { display: flex; flex-direction: column; gap: 2px; }
+.o-lateral__rotulo {
+  padding: 0 var(--e-3) var(--e-2);
+  font: var(--t-ui-sm); color: var(--p-naranja-soft);
+  letter-spacing: .04em;
+}
+.o-lateral__enlace {
+  display: flex; align-items: center; gap: var(--e-3);
+  min-height: 36px; padding: 0 var(--e-3);
+  border-radius: var(--r-pill);
+  color: #dbe2f0; font: var(--t-ui); text-decoration: none;
+  box-shadow: var(--n-dark);
+  transition: box-shadow var(--mov-rapido), color var(--mov-rapido);
+}
+.o-lateral__enlace:hover { color: #fff; }
+.o-lateral__enlace[aria-current="page"] {
+  box-shadow: var(--n-in-dark); color: #fff; font-weight: 700;
+}
+.o-lateral__enlace svg { flex: none; opacity: .85; }
+.o-lateral__cuenta {
+  margin-left: auto; padding: 1px 7px; border-radius: var(--r-pill);
+  background: rgba(255,255,255,.14); color: #fff;
+  font: 700 11px/18px var(--ff-ui); font-variant-numeric: tabular-nums;
+}
+
+/* ── o-maqueta · Composicion de pantalla ───────────────────────────────
+   Barra lateral fija y contenido fluido. Escritorio primero: por debajo
+   de 1024px la barra pasa arriba y se desplaza en horizontal. */
+.o-maqueta { display: grid; grid-template-columns: 240px 1fr; gap: var(--e-6); align-items: start; }
+@media (max-width: 1023px) {
+  .o-maqueta { grid-template-columns: 1fr; }
+  .o-lateral { width: 100%; flex-direction: row; overflow-x: auto; }
+}
+
+/* ── Puntero grueso ───────────────────────────────────────────────────
+   Mismo criterio que en las moleculas: las medidas de arriba son de
+   escritorio, y los controles propios del organismo no heredan la regla
+   tactil de los atomos. Hay que subirlos aqui. */
+@media (pointer: coarse) {
+  .o-lateral__enlace { min-height: 44px; }
+  .o-cabecera__ruta a { min-height: 44px; padding: 0 var(--e-3); margin: 0 calc(var(--e-3) * -1); }
+  .o-cabecera__ruta { gap: var(--e-1); }
+}
