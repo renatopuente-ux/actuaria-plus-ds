@@ -72,12 +72,61 @@
 .lienzo--oscuro .muestra > .pie { color: var(--p-naranja-soft); }
 
 /* Reglas de uso: lo que un dev necesita saber sin leer el CSS */
-.reglas { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-5); margin-top: var(--e-5); }
-.regla { padding: var(--e-4) var(--e-5); border-radius: var(--r-md); background: var(--sup-elevada); box-shadow: var(--n-sm); }
-.regla h3 { font: var(--t-ui); color: var(--txt-fuerte); margin-bottom: var(--e-2); text-transform: uppercase; letter-spacing: .6px; }
-.regla ul { font: var(--t-cuerpo); font-size: 14px; line-height: 23px; padding-left: var(--e-5); list-style: disc; }
-.regla--si { border-left: 4px solid var(--p-success-500); }
-.regla--no { border-left: 4px solid var(--p-danger-500); }
+.reglas {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: var(--e-4); margin-top: var(--e-6);
+}
+
+/* Tarjeta de regla.
+
+   SIN FRANJA DE COLOR A LA IZQUIERDA. Es decoracion: no dice nada que no
+   diga ya el titulo, y se ha vuelto el sello visual de las interfaces
+   generadas. El color se mueve a donde SI significa algo — el simbolo de
+   cada linea — en vez de pintar un canto.
+
+   SIN RELIEVE. Una tarjeta de reglas informa, no se pulsa, y la ley de
+   relieve no admite excepciones ni en la propia documentacion. Se separa
+   del lienzo por color y por un filete de 1px.
+
+   TITULO EN CAJA NORMAL. Estaba en mayusculas con tracking abierto, que
+   es el otro tic reconocible de lo generado. */
+.regla {
+  padding: var(--e-5);
+  border-radius: var(--r-md);
+  background: var(--sup-elevada);
+  border: 1px solid var(--p-light);
+  box-shadow: none;
+}
+.regla h3 {
+  display: flex; align-items: baseline; gap: var(--e-3);
+  font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte);
+  text-transform: none; letter-spacing: 0;
+  padding-bottom: var(--e-3); margin-bottom: var(--e-4);
+  border-bottom: 1px solid var(--p-light);
+}
+/* Contador discreto: cuantas reglas hay. Es dato, no adorno. */
+.regla ul {
+  counter-reset: reglas;
+  list-style: none; padding: 0;
+  display: grid; gap: var(--e-3);
+  font: var(--t-cuerpo); font-size: 14px; line-height: 22px;
+}
+.regla li {
+  counter-increment: reglas;
+  display: grid; grid-template-columns: 15px 1fr; gap: var(--e-3);
+  align-items: start; max-width: 62ch;
+}
+/* El simbolo va en mascara, no como caracter: asi hereda el color por
+   currentColor y se ve igual en cualquier sistema operativo. */
+.regla li::before {
+  content: ""; width: 15px; height: 15px; margin-top: 3px;
+  background: currentColor;
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+}
+.regla--si li::before { color: var(--txt-ok);    -webkit-mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M3%208.6l3.4%203.4L13%204.6'/></svg>"); mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M3%208.6l3.4%203.4L13%204.6'/></svg>"); }
+.regla--no li::before { color: var(--txt-error); -webkit-mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M4.3%204.3l7.4%207.4M11.7%204.3l-7.4%207.4'/></svg>");  mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M4.3%204.3l7.4%207.4M11.7%204.3l-7.4%207.4'/></svg>"); }
+.regla li > * { color: var(--txt-medio); }
 
 .codigo {
   margin-top: var(--e-4); padding: var(--e-4) var(--e-5);

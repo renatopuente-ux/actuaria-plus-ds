@@ -411,7 +411,10 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
   box-shadow: none;
   opacity: .45;
   cursor: not-allowed;
-  background: var(--sup-hundida);
+  /* background-COLOR, no el atajo `background`: el atajo borra tambien
+     background-image, que es donde vive la flecha del desplegable. Sin
+     ella el deshabilitado parecia otro elemento distinto. */
+  background-color: var(--sup-hundida);
   color: var(--txt-debil);
 }
 /* el pulgar y la caja tampoco sobresalen si el control no responde */
@@ -423,19 +426,31 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 .a-btn[disabled]:hover, .a-icono[disabled]:hover,
 .a-campo[disabled]:hover, .a-select[disabled]:hover { box-shadow: none; }
 
-/* ── Interruptor encendido ────────────────────────────────────────────
-   Dos correcciones sobre el mismo control.
+/* ── Interruptor · pista verde, pulgar navy, SIN SOMBRA ───────────────
+   El verde de marca se queda: es el que distingue encendido de apagado
+   de un vistazo. Lo que sobraba era el halo.
 
-   1 · EL COLOR. Se usaba el verde de exito #00C781, pero «encendido» es
-       un ESTADO, no un exito: mezclaba dos significados, y ademas el
-       pulgar blanco sobre ese verde da 2.21 de contraste, por debajo del
-       3:1 que pide un control. El resto del sistema ya marca lo activo
-       con navy (casilla marcada, paso actual), asi que el interruptor
-       hace lo mismo: blanco sobre navy da 15.92.
+   EL HALO venia de un error de sustrato: el pulgar llevaba la pareja de
+   la superficie clara (#b0b3b9) mientras se apoyaba sobre color. Gris
+   sobre verde ensucia.
 
-   2 · LA SOMBRA DEL PULGAR. Llevaba la pareja de la superficie clara
-       (#b0b3b9) mientras se apoyaba sobre la pista de color. Gris sobre
-       color da un halo sucio. La sombra la decide el SUSTRATO: dentro de
-       una pista encendida, la pareja es la del navy. */
-.a-interruptor input:checked + .pista { background: var(--p-navy); }
-.a-interruptor input:checked + .pista .pulgar { box-shadow: var(--n-dark); }
+   LA SOLUCION NO ES TENIR LA SOMBRA DE VERDE, es quitarla. Un pulgar
+   necesita distinguirse de su pista, y eso se mide:
+     pulgar BLANCO sobre #00C781            2.21  no llega al 3:1
+     pulgar blanco con borde #009762        3.75 contra el pulgar,
+                                            pero 1.69 contra la pista:
+                                            el canto se funde en el verde
+     pulgar NAVY   sobre #00C781            7.19  limpio, sin nada mas
+   Con navy basta el color, asi que el pulgar no lleva sombra en ningun
+   estado: 12.03 sobre la pista apagada y 7.19 sobre la encendida. */
+.a-interruptor .pista .pulgar {
+  background: var(--p-navy);
+  box-shadow: none;
+}
+.a-interruptor input:checked + .pista { background: var(--p-success-500); }
+
+/* ── Casilla marcada · relleno plano ──────────────────────────────────
+   La caja marcada es navy sobre lienzo claro. Un elemento de otro color
+   no puede estar extruido de la superficie, asi que no se le pone
+   relieve: el color y la marca de verificacion ya la distinguen. */
+.a-casilla input:checked + .caja { box-shadow: none; }
