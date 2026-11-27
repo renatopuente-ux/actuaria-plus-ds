@@ -64,6 +64,17 @@
       const r = e.getBoundingClientRect();
       if (r.height < 24 || r.width < 24) F('area-tactil', `${nombre(e)} mide ${Math.round(r.width)}x${Math.round(r.height)}, minimo 24x24`); });
 
+  /* 3b · DESHABILITADO VISIBLE. Un control que no responde tiene que
+     notarse ANTES de intentar usarlo. La sombra es la senal de
+     interaccion, asi que al deshabilitarse se pierde; y la opacidad sola
+     no basta porque sobre fondo claro un 70% apenas se ve. */
+  [...document.querySelectorAll('[disabled], :disabled')].filter(visible).forEach(e => {
+    const s = getComputedStyle(e);
+    if (s.boxShadow !== 'none') F('deshabilitado', `${nombre(e)} conserva sombra estando deshabilitado`);
+    if (parseFloat(s.opacity) > 0.6) F('deshabilitado', `${nombre(e)} tiene opacidad ${s.opacity}, se confunde con el activo`);
+    if (s.cursor !== 'not-allowed') F('deshabilitado', `${nombre(e)} no usa cursor:not-allowed (usa ${s.cursor})`);
+  });
+
   /* 4 · CURSOR. Lo cliqueable se senala con el puntero. */
   [...document.querySelectorAll('button:not([disabled]), a[href], label.a-interruptor, label.a-casilla')].filter(visible)
     .forEach(e => { if (getComputedStyle(e).cursor !== 'pointer') F('cursor', `${nombre(e)} no tiene cursor:pointer`); });

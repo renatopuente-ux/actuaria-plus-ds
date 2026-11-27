@@ -383,3 +383,59 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
   /* el acento solido conserva su tamano: su contraste depende de el */
   .a-btn--acento-solido { min-height: 46px; }
 }
+
+/* ── Deshabilitado · UN SOLO TRATAMIENTO PARA TODO EL SISTEMA ─────────
+   Habia tres distintos y el campo de texto no tenia ninguno: se
+   diferenciaba del normal solo en que no dejaba escribir. A simple vista
+   los dos parecian activos.
+
+   La regla sale de la propia ley de relieve. El hundido significa «aqui
+   se escribe» y el relieve «esto se pulsa»; si el control esta
+   deshabilitado no se puede hacer ninguna de las dos cosas, asi que
+   PIERDE LA SOMBRA y queda plano. La opacidad sola no basta: sobre una
+   superficie clara, un 70% apenas se nota.
+
+     plano            la sombra es la senal de interaccion, y no la hay
+     opacidad .45     dentro del 40-50% habitual
+     fondo hundido    opaco, mas oscuro que la superficie de la app
+     not-allowed      el cursor lo confirma antes de pulsar
+
+   Va al final del archivo para ganar a las reglas de cada componente. */
+.a-btn[disabled], .a-btn:disabled,
+.a-icono[disabled], .a-icono:disabled,
+.a-campo[disabled], .a-campo:disabled,
+.a-select[disabled], .a-select:disabled,
+.a-area[disabled], .a-area:disabled,
+.a-interruptor:has(input:disabled),
+.a-casilla:has(input:disabled) {
+  box-shadow: none;
+  opacity: .45;
+  cursor: not-allowed;
+  background: var(--sup-hundida);
+  color: var(--txt-debil);
+}
+/* el pulgar y la caja tampoco sobresalen si el control no responde */
+.a-interruptor:has(input:disabled) .pista,
+.a-interruptor:has(input:disabled) .pulgar,
+.a-casilla:has(input:disabled) .caja { box-shadow: none; }
+
+/* sin efectos al pasar por encima: no hay nada que activar */
+.a-btn[disabled]:hover, .a-icono[disabled]:hover,
+.a-campo[disabled]:hover, .a-select[disabled]:hover { box-shadow: none; }
+
+/* ── Interruptor encendido ────────────────────────────────────────────
+   Dos correcciones sobre el mismo control.
+
+   1 · EL COLOR. Se usaba el verde de exito #00C781, pero «encendido» es
+       un ESTADO, no un exito: mezclaba dos significados, y ademas el
+       pulgar blanco sobre ese verde da 2.21 de contraste, por debajo del
+       3:1 que pide un control. El resto del sistema ya marca lo activo
+       con navy (casilla marcada, paso actual), asi que el interruptor
+       hace lo mismo: blanco sobre navy da 15.92.
+
+   2 · LA SOMBRA DEL PULGAR. Llevaba la pareja de la superficie clara
+       (#b0b3b9) mientras se apoyaba sobre la pista de color. Gris sobre
+       color da un halo sucio. La sombra la decide el SUSTRATO: dentro de
+       una pista encendida, la pareja es la del navy. */
+.a-interruptor input:checked + .pista { background: var(--p-navy); }
+.a-interruptor input:checked + .pista .pulgar { box-shadow: var(--n-dark); }

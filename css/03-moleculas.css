@@ -32,6 +32,13 @@
   position: absolute; left: var(--e-4); pointer-events: none; color: var(--txt-debil);
 }
 .m-busqueda .a-campo { width: 100%; padding-left: 42px; padding-right: 40px; }
+/* <input type="search"> pinta SU PROPIA X en los navegadores WebKit y
+   Blink, asi que junto a la nuestra salian dos. Se retira la nativa: no
+   se puede estilar, no existe en todos los navegadores y no respeta el
+   area tactil del sistema. */
+.m-busqueda .a-campo::-webkit-search-cancel-button,
+.m-busqueda .a-campo::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; appearance: none; display: none; }
 .m-busqueda .limpiar {
   position: absolute; right: 6px;
   display: grid; place-items: center; width: 26px; height: 26px;
