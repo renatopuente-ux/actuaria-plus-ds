@@ -97,6 +97,13 @@
       if ((d === 'flex' || d === 'inline-flex') && getComputedStyle(pa).flexDirection.startsWith('row')) filas.add(pa);
     });
     filas.forEach(pa => {
+      /* Solo cuando el contenedor PIDE centrar. Si declara flex-start
+         —como el aviso global, donde la X va arriba porque el texto
+         puede ocupar tres lineas— los hijos estan alineados arriba a
+         proposito y no hay nada que corregir. El fallo original era
+         otro: un align-self en el hijo que anulaba el align-items
+         center del padre. */
+      if (getComputedStyle(pa).alignItems !== 'center') return;
       const hijos = [...pa.children].filter(visible).filter(e => e.getBoundingClientRect().height > 0);
       if (hijos.length < 2) return;
       const centros = hijos.map(e => { const r = e.getBoundingClientRect(); return { e, c: r.top + r.height / 2 }; });
@@ -151,12 +158,42 @@
     });
   }
 
+  /* EXCEPCION «INLINE» DE WCAG 2.5.8, literal: el criterio no aplica
+     cuando «the target is in a sentence or its size is otherwise
+     constrained by the line-height of non-target text». Un enlace en
+     mitad de un parrafo no puede medir 24 —ni 44— px de alto sin
+     romper el interlineado; exigirselo obligaria a convertir cada
+     enlace de la prosa en un boton.
+     Tiene que ser prosa DE VERDAD: el padre es un bloque de texto (ni
+     flex ni grid, que ya son maquetacion) y lleva texto propio ademas
+     del enlace. Los enlaces del pie y de la barra, que son navegacion
+     suelta en una fila flex, NO entran y siguen obligados. */
+  const enlaceEnProsa = e => {
+    if (e.tagName !== 'A') return false;
+    const pa = e.parentElement; if (!pa) return false;
+    if (/flex|grid/.test(getComputedStyle(pa).display)) return false;
+    if (!getComputedStyle(e).display.startsWith('inline')) return false;
+    return pa.textContent.trim().length > e.textContent.trim().length + 3;
+  };
+
   /* 3 · AREA TACTIL. WCAG 2.2 (2.5.8) pide 24x24 CSS px como minimo; el
      sistema exige 34 porque es el tamano del boton pequeno. */
   [...document.querySelectorAll('button, a[href], input[type=checkbox], select')].filter(visible)
     .forEach(e => {
       /* el enlace de salto esta oculto a proposito hasta recibir foco */
       if (e.classList.contains('sr-only')) return;
+      /* EXCEPCION «INLINE» DE WCAG 2.5.8, literal: el criterio no se
+         aplica cuando «the target is in a sentence or its size is
+         otherwise constrained by the line-height of non-target text».
+         Un enlace en mitad de un parrafo no puede medir 24px de alto
+         sin romper el interlineado — exigirselo obligaria a convertir
+         cada enlace de la prosa en un boton.
+         Se exige que sea prosa DE VERDAD: el padre tiene que ser un
+         bloque de texto (no flex ni grid, que ya son maquetacion) y
+         llevar texto propio ademas del enlace. Los enlaces del pie,
+         que son navegacion suelta en una fila flex, NO entran y
+         siguen obligados a sus 24px. */
+      if (enlaceEnProsa(e)) return;
       const r = e.getBoundingClientRect();
       if (r.height < 24 || r.width < 24) F('area-tactil', `${nombre(e)} mide ${Math.round(r.width)}x${Math.round(r.height)}, minimo 24x24`); });
 
@@ -358,6 +395,7 @@
     /* y con el dedo, 44px de alto minimo */
     [...document.querySelectorAll('button:not([disabled]), a[href], select')].filter(visible)
       .forEach(e => { if (e.classList.contains('sr-only')) return;
+        if (enlaceEnProsa(e)) return;      /* misma excepcion que en 3 */
         const h = e.getBoundingClientRect().height;
         if (h < 44) F('tactil-44', `${nombre(e)} mide ${Math.round(h)}px de alto, minimo 44 con el dedo`); });
   }

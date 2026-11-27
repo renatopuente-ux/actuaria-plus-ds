@@ -10,9 +10,9 @@
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
-<link rel="stylesheet" href="../css/02-atomos.css?v=cca364ba">
+<link rel="stylesheet" href="../css/02-atomos.css?v=084a0c5b">
 <link rel="stylesheet" href="../css/03-moleculas.css?v=9980729d">
-<link rel="stylesheet" href="../css/04-organismos.css?v=824411ca">
+<link rel="stylesheet" href="../css/04-organismos.css?v=93d4a572">
 <link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=9f68a870">
 </head>
@@ -311,6 +311,34 @@
   
   
   
+  <section class="ficha" id="navegacion"><h2>Barra de navegación</h2><span class="clase">.o-navegacion</span><p class="resumen"><strong>Medida en producción, no inventada.</strong> Es una cápsula de cristal: fondo claro, radio 67px y un <code>inset</code> blanco que es lo que da el efecto — sin él es una caja gris. Los enlaces van en <strong>texto plano</strong>; la píldora se reserva al CTA.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><nav class="o-navegacion" aria-label="Principal"><a class="o-navegacion__marca" href="#navegacion">ACTUARIA</a><div class="o-navegacion__enlaces"><a class="o-navegacion__enlace" href="#navegacion" aria-current="page">Estudios</a><a class="o-navegacion__enlace" href="#navegacion">Colectivos</a><a class="o-navegacion__enlace" href="#navegacion">Informes</a></div><div class="o-navegacion__final"><a class="o-navegacion__cta" href="#navegacion">Nuevo estudio</a><span class="a-avatar a-avatar--azul">RP</span></div></nav><span class="pie">El sitio actual se marca con filete naranja, no con relieve</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Es la navegación de primer nivel de toda la plataforma</li><li>Hay entre tres y seis destinos y caben sin partirse</li><li>Hace falta un CTA único y claro a la derecha</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Dar relieve a los enlaces: parecen botones y no lo son</li><li>Quitar el <code>inset</code> blanco — ahí se pierde el cristal</li><li>Marcar el activo con fondo: el filete basta y no grita</li></ul></div></div><pre class="codigo"><code>&lt;nav class="o-navegacion" aria-label="Principal"&gt;
+  &lt;a class="o-navegacion__marca" href="/"&gt;ACTUARIA&lt;/a&gt;
+  &lt;div class="o-navegacion__enlaces"&gt;
+    &lt;a class="o-navegacion__enlace" aria-current="page"&gt;Estudios&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/nav&gt;</code></pre></section><section class="ficha" id="pie"><h2>Pie</h2><span class="clase">.o-pie</span><p class="resumen">Cierra la página y guarda lo que no cabe en la navegación: aviso legal, versión, contacto. <strong>Superficie plana</strong> — no se pulsa el pie, se pulsan los enlaces de dentro.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><footer class="o-pie"><div class="o-pie__grupo"><span>© 2026 Actuaria</span><a href="#pie">Aviso legal</a><a href="#pie">Protección de datos</a></div><div class="o-pie__grupo o-pie__grupo--final"><span>Actuaria+ 4.2.0</span><a href="#pie">Soporte</a></div></footer><span class="pie">Lo secundario a la izquierda, lo técnico a la derecha</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Hay enlaces legales obligatorios que no van en la navegación</li><li>Conviene mostrar la versión para que el soporte sepa qué mira</li><li>La página es larga y el pie confirma que se ha llegado al final</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Meter navegación principal: si importa, va arriba</li><li>Darle relieve — es superficie, no control</li><li>Llenarlo de enlaces que nadie pulsa</li></ul></div></div><pre class="codigo"><code>&lt;footer class="o-pie"&gt;
+  &lt;div class="o-pie__grupo"&gt;© 2026 Actuaria&lt;/div&gt;
+&lt;/footer&gt;</code></pre></section><section class="ficha" id="aviso"><h2>Aviso global</h2><span class="clase">.o-aviso</span><p class="resumen">Distinto de la alerta: la alerta vive <strong>en</strong> el flujo, junto a lo que explica; el aviso aparece por encima y es pasajero. El papel ARIA depende de la gravedad, y <strong>solo se desvanece solo si es una confirmación sin acción</strong>.</p><div class="lienzo lienzo--col"><div class="muestra"><button type="button" class="a-btn" data-demo-aviso="ok">Confirmación</button><button type="button" class="a-btn" data-demo-aviso="error">Error</button><button type="button" class="a-btn" data-demo-aviso="accion">Con acción</button><span class="pie">La confirmación se va sola; el error y el de acción, no</span></div><div class="muestra-ancha"><div class="o-aviso o-aviso--ok" role="status"><div class="o-aviso__texto"><strong class="o-aviso__titulo">Estudio guardado</strong>Valuación actuarial 2026 · 1 842 pólizas</div><button type="button" class="o-aviso__cerrar" aria-label="Cerrar aviso"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg></button></div><span class="pie">Estático, para ver la forma</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La acción terminó y el usuario ya no está mirando ese punto de la pantalla</li><li>El error viene de una operación en segundo plano</li><li>Hace falta ofrecer «deshacer» justo después de una acción</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Poner <code>role="alert"</code> a una confirmación: interrumpe al lector a mitad de frase</li><li>Hacer que un error se desvanezca solo (WCAG 2.2.1)</li><li>Dejar el temporizador corriendo con el ratón encima o el foco dentro</li></ul></div></div><pre class="codigo"><code>avisar({
+  titulo: "Estudio guardado",
+  texto: "Valuación actuarial 2026",
+  tipo: "ok"            // ok · info · aviso · error
+});</code></pre></section>
+<script>
+/* El ejemplo estatico lleva un boton de cerrar que, sin esto, no haria
+   nada: un control muerto en la documentacion ensena exactamente lo
+   contrario de lo que el sistema predica. */
+document.addEventListener('click', e => {
+  const x = e.target.closest('.ficha .o-aviso__cerrar');
+  if (x) { x.closest('.o-aviso').hidden = true; return; }
+  const b = e.target.closest('[data-demo-aviso]'); if (!b) return;
+  const k = b.dataset.demoAviso;
+  if (k === 'ok')    avisar({ titulo:'Estudio guardado', texto:'Valuación actuarial 2026 · 1 842 pólizas', tipo:'ok', destino:b });
+  if (k === 'error') avisar({ titulo:'No se pudo recalcular', texto:'La tabla de mortalidad no cubre las edades 18 a 21.', tipo:'error', destino:b });
+  if (k === 'accion')avisar({ titulo:'Fila eliminada', texto:'Póliza 4471 retirada del colectivo.', tipo:'info',
+                              accion:{ texto:'Deshacer', hacer(){} }, destino:b });
+});
+</script>
+  
   </main>
 </div>
 <script src="../js/numero.js?v=4f763e4c" defer></script>
@@ -319,6 +347,7 @@
 <script src="../js/subida.js?v=0413ad23" defer></script>
 <script src="../js/pestanas.js?v=460c6f4d" defer></script>
 <script src="../js/calendario.js?v=a9e4e4fc" defer></script>
+<script src="../js/avisos.js?v=7fdca0bb" defer></script>
 <script src="../js/ds.js?v=c3c2bbb3"></script>
 <script src="../js/superposicion.js?v=b81abd6e"></script>
 <script>

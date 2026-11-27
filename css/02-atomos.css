@@ -872,3 +872,45 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 @media (pointer: coarse) {
   .a-valoracion--editable [role="radio"] { width: 44px; height: 44px; }
 }
+
+/* ── Separador · .a-separador ─────────────────────────────────────────
+   Un filete de 1px, no una franja. Y la decision que casi nunca se
+   toma: si el separador SOLO decora, lleva aria-hidden y desaparece
+   del arbol de accesibilidad; si de verdad separa dos grupos con
+   sentido distinto, es un <hr> o role="separator" y se anuncia.
+   Poner role="separator" a todas las rayas de una pantalla llena el
+   lector de «separador, separador, separador». */
+.a-separador {
+  border: 0; height: 1px; margin: 0;
+  background: var(--p-light);
+}
+.a-separador--vert {
+  width: 1px; height: auto; align-self: stretch;
+  min-height: 20px;
+}
+/* Con rotulo: la raya se parte y el texto va en medio. */
+.a-separador-rotulo {
+  display: flex; align-items: center; gap: var(--e-3);
+  font: var(--t-ui-sm); font-weight: 700;
+  color: var(--txt-debil); text-transform: uppercase;
+  letter-spacing: .06em;
+}
+.a-separador-rotulo::before, .a-separador-rotulo::after {
+  content: ""; flex: 1; height: 1px; background: var(--p-light);
+}
+
+/* ── Hueco de composición · .a-hueco ──────────────────────────────────
+   Marca donde una plantilla espera contenido. NO es parte del producto:
+   solo vive en la documentacion y en las maquetas, para que se vea la
+   estructura sin inventar contenido falso que luego alguien copia.
+   Por eso es deliberadamente feo: nadie lo confunde con algo acabado. */
+.a-hueco {
+  display: grid; place-items: center;
+  min-height: 56px; padding: var(--e-3);
+  border: 1px dashed var(--txt-debil);
+  border-radius: var(--r-md);
+  background: var(--sup-hundida);
+  font: var(--t-ui-sm); color: var(--txt-debil);
+  text-align: center;
+}
+.a-hueco--alto { min-height: 140px; }

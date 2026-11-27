@@ -200,3 +200,140 @@
   background: color-mix(in srgb, #ffffff 18%, var(--p-navy));
   color: #fff;
 }
+
+/* ── Barra de navegación · .o-navegacion ──────────────────────────────
+   MEDIDA en actuaria.com, no inventada. La barra de produccion es una
+   CAPSULA DE CRISTAL: .navbar-logo-left-container.shadow-three, fondo
+   #f5f6fa, radio 67px, sombra rgba(47,47,47,.16) 4px 4px 12px MAS un
+   inset blanco de -4px -4px 8px. Ese inset es lo que da el efecto
+   cristal; sin el es una caja gris cualquiera.
+
+   Y los enlaces van en TEXTO PLANO (.link_navbar, 600 15px, #151f47).
+   La pildora se reserva a los CTA. Darle relieve a cada enlace de la
+   barra fue justo el error que el equipo senalo: «asi no la tenemos,
+   son glass». */
+.o-navegacion {
+  display: flex; align-items: center; gap: var(--e-5);
+  padding: var(--e-3) var(--e-5);
+  border-radius: 67px;
+  /* --n-vidrio ES el cristal medido: 4px 4px 12px oscura + inset
+     -4px -4px 8px clara. Es el token que ya existe; inventarme un
+     --n-cristal habria duplicado el mismo valor con otro nombre. */
+  background: var(--sup-app);
+  box-shadow: var(--n-vidrio);
+}
+.o-navegacion__marca {
+  display: flex; align-items: center; gap: var(--e-3);
+  font: var(--t-h3); font-size: 17px;
+  color: var(--p-navy); text-decoration: none;
+  letter-spacing: .04em; flex: none;
+}
+.o-navegacion__enlaces {
+  display: flex; align-items: center; gap: var(--e-5);
+  margin-left: var(--e-4);
+}
+.o-navegacion__enlace {
+  font: var(--t-ui); font-weight: 600;
+  color: var(--p-navy); text-decoration: none;
+  padding: var(--e-2) 0;
+  border-bottom: 2px solid transparent;
+}
+.o-navegacion__enlace:hover { border-bottom-color: var(--p-naranja); }
+/* El sitio actual se marca con el filete, no con relieve: sigue siendo
+   un enlace, no un boton. */
+.o-navegacion__enlace[aria-current="page"] {
+  border-bottom-color: var(--p-naranja);
+  font-weight: 700;
+}
+.o-navegacion__enlace:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 3px; }
+.o-navegacion__final { display: flex; align-items: center; gap: var(--e-3); margin-left: auto; }
+.o-navegacion__cta {
+  display: inline-flex; align-items: center;
+  min-height: 38px; padding: 0 var(--e-5);
+  border-radius: 64px;
+  background: var(--p-navy); color: var(--txt-inverso);
+  font: var(--t-ui); font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+  box-shadow: var(--n-dark);
+}
+.o-navegacion__cta:hover { box-shadow: var(--n-dark); filter: brightness(1.12); }
+.o-navegacion__cta:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 3px; }
+
+/* ── Pie · .o-pie ─────────────────────────────────────────────────────
+   Cierra la pagina y guarda lo que no cabe en la navegacion: aviso
+   legal, version, contacto. Superficie PLANA: no se pulsa el pie, se
+   pulsan los enlaces de dentro. */
+.o-pie {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--e-4) var(--e-6);
+  padding: var(--e-5) var(--e-6);
+  border-top: 1px solid var(--p-light);
+  font: var(--t-ui-sm); color: var(--txt-debil);
+}
+.o-pie__grupo { display: flex; flex-wrap: wrap; align-items: center; gap: var(--e-4); }
+.o-pie__grupo--final { margin-left: auto; }
+/* Los enlaces del pie NO son prosa: son navegacion suelta en una fila
+   flex, asi que la excepcion de WCAG 2.5.8 para enlaces dentro de una
+   frase no les aplica. Necesitan area propia de 24px. */
+.o-pie a {
+  display: inline-flex; align-items: center; min-height: 24px;
+  color: var(--txt-enlace); text-decoration: underline; text-underline-offset: 3px;
+}
+.o-pie a:hover { color: var(--p-navy); }
+
+/* ── Aviso global · .o-aviso ──────────────────────────────────────────
+   Distinto de .m-alerta: la alerta vive EN el flujo, junto a lo que
+   explica; el aviso global aparece por encima y es pasajero.
+
+   DOS REGLAS QUE NO SON NEGOCIABLES:
+
+   1. El papel ARIA depende de la gravedad. Un error usa role="alert",
+      que interrumpe al lector de pantalla. Una confirmacion usa
+      role="status", que espera a que termine la frase en curso. Poner
+      role="alert" a todo convierte cada «guardado» en una
+      interrupcion.
+
+   2. SOLO se desvanece solo si es una confirmacion sin accion. Si hay
+      un boton dentro, o es un error, se queda hasta que el usuario lo
+      cierre: WCAG 2.2.1 exige poder ampliar o desactivar un limite de
+      tiempo, y nadie lee «no se pudo guardar» en cuatro segundos. */
+.o-avisos {
+  position: fixed; z-index: var(--z-capa);
+  top: var(--e-5); left: 50%; transform: translateX(-50%);
+  display: grid; gap: var(--e-3);
+  width: min(560px, calc(100vw - 32px));
+}
+.o-aviso {
+  display: flex; align-items: flex-start; gap: var(--e-3);
+  padding: var(--e-4);
+  border-radius: var(--r-md);
+  border-left: 3px solid var(--p-info-500);
+  background: var(--sup-elevada);
+  box-shadow: var(--n-md);
+  font: var(--t-ui); color: var(--txt-medio);
+}
+.o-aviso__texto { flex: 1; min-width: 0; }
+.o-aviso__titulo { display: block; font-weight: 700; color: var(--txt-fuerte); }
+.o-aviso--ok    { border-left-color: var(--p-success-700); }
+.o-aviso--aviso { border-left-color: var(--p-warning-700); }
+.o-aviso--error { border-left-color: var(--p-danger-700); }
+.o-aviso__cerrar {
+  flex: none; display: grid; place-items: center;
+  width: 28px; height: 28px;
+  border: 0; border-radius: var(--r-circle);
+  background: var(--sup-app); box-shadow: var(--n-xs);
+  color: var(--txt-medio); cursor: pointer;
+}
+.o-aviso__cerrar:hover { box-shadow: var(--n-sm); }
+.o-aviso__cerrar:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 2px; }
+@media (pointer: coarse) { .o-aviso__cerrar { width: 44px; height: 44px; } }
+
+/* Con el dedo, los enlaces de la barra necesitan area propia: son
+   navegacion suelta, no prosa, asi que la excepcion inline de WCAG
+   2.5.8 no les vale. */
+@media (pointer: coarse) {
+  .o-navegacion__enlace { min-height: 44px; display: inline-flex; align-items: center; }
+  .o-navegacion__marca  { min-height: 44px; }
+  .o-navegacion__cta    { min-height: 44px; }
+  .o-pie a              { min-height: 44px; }
+}
