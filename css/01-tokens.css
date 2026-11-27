@@ -37,6 +37,19 @@
   --p-success-700:       #00B374;
   --p-warning-700:       #E6A832;
   --p-info-700:          #366AD9;
+
+  /* Vidrio de la casa. Medido en la capsula de la barra de actuaria.com
+     (.navbar-logo-left-container): sombra externa MAS un inset blanco
+     arriba a la izquierda. Ese inset es lo que da el canto de cristal;
+     sin el, la capsula es solo una caja gris.
+       exterior  rgba(47,47,47,.16) 4px 4px 12px
+       inset     #ffffff -4px -4px 8px
+     Aqui la externa se expresa con el color solido del sistema (k=0.76)
+     en vez de alpha, pero la geometria es la misma. */
+  --n-vidrio: 4px 4px 12px var(--neu-oscura),
+              0 0 0 var(--neu-clara),
+              inset -4px -4px 8px var(--neu-clara),
+              inset 0 0 0 var(--neu-oscura);
   --p-info-500:    #3C76F1;  --p-info-100:    #ECF1FE;
 
   /* ── 1 · PRIMITIVO · escala de superficie ────────────────────────────

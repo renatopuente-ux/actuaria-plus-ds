@@ -261,11 +261,23 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
    parecen estar siempre resaltadas y el hover desaparece justo en la
    mitad de la tabla. Se usa la escalera de superficies que ya existe,
    sin inventar tonos:
-     impar   --sup-elevada  #FFFFFF   100.0% de luminosidad
-     par     --p-surface    #E8ECF4    83.7%   salto de 16.3
-     hover   --p-light      #D9DEEB    73.0%   salto de 10.7
-   El ojo distingue desde un 3%, asi que los tres se separan de sobra, y
-   el texto debil sigue en 4.63 sobre el escalon mas oscuro.
+     base    --sup-elevada  #FFFFFF   100.0% de luminosidad
+     franja   mezcla al 45%  #f5f6fa    92.2%   salto de  7.8
+     hover   --p-surface    #E8ECF4    83.7%   salto de  8.5
+     elegida --p-light      #D9DEEB    73.0%   salto de 10.7
+
+   LA FRANJA ES UN PASO CORTO, NO UN DAMERO. Una primera version salto
+   del blanco directo a --p-surface: 16.3 puntos de golpe, que ya no se
+   lee como guia sino como tablero de ajedrez. La franja se nota a
+   partir de ~3 puntos y molesta pasados ~10.
+
+   El tono de la franja no se escribe a mano: es --p-surface mezclado al
+   45% con la superficie de la tarjeta. Da #f5f6fa, que resulta ser
+   exactamente el bg-sunken de produccion —el mismo tono de la capsula
+   de la barra de actuaria.com—, asi que la escalera cae sola dentro de
+   la paleta sin anadir ningun valor nuevo.
+
+   El texto debil aguanta 4.63 sobre el escalon mas oscuro.
 
    SE RETIRA LA LINEA ENTRE FILAS. Franja y filete dicen lo mismo; juntos
    ensucian. La linea se queda solo bajo la cabecera, que si separa dos
@@ -280,12 +292,14 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
   overflow: hidden;
 }
 .m-tabla tbody tr { background: var(--sup-elevada); }
-.m-tabla tbody tr:nth-child(even) { background: var(--p-surface); }
+.m-tabla tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--p-surface) 45%, var(--sup-elevada));
+}
 .m-tabla tbody td { border-bottom: 0; }
 .m-tabla thead th { border-bottom: 1px solid var(--p-light); }
 
 /* el raton gana a la franja, y la seleccion gana al raton */
-.m-tabla tbody tr:hover { background: var(--p-light); }
+.m-tabla tbody tr:hover { background: var(--p-surface); }
 .m-tabla tbody tr[aria-selected="true"] { background: var(--p-info-100); }
 /* el escalon de 'seleccionada + raton encima' NO se escribe a mano: se
    deriva mezclando dos tokens de marca, asi sigue la paleta si cambian */

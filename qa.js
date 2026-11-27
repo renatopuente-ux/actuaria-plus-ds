@@ -181,6 +181,20 @@
     if (!n) F('sin-nombre', `${nombre(e)} no tiene texto ni aria-label`);
   });
 
+  /* 6b · ENLACE DE TEXTO. Exento de la ley de relieve, pero no impune:
+     WCAG 1.4.1 exige que un enlace se distinga del texto por algo MAS
+     que el color. Dentro de un <nav> lo da el contexto; en medio de un
+     parrafo hace falta subrayado o peso. */
+  document.querySelectorAll('a[href]').forEach(a => {
+    if (!visible(a)) return;
+    const c = getComputedStyle(a);
+    if (c.backgroundColor !== 'rgba(0, 0, 0, 0)' || parseFloat(c.borderTopWidth) > 0) return;
+    if (a.closest('nav, [role="navigation"]')) return;
+    const p = a.parentElement && getComputedStyle(a.parentElement);
+    if (c.textDecorationLine === 'none' && (!p || c.fontWeight === p.fontWeight))
+      F('enlace-solo-color', `${nombre(a)} se distingue del texto solo por el color (WCAG 1.4.1)`);
+  });
+
   /* 6 · LEY DE RELIEVE. Cliqueable sobresale; informativo, plano. */
   {
     const sombra = e => getComputedStyle(e).boxShadow;
@@ -213,7 +227,20 @@
       e.hasAttribute('aria-current') ||
       !!e.closest('[aria-sort]') ||
       e.matches(':active');
-    [...document.querySelectorAll('button:not([disabled]), a.esc-nav-link[href]')].filter(visible)
+    /* Solo CONTROLES. Un <a> sin superficie propia no entra aqui: no se
+       pulsa, se sigue, y se identifica por las convenciones del enlace.
+       Si la ley los alcanzara, cada enlace de un parrafo tendria que ser
+       un boton — que es justo lo que actuaria.com NO hace: sus
+       .link_navbar son texto plano. Los enlaces se juzgan en 6b.
+       Un <a> que SI tiene superficie (fondo o borde) vuelve a entrar,
+       porque entonces se presenta como un control. */
+    [...document.querySelectorAll('button:not([disabled]), a[href]')]
+      .filter(visible)
+      .filter(e => {
+        if (e.tagName !== 'A') return true;
+        const c = getComputedStyle(e);
+        return c.backgroundColor !== 'rgba(0, 0, 0, 0)' || parseFloat(c.borderTopWidth) > 0;
+      })
       .forEach(e => {
         if (e.closest('.a-anillo')) return;            /* la sombra la lleva el anillo */
         if (sobresale(sombra(e))) return;              /* en reposo, correcto */

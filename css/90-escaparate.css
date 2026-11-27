@@ -213,3 +213,59 @@
 
 /* Si el navegador no soporta color-mix, el degradado no se pinta y la
    tarjeta queda blanca con su filete: degrada sin romperse. */
+
+/* ── Navegacion · como la tiene Actuaria, no como la tenia yo ─────────
+   Medido en produccion (.link_navbar): los enlaces son TEXTO PLANO —sin
+   fondo, sin radio, sin sombra— con peso 600 y 15px. La pildora se
+   reserva a los CTA (.actuariaplus-button, Contacto).
+
+   Lo que habia aqui daba relieve de pildora a los seis enlaces, y eso
+   rompe la propia ley del sistema: si todo sobresale, nada sobresale.
+   Ademas hacia que cada entrada de menu pareciese un boton principal.
+
+   Ahora: enlace = texto. Activo = pildora navy, que es la UNICA que
+   queda y por eso se ve. El raton solo tine el fondo, sin levantar.
+
+   Y el contenedor recibe el vidrio de la casa: sombra externa mas inset
+   blanco, que es lo que da el canto de cristal de la capsula. */
+.esc-nav-link,
+.esc-nav-link:hover {
+  background: transparent;
+  box-shadow: none;
+  border-radius: var(--r-md);
+  font: 600 15px/20px var(--ff-ui);
+  color: var(--txt-medio);
+}
+.esc-nav-link:hover {
+  background: color-mix(in srgb, var(--p-navy) 7%, transparent);
+  color: var(--txt-fuerte);
+}
+.esc-nav-link b {
+  background: transparent;
+  color: var(--txt-debil);
+  font-variant-numeric: tabular-nums;
+}
+/* El activo es el unico con relleno: por eso se distingue sin competir.
+   Y va HUNDIDO, no plano. La ley tiene tres estados —relieve si se
+   pulsa, hundido si ya esta activo, plano si solo informa— y la pagina
+   actual es exactamente el caso del medio: es donde YA estas, no un
+   sitio al que ir. Es la misma razon por la que el paso actual del
+   asistente no sobresale. El hundido usa la pareja del navy, que es su
+   propio sustrato. */
+.esc-nav-link.activo,
+.esc-nav-link.activo:hover {
+  background: var(--p-navy);
+  color: var(--txt-inverso);
+  box-shadow: var(--n-in-dark);
+}
+.esc-nav-link.activo b { background: transparent; color: var(--p-naranja-soft); }
+
+/* La columna es la capsula de cristal */
+.esc-nav {
+  background: var(--sup-app);
+  border-radius: var(--r-lg);
+  box-shadow: var(--n-vidrio);
+  margin: var(--e-4);
+  height: calc(100vh - 56px - var(--e-6));
+  padding: var(--e-5) var(--e-4);
+}
