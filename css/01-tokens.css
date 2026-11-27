@@ -95,17 +95,30 @@
      cambia solo: el mismo chip medido daba 8:1 sobre claro y 1.3:1 sobre
      navy. Opaco = contraste estable en cualquier fondo. */
   --fill-ok:    var(--p-success-100);
-  --fill-aviso: var(--p-warning-100);
+  /* El nivel 100 (#FFD688) da 1.16 contra la superficie: el mas flojo
+     de los cuatro rellenos. El 500 sin mezclar da 1.43 y texto 5.37,
+     asi que aqui el nivel que sirve de relleno es el 500.
+
+     HALLAZGO GENERAL: los niveles del brandbook NO estan igualados
+     perceptualmente, asi que el nivel correcto para un relleno se elige
+     MIDIENDO, no por el nombre. Resultado por tono:
+       ok     success-100 #66DDB3  1.41   el 100 sirve
+       error  danger-100  #FF8C8C  1.89   el 100 sirve
+       aviso  warning-500 #FFBB38  1.43   hace falta el 500
+       info   info-500 al 30%      1.24   ningun nivel sirve neto
+     Brecha anotada para el equipo de marca, no resuelta en silencio. */
+  --fill-aviso:          var(--p-warning-500);
   --fill-error: var(--p-danger-100);
   /* El nivel 100 de info del brandbook (#ECF1FE) es un caso atipico:
      sus tres hermanos son tonos saturados —ok 57.8, aviso 71.1, error
      41.9 de luminosidad— y el azul se va a 87.9, casi blanco. Sobre la
      superficie da 1.05 de contraste, o sea desaparece.
-     Se deriva de --p-info-500 al 30% para caer dentro de la banda de
-     sus hermanos (66.8), sin inventar ningun tono: 1.24 contra la
-     superficie y 6.65 con el texto. La brecha con el brandbook queda
+     Se deriva de --p-info-500 al 34% para caer dentro de la banda de
+     sus hermanos (62.8), sin inventar ningun tono: 1.31 contra la
+     superficie —justo el minimo que el propio sistema exige a un
+     relleno— y 6.28 con el texto. La brecha con el brandbook queda
      anotada, no resuelta en silencio. */
-  --fill-info:           color-mix(in srgb, var(--p-info-500) 30%, #ffffff);
+  --fill-info:           color-mix(in srgb, var(--p-info-500) 34%, #ffffff);
   --fill-neutro: var(--p-light);
 
   /* ── 2 · SEMANTICO · tipografia ──────────────────────────────────────

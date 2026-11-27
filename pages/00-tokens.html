@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tokens · Actuaria DS 27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
+<link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
+<link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
+<link rel="stylesheet" href="../css/02-atomos.css?v=0970e361">
+<link rel="stylesheet" href="../css/03-moleculas.css?v=90ede061">
+<link rel="stylesheet" href="../css/04-organismos.css?v=824411ca">
+<link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
+<link rel="stylesheet" href="../css/90-escaparate.css?v=dd5f9ccf">
+</head>
+<body>
+<a class="sr-only" href="#principal">Saltar al contenido</a>
+<header class="esc-topbar">
+  <a class="esc-marca" href="../index.html">ACTUARIA <span>DS 27</span></a>
+</header>
+<div class="esc-shell">
+  <nav class="esc-nav" aria-label="Capas del design system">
+    <span class="esc-nav-tit">Atomic Design</span>
+    <a class="esc-nav-link" href="../pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
+    <a class="esc-nav-link" href="../pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
+    <a class="esc-nav-link" href="../pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
+    <a class="esc-nav-link" href="../pages/04-superposicion.html" data-capa="4">Superposición</a>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true" data-capa="5"><b>5</b> Páginas</span>
+    <span class="esc-nav-tit">Fundamentos</span>
+    <a class="esc-nav-link" href="../pages/00-tokens.html">Tokens</a>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true">Principios</span>
+  </nav>
+  <main class="esc-main" id="principal">
+<header class="esc-intro"><h1>Tokens</h1><p>Las tres capas del sistema, leídas del CSS. Esta página la genera <code>tokens-page.py</code> a partir de <code>css/*.css</code>: no hay ninguna lista copiada a mano que se pueda quedar atrás.</p><p>Los contrastes se <strong>miden en el navegador</strong> al cargar, sobre los valores ya resueltos. Un <code>color-mix()</code> en el fuente es una expresión, no un color: solo el navegador sabe en qué acaba.</p></header><section class="ficha" id="capa-1"><h2>Primitivos</h2><p class="resumen">Valores en bruto de la marca. No tienen funcion todavia: un <code>#151F47</code> no se puede poner en una pantalla hasta que algo diga para que sirve. Aqui es donde manda el brandbook.</p><p class="t-cuenta">44 tokens</p>
+<h3 class="t-sec">PRIMITIVO · marca</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--p-navy" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-navy)"></span></td><td class="t-nom"><code>--p-navy</code></td><td class="t-val"><code>#151F47</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-azul" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-azul)"></span></td><td class="t-nom"><code>--p-azul</code></td><td class="t-val"><code>#3061AA</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-naranja" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-naranja)"></span></td><td class="t-nom"><code>--p-naranja</code></td><td class="t-val"><code>#DF5E2D</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-surface" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-surface)"></span></td><td class="t-nom"><code>--p-surface</code></td><td class="t-val"><code>#E8ECF4</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-light" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-light)"></span></td><td class="t-nom"><code>--p-light</code></td><td class="t-val"><code>#D9DEEB</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-white" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-white)"></span></td><td class="t-nom"><code>--p-white</code></td><td class="t-val"><code>#FFFFFF</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-naranja-soft" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-naranja-soft)"></span></td><td class="t-nom"><code>--p-naranja-soft</code></td><td class="t-val"><code>#FFBBA1</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">PRIMITIVO · estados (niveles 500 y 100 del brandbook)</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--p-success-500" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-success-500)"></span></td><td class="t-nom"><code>--p-success-500</code></td><td class="t-val"><code>#00C781</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-success-100" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-success-100)"></span></td><td class="t-nom"><code>--p-success-100</code></td><td class="t-val"><code>#66DDB3</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-warning-500" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-warning-500)"></span></td><td class="t-nom"><code>--p-warning-500</code></td><td class="t-val"><code>#FFBB38</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-warning-100" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-warning-100)"></span></td><td class="t-nom"><code>--p-warning-100</code></td><td class="t-val"><code>#FFD688</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-danger-500" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-danger-500)"></span></td><td class="t-nom"><code>--p-danger-500</code></td><td class="t-val"><code>#FF4040</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-danger-100" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-danger-100)"></span></td><td class="t-nom"><code>--p-danger-100</code></td><td class="t-val"><code>#FF8C8C</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-danger-700" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-danger-700)"></span></td><td class="t-nom"><code>--p-danger-700</code></td><td class="t-val"><code>#CC3333</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-success-700" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-success-700)"></span></td><td class="t-nom"><code>--p-success-700</code></td><td class="t-val"><code>#00B374</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-warning-700" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-warning-700)"></span></td><td class="t-nom"><code>--p-warning-700</code></td><td class="t-val"><code>#E6A832</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-info-700" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-info-700)"></span></td><td class="t-nom"><code>--p-info-700</code></td><td class="t-val"><code>#366AD9</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-vidrio" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-vidrio)"></span></td><td class="t-nom"><code>--n-vidrio</code></td><td class="t-val"><code>4px 4px 12px var(--neu-oscura), 0 0 0 var(--neu-clara), inset -4px -4px 8px var(--neu-clara), inset 0 0 0 var(--neu-oscura)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-info-500" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-info-500)"></span></td><td class="t-nom"><code>--p-info-500</code></td><td class="t-val"><code>#3C76F1</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-info-100" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-info-100)"></span></td><td class="t-nom"><code>--p-info-100</code></td><td class="t-val"><code>#ECF1FE</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">PRIMITIVO · escala de superficie</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--p-sup-0" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--p-sup-0</code></td><td class="t-val"><code>var(--p-white)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-sup-1" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-sup-1)"></span></td><td class="t-nom"><code>--p-sup-1</code></td><td class="t-val"><code>#E8ECF4</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-sup-2" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-sup-2)"></span></td><td class="t-nom"><code>--p-sup-2</code></td><td class="t-val"><code>#dbe0ea</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-sup-3" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-sup-3)"></span></td><td class="t-nom"><code>--p-sup-3</code></td><td class="t-val"><code>#cfd3df</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--p-sup-4" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-sup-4)"></span></td><td class="t-nom"><code>--p-sup-4</code></td><td class="t-val"><code>#c2c7d5</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">PRIMITIVO · espacio (base 4)</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--e-1" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-1);height:var(--e-1)"></i></span></td><td class="t-nom"><code>--e-1</code></td><td class="t-val"><code>4px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-2" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-2);height:var(--e-2)"></i></span></td><td class="t-nom"><code>--e-2</code></td><td class="t-val"><code>8px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-3" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-3);height:var(--e-3)"></i></span></td><td class="t-nom"><code>--e-3</code></td><td class="t-val"><code>12px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-4" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-4);height:var(--e-4)"></i></span></td><td class="t-nom"><code>--e-4</code></td><td class="t-val"><code>16px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-5" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-5);height:var(--e-5)"></i></span></td><td class="t-nom"><code>--e-5</code></td><td class="t-val"><code>20px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-6" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-6);height:var(--e-6)"></i></span></td><td class="t-nom"><code>--e-6</code></td><td class="t-val"><code>24px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-8" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-8);height:var(--e-8)"></i></span></td><td class="t-nom"><code>--e-8</code></td><td class="t-val"><code>32px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-10" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-10);height:var(--e-10)"></i></span></td><td class="t-nom"><code>--e-10</code></td><td class="t-val"><code>40px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-12" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-12);height:var(--e-12)"></i></span></td><td class="t-nom"><code>--e-12</code></td><td class="t-val"><code>48px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-14" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-14);height:var(--e-14)"></i></span></td><td class="t-nom"><code>--e-14</code></td><td class="t-val"><code>56px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-16" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-16);height:var(--e-16)"></i></span></td><td class="t-nom"><code>--e-16</code></td><td class="t-val"><code>64px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-20" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-20);height:var(--e-20)"></i></span></td><td class="t-nom"><code>--e-20</code></td><td class="t-val"><code>80px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--e-24" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--e-24);height:var(--e-24)"></i></span></td><td class="t-nom"><code>--e-24</code></td><td class="t-val"><code>96px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">PRIMITIVO · radios</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--r-sm" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--r-sm);height:var(--r-sm)"></i></span></td><td class="t-nom"><code>--r-sm</code></td><td class="t-val"><code>8px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--r-md" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--r-md);height:var(--r-md)"></i></span></td><td class="t-nom"><code>--r-md</code></td><td class="t-val"><code>16px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--r-lg" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--r-lg);height:var(--r-lg)"></i></span></td><td class="t-nom"><code>--r-lg</code></td><td class="t-val"><code>24px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--r-xl" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--r-xl);height:var(--r-xl)"></i></span></td><td class="t-nom"><code>--r-xl</code></td><td class="t-val"><code>32px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--r-pill" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--r-pill);height:var(--r-pill)"></i></span></td><td class="t-nom"><code>--r-pill</code></td><td class="t-val"><code>999px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--r-circle" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--r-circle);height:var(--r-circle)"></i></span></td><td class="t-nom"><code>--r-circle</code></td><td class="t-val"><code>50%</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+</section>
+<section class="ficha" id="capa-2"><h2>Semánticos</h2><p class="resumen">Le dan oficio a un primitivo: <em>esto es texto fuerte</em>, <em>esto es la superficie hundida</em>. Es la capa que un tema re-apunta, y por eso los componentes solo pueden usar esta.</p><p class="t-cuenta">32 tokens</p>
+<h3 class="t-sec">SEMANTICO · superficies</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--sup-app" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--sup-app</code></td><td class="t-val"><code>var(--p-sup-1)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--sup-elevada" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--sup-elevada</code></td><td class="t-val"><code>var(--p-sup-0)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--sup-hundida" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--sup-hundida</code></td><td class="t-val"><code>var(--p-sup-2)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--sup-inversa" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--sup-inversa</code></td><td class="t-val"><code>var(--p-navy)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">SEMANTICO · texto</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--txt-fuerte" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-fuerte)"></span></td><td class="t-nom"><code>--txt-fuerte</code></td><td class="t-val"><code>#0B1230</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--txt-medio" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-medio)"></span></td><td class="t-nom"><code>--txt-medio</code></td><td class="t-val"><code>#3A4568</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--txt-debil" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-debil)"></span></td><td class="t-nom"><code>--txt-debil</code></td><td class="t-val"><code>#55607F</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--txt-inverso" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--txt-inverso</code></td><td class="t-val"><code>var(--p-white)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--txt-acento" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-acento)"></span></td><td class="t-nom"><code>--txt-acento</code></td><td class="t-val"><code>#A8431C</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--txt-enlace" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-enlace)"></span></td><td class="t-nom"><code>--txt-enlace</code></td><td class="t-val"><code>#1D3F8F</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">SEMANTICO · estados como TEXTO (los 500 no sirven)</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--txt-ok" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-ok)"></span></td><td class="t-nom"><code>--txt-ok</code></td><td class="t-val"><code>#14532D</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--txt-aviso" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-aviso)"></span></td><td class="t-nom"><code>--txt-aviso</code></td><td class="t-val"><code>#6B3E00</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--txt-error" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-error)"></span></td><td class="t-nom"><code>--txt-error</code></td><td class="t-val"><code>#7D1919</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--txt-info" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--txt-info)"></span></td><td class="t-nom"><code>--txt-info</code></td><td class="t-val"><code>#1D3F8F</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">SEMANTICO · rellenos de estado, SIEMPRE opacos</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--fill-ok" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--fill-ok</code></td><td class="t-val"><code>var(--p-success-100)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--fill-aviso" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--fill-aviso</code></td><td class="t-val"><code>var(--p-warning-500)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--fill-error" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--fill-error</code></td><td class="t-val"><code>var(--p-danger-100)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--fill-info" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--fill-info)"></span></td><td class="t-nom"><code>--fill-info</code></td><td class="t-val"><code>color-mix(in srgb, var(--p-info-500) 34%, #ffffff)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--fill-neutro" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--fill-neutro</code></td><td class="t-val"><code>var(--p-light)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">SEMANTICO · tipografia</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--ff-display" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--ff-display)">Ag</span></td><td class="t-nom"><code>--ff-display</code></td><td class="t-val"><code>&#x27;Lemon Milk Pro&#x27;, &#x27;Nunito&#x27;, system-ui, sans-serif</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--ff-ui" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--ff-ui)">Ag</span></td><td class="t-nom"><code>--ff-ui</code></td><td class="t-val"><code>&#x27;Nunito&#x27;, system-ui, sans-serif</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--ff-cuerpo" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--ff-cuerpo)">Ag</span></td><td class="t-nom"><code>--ff-cuerpo</code></td><td class="t-val"><code>&#x27;Prompt&#x27;, Georgia, serif</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">SEMANTICO · escala tipografica (mayor tercera, 1.25)</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--t-display" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-display)">Ag</span></td><td class="t-nom"><code>--t-display</code></td><td class="t-val"><code>700 40px/46px var(--ff-display)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--t-h1" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-h1)">Ag</span></td><td class="t-nom"><code>--t-h1</code></td><td class="t-val"><code>700 32px/38px var(--ff-display)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--t-h2" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-h2)">Ag</span></td><td class="t-nom"><code>--t-h2</code></td><td class="t-val"><code>700 25px/31px var(--ff-display)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--t-h3" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-h3)">Ag</span></td><td class="t-nom"><code>--t-h3</code></td><td class="t-val"><code>700 20px/26px var(--ff-ui)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--t-ui-lg" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-ui-lg)">Ag</span></td><td class="t-nom"><code>--t-ui-lg</code></td><td class="t-val"><code>600 16px/24px var(--ff-ui)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--t-ui" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-ui)">Ag</span></td><td class="t-nom"><code>--t-ui</code></td><td class="t-val"><code>600 14px/20px var(--ff-ui)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--t-ui-sm" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-ui-sm)">Ag</span></td><td class="t-nom"><code>--t-ui-sm</code></td><td class="t-val"><code>600 12px/16px var(--ff-ui)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--t-cuerpo" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-cuerpo)">Ag</span></td><td class="t-nom"><code>--t-cuerpo</code></td><td class="t-val"><code>400 16px/26px var(--ff-cuerpo)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--t-dato" data-tipo="texto"><td class="t-mu"><span class="t-sw t-sw--tx" style="font:var(--t-dato)">Ag</span></td><td class="t-nom"><code>--t-dato</code></td><td class="t-val"><code>700 28px/32px var(--ff-display)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">SEMANTICO · la FORMA tambien dice la funcion</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--r-campo" data-tipo="medida"><td class="t-mu"><span class="t-sw t-sw--m"><i style="width:var(--r-campo);height:var(--r-campo)"></i></span></td><td class="t-nom"><code>--r-campo</code></td><td class="t-val"><code>12px</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+</section>
+<section class="ficha" id="capa-3"><h2>Sistema</h2><p class="resumen">Decisiones transversales: la luz del neumorfismo, el movimiento y el orden de las capas. No son color ni tamaño, pero se declaran igual para que nadie los improvise.</p><p class="t-cuenta">22 tokens</p>
+<h3 class="t-sec">NEUMORFISMO · la luz viene de arriba-izquierda</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--neu-oscura" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--neu-oscura)"></span></td><td class="t-nom"><code>--neu-oscura</code></td><td class="t-val"><code>#b0b3b9</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--neu-clara" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--neu-clara)"></span></td><td class="t-nom"><code>--neu-clara</code></td><td class="t-val"><code>#ffffff</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-xs" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-xs)"></span></td><td class="t-nom"><code>--n-xs</code></td><td class="t-val"><code>2px 2px 5px var(--neu-oscura), -2px -2px 4px var(--neu-clara), inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-sm" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-sm)"></span></td><td class="t-nom"><code>--n-sm</code></td><td class="t-val"><code>4px 4px 9px var(--neu-oscura), -3px -3px 7px var(--neu-clara), inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-md" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-md)"></span></td><td class="t-nom"><code>--n-md</code></td><td class="t-val"><code>6px 6px 14px var(--neu-oscura), -5px -5px 12px var(--neu-clara), inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-lg" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-lg)"></span></td><td class="t-nom"><code>--n-lg</code></td><td class="t-val"><code>10px 10px 22px var(--neu-oscura), -8px -8px 18px var(--neu-clara), inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-in-sm" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-in-sm)"></span></td><td class="t-nom"><code>--n-in-sm</code></td><td class="t-val"><code>0 0 0 var(--neu-oscura), 0 0 0 var(--neu-clara), inset 3px 3px 6px var(--neu-oscura), inset -2px -2px 5px var(--neu-clara)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-in" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-in)"></span></td><td class="t-nom"><code>--n-in</code></td><td class="t-val"><code>0 0 0 var(--neu-oscura), 0 0 0 var(--neu-clara), inset 5px 5px 10px var(--neu-oscura), inset -4px -4px 8px var(--neu-clara)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">Superficie oscura: su propia pareja</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--neu-oscura-inv" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--neu-oscura-inv)"></span></td><td class="t-nom"><code>--neu-oscura-inv</code></td><td class="t-val"><code>#101836</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--neu-clara-inv" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--neu-clara-inv)"></span></td><td class="t-nom"><code>--neu-clara-inv</code></td><td class="t-val"><code>#223272</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-dark" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-dark)"></span></td><td class="t-nom"><code>--n-dark</code></td><td class="t-val"><code>4px 4px 10px var(--neu-oscura-inv), -3px -3px 8px var(--neu-clara-inv), inset 0 0 0 var(--neu-oscura-inv), inset 0 0 0 var(--neu-clara-inv)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--n-in-dark" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-in-dark)"></span></td><td class="t-nom"><code>--n-in-dark</code></td><td class="t-val"><code>0 0 0 var(--neu-oscura-inv), 0 0 0 var(--neu-clara-inv), inset 4px 4px 8px var(--neu-oscura-inv), inset -3px -3px 6px var(--neu-clara-inv)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">Movimiento</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--mov-rapido" data-tipo="movimiento"><td class="t-mu"><span class="t-sw t-sw--mov"><i style="transition-duration:var(--mov-rapido)"></i></span></td><td class="t-nom"><code>--mov-rapido</code></td><td class="t-val"><code>.14s cubic-bezier(.4,0,.2,1)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--mov-medio" data-tipo="movimiento"><td class="t-mu"><span class="t-sw t-sw--mov"><i style="transition-duration:var(--mov-medio)"></i></span></td><td class="t-nom"><code>--mov-medio</code></td><td class="t-val"><code>.24s cubic-bezier(.4,0,.2,1)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+<h3 class="t-sec">Capas</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
+<tr data-token="--z-base" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--z-base</code></td><td class="t-val"><code>0</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--z-pegajoso" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--z-pegajoso</code></td><td class="t-val"><code>100</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--z-cabecera" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--z-cabecera</code></td><td class="t-val"><code>200</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--z-capa" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--z-capa</code></td><td class="t-val"><code>300</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--z-modal" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--z-modal</code></td><td class="t-val"><code>400</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--z-aviso" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--z-aviso</code></td><td class="t-val"><code>500</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--mov-rapido" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--mov-rapido</code><span class="t-org">redefinido</span></td><td class="t-val"><code>0s</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--mov-medio" data-tipo="otro"><td class="t-mu"><span class="t-sw t-sw--na">—</span></td><td class="t-nom"><code>--mov-medio</code><span class="t-org">redefinido</span></td><td class="t-val"><code>0s</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+</tbody></table>
+</section>
+  </main>
+</div>
+<script src="../js/numero.js?v=4f763e4c" defer></script>
+<script src="../js/ds.js?v=c3c2bbb3"></script>
+<script src="../js/superposicion.js?v=b81abd6e"></script>
+<script>
+  /* Marca el enlace de la pagina actual.
+     Cuidado: en la raiz publicada la URL es /repo/ y pop() devuelve "",
+     y ''.endsWith('') es true -> se marcaban TODOS los enlaces. Hay que
+     normalizar el vacio a index.html antes de comparar. */
+  (() => {
+    const archivo = (location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.esc-nav-link').forEach(a => {
+      const destino = a.getAttribute('href').split('/').pop() || 'index.html';
+      if (destino === archivo) { a.classList.add('activo'); a.setAttribute('aria-current', 'page'); }
+    });
+  })();
+</script>
+<script src="../js/tokens.js?v=371a52e1" defer></script>
+</body>
+</html>

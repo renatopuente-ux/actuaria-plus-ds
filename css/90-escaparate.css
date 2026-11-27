@@ -297,3 +297,67 @@
   box-shadow: inset 0 -1px 0 var(--neu-clara-inv),
               0 2px 10px var(--neu-oscura);
 }
+
+/* ── Pagina de tokens ─────────────────────────────────────────────────
+   Es una tabla de datos, no un escaparate: densidad alta, cifras
+   tabulares y franjas para no perder la fila. */
+.t-sec {
+  margin: var(--e-6) 0 var(--e-3);
+  font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte);
+}
+.t-tabla {
+  width: 100%; border-collapse: collapse;
+  /* fijo: sin esto cada tabla reparte las columnas segun SU contenido y
+     las cinco tablas de la pagina quedan desalineadas entre si */
+  table-layout: fixed;
+  background: var(--sup-elevada);
+  border-radius: var(--r-md); overflow: hidden;
+  font: var(--t-ui-sm);
+}
+.t-tabla thead th {
+  padding: var(--e-3) var(--e-4); text-align: left;
+  color: var(--txt-debil); font-weight: 700; white-space: nowrap;
+  border-bottom: 1px solid var(--p-light);
+}
+.t-tabla td { padding: var(--e-3) var(--e-4); vertical-align: middle; }
+.t-tabla tbody tr { background: var(--sup-elevada); }
+.t-tabla tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--p-surface) 45%, var(--sup-elevada));
+}
+.t-tabla code { font-size: 12px; color: var(--txt-medio); }
+.t-nom code { color: var(--txt-fuerte); font-weight: 700; }
+.t-org {
+  display: block; margin-top: 2px;
+  font: var(--t-ui-sm); font-size: 11px; color: var(--txt-debil);
+}
+.t-res, .t-con { font-variant-numeric: tabular-nums; color: var(--txt-medio); white-space: nowrap; }
+.t-con b { font-size: 13px; }
+.t-con b.ok  { color: var(--txt-ok); }
+.t-con b.mal { color: var(--txt-error); }
+.t-fondo { display: block; font-size: 11px; color: var(--txt-debil); }
+.t-mu  { width: 56px; }
+.t-nom { width: 23%; }
+.t-val { width: 30%; }
+.t-res { width: 15%; }
+.t-con { width: 17%; }
+.t-val code, .t-nom code { overflow-wrap: anywhere; }
+.t-con b.neutro { color: var(--txt-medio); font-weight: 600; }
+/* La medida de linea tambien manda en la entradilla */
+.esc-intro p { max-width: 68ch; }
+
+/* Muestras. Planas y sin cursor: solo informan. */
+.t-sw {
+  display: block; width: 40px; height: 26px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--p-light);
+  cursor: default;
+}
+.t-sw--sh { background: var(--sup-app); border-color: transparent; }
+.t-sw--m  { display: grid; place-items: center; background: var(--sup-hundida); }
+.t-sw--m i { display: block; background: var(--p-azul); border-radius: 2px; max-width: 38px; max-height: 24px; }
+.t-sw--tx { display: grid; place-items: center; background: transparent; border-color: transparent; width: auto; color: var(--txt-fuerte); }
+.t-sw--mov { display: grid; place-items: center; background: var(--sup-hundida); }
+.t-sw--mov i { display: block; width: 8px; height: 8px; border-radius: 50%; background: var(--p-azul); animation: t-vaiven 1.6s ease-in-out infinite alternate; }
+.t-sw--na { display: grid; place-items: center; background: transparent; border-style: dashed; color: var(--txt-debil); }
+@keyframes t-vaiven { from { transform: translateX(-11px); } to { transform: translateX(11px); } }
+@media (prefers-reduced-motion: reduce) { .t-sw--mov i { animation: none; } }
