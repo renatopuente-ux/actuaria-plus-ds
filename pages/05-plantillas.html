@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>📐 Plantillas · Actuaria DS 27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
+<link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
+<link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
+<link rel="stylesheet" href="../css/02-atomos.css?v=e80fa22e">
+<link rel="stylesheet" href="../css/03-moleculas.css?v=9980729d">
+<link rel="stylesheet" href="../css/04-organismos.css?v=93d4a572">
+<link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
+<link rel="stylesheet" href="../css/06-plantillas.css?v=9026bb77">
+<link rel="stylesheet" href="../css/90-escaparate.css?v=4bd764a8">
+</head>
+<body>
+<a class="sr-only" href="#principal">Saltar al contenido</a>
+<header class="esc-topbar">
+  <a class="esc-marca" href="../index.html">ACTUARIA <span>DS 27</span></a>
+</header>
+<div class="esc-shell">
+  <nav class="esc-nav" aria-label="Capas del design system">
+    <span class="esc-nav-tit">Atomic Design</span>
+    <a class="esc-nav-link" href="../pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
+    <a class="esc-nav-link" href="../pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
+    <a class="esc-nav-link" href="../pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
+    <a class="esc-nav-link" href="../pages/04-superposicion.html">Superposición</a>
+    <a class="esc-nav-link" href="../pages/05-plantillas.html" data-capa="4"><b>4</b> Plantillas</a>
+    <a class="esc-nav-link" href="../pages/06-paginas.html" data-capa="5"><b>5</b> Páginas</a>
+    <span class="esc-nav-tit">Fundamentos</span>
+    <a class="esc-nav-link" href="../pages/00-tokens.html">Tokens</a>
+    <a class="esc-nav-link" href="../pages/00-principios.html">Principios</a>
+  </nav>
+  <main class="esc-main" id="principal">
+<section class="ficha" id="que-es"><h2>Qué es una plantilla</h2><p class="resumen">Frost: <q>Templates are page-level objects that place components into a layout and <strong>articulate the design's underlying content structure</strong>.</q> Las dos mitades cuentan igual. La disposición se ve en la maqueta; la estructura del contenido se declara en la tabla de requisitos que acompaña a cada una.</p><div class="reglas"><div class="regla regla--si"><h3>Una plantilla lleva</h3><ul><li>Huecos declarados, no contenido</li><li>Los límites de cada zona: caracteres, filas, número de elementos</li><li>Qué pasa cuando no hay nada que mostrar</li></ul></div><div class="regla regla--no"><h3>Una plantilla nunca lleva</h3><ul><li><em>Lorem ipsum</em>: oculta justo lo que debe revelar</li><li>Contenido real — eso ya es una página</li><li>Un caso cómodo: el titular de 20 caracteres no prueba nada</li></ul></div></div></section><section class="ficha" id="t-listado"><h2>T1 · Listado</h2><span class="clase">.t-pagina.t-listado</span><p class="resumen">La disposición que más se repite en la plataforma: filtros arriba, tabla debajo, paginación al final. Instancia <em>Mis estudios</em>, <em>Colectivos</em> e <em>Informes</em> sin cambiar nada de la estructura.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><div class="t-pagina t-listado"><div class="t-pagina__barra"><div class="a-hueco">Barra de navegación · .o-navegacion</div></div><div class="t-pagina__cabecera"><div class="a-hueco">Cabecera · título, ruta y acciones de la página</div></div><div class="a-hueco">Filtros · .m-filtros + .m-busqueda</div><div class="a-hueco a-hueco--alto">Tabla · .m-tabla dentro de .o-listado</div><div class="t-pagina__pie"><div class="a-hueco">Paginación · .m-paginacion</div></div><div class="t-pagina__pie"><div class="a-hueco">Pie · .o-pie</div></div></div></div></div><table class="t-req"><caption>Requisitos de contenido</caption><thead><tr><th scope="col">Zona</th><th scope="col">Admite</th><th scope="col">Si se pasa o no hay nada</th></tr></thead><tbody><tr><th scope="row">Título de la página</th><td>hasta 48 caracteres en una línea</td><td>A partir de 48 salta a dos líneas y empuja las acciones; no se recorta</td></tr><tr><th scope="row">Acciones de cabecera</th><td>de 1 a 3 botones, uno principal</td><td>A partir de 3, las secundarias pasan a un menú</td></tr><tr><th scope="row">Filtros</th><td>de 0 a 6 fichas activas</td><td>Más de 6 fuerzan segunda línea; la barra crece, no se desplaza</td></tr><tr><th scope="row">Filas de la tabla</th><td>de 0 a 50 por página</td><td>0 filas muestra .m-vacio, no una tabla con cabecera sola</td></tr><tr><th scope="row">Paginación</th><td>aparece a partir de 2 páginas</td><td>Con una sola página no se dibuja</td></tr></tbody></table><pre class="codigo"><code>&lt;div class="t-pagina t-listado"&gt;
+  &lt;div class="t-pagina__barra"&gt;&lt;nav class="o-navegacion"&gt;…&lt;/nav&gt;&lt;/div&gt;
+  &lt;div class="t-pagina__cabecera"&gt;&lt;header class="o-cabecera"&gt;…&lt;/header&gt;&lt;/div&gt;
+  &lt;div class="m-filtros"&gt;…&lt;/div&gt;
+  &lt;div class="o-listado"&gt;…&lt;/div&gt;
+  &lt;div class="t-pagina__pie"&gt;&lt;nav class="m-paginacion"&gt;…&lt;/nav&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre></section><section class="ficha" id="t-asistente"><h2>T2 · Asistente</h2><span class="clase">.t-pagina.t-asistente</span><p class="resumen">Dos columnas: los pasos fijos a la izquierda y el formulario a la derecha. <strong>Los pasos no se desplazan con el contenido</strong> — son el mapa, y si desaparecen el usuario pierde la referencia de cuánto le queda.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><div class="t-pagina t-asistente"><div class="t-pagina__barra"><div class="a-hueco">Barra de navegación · .o-navegacion</div></div><div class="t-pagina__cabecera"><div class="a-hueco">Cabecera · nombre del estudio en curso</div></div><div class="a-hueco a-hueco--alto">Pasos · .m-pasos--navegable<br>(columna fija)</div><div class="a-hueco a-hueco--alto">Formulario del paso activo<br>campos, grupos y ayuda</div><div class="t-pagina__pie"><div class="a-hueco">Acciones · Atrás · Continuar · Guardar borrador</div></div></div></div></div><table class="t-req"><caption>Requisitos de contenido</caption><thead><tr><th scope="col">Zona</th><th scope="col">Admite</th><th scope="col">Si se pasa o no hay nada</th></tr></thead><tbody><tr><th scope="row">Pasos</th><td>de 3 a 7</td><td>Menos de 3 no justifica un asistente; más de 7 pide agrupar en fases</td></tr><tr><th scope="row">Campos por paso</th><td>de 1 a 9</td><td>Más de 9 obliga a desplazar y se pierde el botón de continuar</td></tr><tr><th scope="row">Nombre del estudio</th><td>hasta 60 caracteres</td><td>Se trunca con puntos suspensivos y el completo va en title</td></tr><tr><th scope="row">Volver atrás</th><td>siempre disponible</td><td>Confirmado por el equipo: el asistente permite volver a un paso anterior</td></tr><tr><th scope="row">Acciones del pie</th><td>«Atrás» y «Continuar» fijos</td><td>«Continuar» se deshabilita, no se esconde</td></tr></tbody></table><pre class="codigo"><code>&lt;div class="t-pagina t-asistente"&gt;
+  &lt;nav class="m-pasos m-pasos--navegable"&gt;…&lt;/nav&gt;
+  &lt;form class="o-asistente"&gt;…&lt;/form&gt;
+  &lt;div class="t-pagina__pie"&gt;…&lt;/div&gt;
+&lt;/div&gt;</code></pre></section><section class="ficha" id="t-detalle"><h2>T3 · Detalle</h2><span class="clase">.t-pagina.t-detalle</span><p class="resumen">Contenido principal y una columna de apoyo. El apoyo va a la <strong>derecha</strong>: leyendo de izquierda a derecha, lo primero que se encuentra debe ser el contenido, no el margen.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><div class="t-pagina t-detalle"><div class="t-pagina__barra"><div class="a-hueco">Barra de navegación · .o-navegacion</div></div><div class="t-pagina__cabecera"><div class="a-hueco">Cabecera · ruta, título, estado y acciones</div></div><div class="a-hueco a-hueco--alto">Indicadores · .o-indicadores<br>Pestañas · .m-pestanas<br>Panel del contenido activo</div><div class="a-hueco a-hueco--alto">Apoyo · .m-resumen<br>con las hipótesis<br>y el historial</div><div class="t-pagina__pie"><div class="a-hueco">Pie · .o-pie</div></div></div></div></div><table class="t-req"><caption>Requisitos de contenido</caption><thead><tr><th scope="col">Zona</th><th scope="col">Admite</th><th scope="col">Si se pasa o no hay nada</th></tr></thead><tbody><tr><th scope="row">Indicadores</th><td>de 2 a 4 .m-kpi</td><td>Con 5 o más no caben en una línea y pierden la comparación</td></tr><tr><th scope="row">Pestañas</th><td>de 2 a 5</td><td>Más de 5 pide un menú; las etiquetas no se parten en dos líneas</td></tr><tr><th scope="row">Columna de apoyo</th><td>de 4 a 12 pares etiqueta/valor</td><td>Por encima de 12, va a un acordeón</td></tr><tr><th scope="row">Estado del estudio</th><td>una sola .a-estado</td><td>El punto nunca va solo: siempre con su texto</td></tr><tr><th scope="row">Sin datos</th><td>el panel muestra .m-vacio</td><td>Nunca un panel en blanco sin explicación</td></tr></tbody></table><pre class="codigo"><code>&lt;div class="t-pagina t-detalle"&gt;
+  &lt;div class="t-pagina__cabecera"&gt;&lt;header class="o-cabecera"&gt;…&lt;/header&gt;&lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class="o-indicadores"&gt;…&lt;/div&gt;
+    &lt;div class="m-pestanas"&gt;…&lt;/div&gt;
+  &lt;/div&gt;
+  &lt;aside&gt;&lt;dl class="m-resumen"&gt;…&lt;/dl&gt;&lt;/aside&gt;
+&lt;/div&gt;</code></pre></section>
+  
+  
+  </main>
+</div>
+<script src="../js/numero.js?v=4f763e4c" defer></script>
+<script src="../js/formulario.js?v=8c746630" defer></script>
+<script src="../js/combo.js?v=57805803" defer></script>
+<script src="../js/subida.js?v=0413ad23" defer></script>
+<script src="../js/pestanas.js?v=460c6f4d" defer></script>
+<script src="../js/calendario.js?v=a9e4e4fc" defer></script>
+<script src="../js/avisos.js?v=7fdca0bb" defer></script>
+<script src="../js/ds.js?v=c3c2bbb3"></script>
+<script src="../js/superposicion.js?v=b81abd6e"></script>
+<script>
+  /* Marca el enlace de la pagina actual.
+     Cuidado: en la raiz publicada la URL es /repo/ y pop() devuelve "",
+     y ''.endsWith('') es true -> se marcaban TODOS los enlaces. Hay que
+     normalizar el vacio a index.html antes de comparar. */
+  (() => {
+    const archivo = (location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.esc-nav-link').forEach(a => {
+      const destino = a.getAttribute('href').split('/').pop() || 'index.html';
+      if (destino === archivo) { a.classList.add('activo'); a.setAttribute('aria-current', 'page'); }
+    });
+  })();
+</script>
+</body>
+</html>

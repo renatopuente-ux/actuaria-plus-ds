@@ -1,0 +1,115 @@
+/* ═══ 4 · PLANTILLAS ═══════════════════════════════════════════════════
+   Frost: «Templates are page-level objects that place components into a
+   layout and articulate the design's underlying content structure.»
+
+   Las dos mitades de esa frase importan igual:
+
+     COLOCAN COMPONENTES EN UNA DISPOSICION  -> la rejilla de abajo.
+     ARTICULAN LA ESTRUCTURA DEL CONTENIDO   -> la tabla de requisitos
+                                                que acompana a cada una.
+
+   Una plantilla NO lleva contenido real. Lleva huecos declarados, y
+   cada hueco dice que admite: cuantos caracteres, cuantas filas, que
+   pasa cuando no hay ninguna. Rellenarla de lorem ipsum oculta justo
+   lo que tiene que revelar — que el titular de 90 caracteres rompe la
+   cabecera.
+   ════════════════════════════════════════════════════════════════════ */
+
+.t-pagina {
+  display: grid;
+  gap: var(--e-4);
+  padding: var(--e-4);
+  border-radius: var(--r-lg);
+  background: var(--sup-app);
+  box-shadow: var(--n-in-sm);
+}
+.t-pagina__barra { grid-column: 1 / -1; }
+.t-pagina__cabecera { grid-column: 1 / -1; }
+.t-pagina__pie { grid-column: 1 / -1; }
+
+/* T1 · LISTADO. Una columna: filtros arriba, tabla debajo, paginacion
+   al final. Lo que mas se repite en la plataforma. */
+.t-listado { grid-template-columns: 1fr; }
+
+/* T2 · ASISTENTE. Dos columnas: los pasos a la izquierda fijos, el
+   formulario a la derecha. Los pasos no se desplazan con el contenido
+   porque son el mapa: si desaparecen, el usuario pierde la referencia
+   de cuanto le queda. */
+.t-asistente { grid-template-columns: 240px minmax(0, 1fr); }
+
+/* T3 · DETALLE. Contenido principal y una columna de apoyo. El apoyo
+   va a la DERECHA: en lectura de izquierda a derecha, lo primero que
+   se encuentra debe ser el contenido, no el margen. */
+.t-detalle { grid-template-columns: minmax(0, 1fr) 280px; }
+
+@media (max-width: 900px) {
+  .t-asistente, .t-detalle { grid-template-columns: 1fr; }
+}
+
+/* Requisitos de contenido. La parte de Frost que casi siempre se
+   omite y la que evita que la pagina rompa la plantilla. */
+.t-req { width: 100%; border-collapse: collapse; margin-top: var(--e-4); }
+.t-req caption {
+  text-align: left; padding-bottom: var(--e-3);
+  font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte);
+}
+.t-req th, .t-req td {
+  padding: var(--e-3);
+  text-align: left; vertical-align: top;
+  border-bottom: 1px solid var(--p-light);
+  font: var(--t-ui-sm); color: var(--txt-medio);
+}
+.t-req th { font-weight: 700; color: var(--txt-fuerte); white-space: nowrap; }
+.t-req tbody th { font-weight: 600; }
+.t-req td:last-child { color: var(--txt-debil); }
+
+/* ═══ 5 · PAGINAS ══════════════════════════════════════════════════════
+   Frost: «Pages are specific instances of templates that show what a UI
+   looks like with real representative content in place.»
+
+   REPRESENTATIVE es la palabra. Una pagina con el caso comodo no prueba
+   nada: el titular de 20 caracteres cabe siempre. Lo que revela si la
+   plantilla aguanta es el nombre de cliente de 94 caracteres, el
+   listado sin resultados y la cifra negativa.
+
+   Cada pagina de aqui lleva su propia variante dificil al lado.
+   ════════════════════════════════════════════════════════════════════ */
+
+.pg {
+  border-radius: var(--r-lg);
+  background: var(--sup-app);
+  box-shadow: var(--n-in-sm);
+  overflow: hidden;
+}
+.pg__lienzo { padding: var(--e-5); display: grid; gap: var(--e-5); }
+.pg__fila { display: flex; align-items: center; gap: var(--e-4); flex-wrap: wrap; }
+.pg__fila--fin { justify-content: space-between; }
+.pg__titulo { font: var(--t-h2); color: var(--txt-fuerte); margin: 0; }
+.pg__ruta { font: var(--t-ui-sm); color: var(--txt-debil); }
+.pg__ruta a { color: var(--txt-enlace); }
+.pg__acciones { display: flex; align-items: center; gap: var(--e-3); margin-left: auto; }
+.pg__cuerpo { display: grid; gap: var(--e-5); }
+.pg__cuerpo--detalle { grid-template-columns: minmax(0,1fr) 280px; align-items: start; }
+.pg__apoyo {
+  padding: var(--e-4);
+  border-radius: var(--r-md);
+  background: var(--sup-elevada);
+  border: 1px solid var(--p-light);
+}
+.pg__apoyo h3 { font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte); margin: 0 0 var(--e-3); }
+@media (max-width: 900px) { .pg__cuerpo--detalle { grid-template-columns: 1fr; } }
+
+/* La variante dificil se marca, para que no se lea como un caso mas. */
+.pg-dificil {
+  margin-top: var(--e-4);
+  padding: var(--e-4);
+  border-radius: var(--r-md);
+  border: 1px solid var(--p-warning-700);
+  background: var(--sup-elevada);
+}
+.pg-dificil > h3 {
+  display: flex; align-items: center; gap: var(--e-2);
+  margin: 0 0 var(--e-3);
+  font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte);
+}
+.pg-dificil__que { font: var(--t-ui-sm); color: var(--txt-medio); margin: 0 0 var(--e-4); max-width: 68ch; }

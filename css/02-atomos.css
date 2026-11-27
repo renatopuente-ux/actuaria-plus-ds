@@ -627,6 +627,7 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 
 @media (pointer: coarse) {
   .a-numero { min-height: 44px; }
+  .a-numero .a-campo,
   .a-numero input { font-size: 16px; }
   /* Sin margen: con 3px por lado el boton se quedaba en 38 dentro de
      una caja de 44, y 44 es el minimo con el dedo. Al pegarlo al borde
@@ -772,6 +773,11 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 
 @media (pointer: coarse) {
   .a-grupo { min-height: 44px; }
+  /* Tiene que repetir .a-grupo .a-campo: la regla de arriba usa la
+     taquigrafia `font:`, que incluye el tamano, y su especificidad
+     (0,2,0) gana a `.a-grupo input` (0,1,1). Sin esto el campo se
+     queda en 14px y iOS hace zoom al enfocarlo. */
+  .a-grupo .a-campo,
   .a-grupo input { font-size: 16px; }
   .a-segmentado [role="radio"] { min-height: 44px; }
   .a-deslizador input[type="range"] { height: 28px; }

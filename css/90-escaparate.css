@@ -10,7 +10,10 @@
   background: var(--p-navy); color: var(--txt-inverso);
 }
 .esc-marca {
-  display: inline-flex; align-items: center; min-height: 44px; font: 700 19px/1 var(--ff-display); letter-spacing: .5px; color: var(--txt-inverso); text-decoration: none; }
+  /* gap, no un espacio en el HTML: inline-flex convierte «ACTUARIA » y
+     el <span> en dos items y se come el blanco de en medio, que es por
+     lo que el rotulo salia «ACTUARIADS 27» en todas las paginas. */
+  display: inline-flex; align-items: center; gap: .34em; min-height: 44px; font: 700 19px/1 var(--ff-display); letter-spacing: .5px; color: var(--txt-inverso); text-decoration: none; }
 .esc-marca span { color: var(--p-naranja-soft); font-weight: 400; letter-spacing: .04em; }
 .esc-version { font: var(--t-ui-sm); color: var(--p-naranja-soft); }
 
