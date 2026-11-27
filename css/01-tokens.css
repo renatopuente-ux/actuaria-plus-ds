@@ -97,7 +97,15 @@
   --fill-ok:    var(--p-success-100);
   --fill-aviso: var(--p-warning-100);
   --fill-error: var(--p-danger-100);
-  --fill-info:  var(--p-info-100);
+  /* El nivel 100 de info del brandbook (#ECF1FE) es un caso atipico:
+     sus tres hermanos son tonos saturados —ok 57.8, aviso 71.1, error
+     41.9 de luminosidad— y el azul se va a 87.9, casi blanco. Sobre la
+     superficie da 1.05 de contraste, o sea desaparece.
+     Se deriva de --p-info-500 al 30% para caer dentro de la banda de
+     sus hermanos (66.8), sin inventar ningun tono: 1.24 contra la
+     superficie y 6.65 con el texto. La brecha con el brandbook queda
+     anotada, no resuelta en silencio. */
+  --fill-info:           color-mix(in srgb, var(--p-info-500) 30%, #ffffff);
   --fill-neutro: var(--p-light);
 
   /* ── 2 · SEMANTICO · tipografia ──────────────────────────────────────
