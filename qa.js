@@ -227,6 +227,7 @@
          aria-pressed   boton de dos estados
          aria-checked   radio o casilla dentro de un grupo
          aria-selected  pestana u opcion de una lista
+         aria-expanded  acordeon o desplegable abierto
          aria-current   la pagina o el paso en el que ya estas
          aria-sort      la columna por la que se ordena
        Faltaba aria-checked y el segmentado salia como «hundido sin
@@ -236,6 +237,7 @@
       e.getAttribute('aria-pressed')  === 'true' ||
       e.getAttribute('aria-checked')  === 'true' ||
       e.getAttribute('aria-selected') === 'true' ||
+      e.getAttribute('aria-expanded') === 'true' ||
       e.hasAttribute('aria-current') ||
       !!e.closest('[aria-sort]') ||
       e.matches(':active');

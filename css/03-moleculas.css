@@ -430,3 +430,99 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
 @media (pointer: coarse) {
   .m-combo__opcion { min-height: 44px; }
 }
+
+/* ── Pestañas · .m-pestanas ───────────────────────────────────────────
+   Mismo lenguaje que el segmentado, porque es el mismo gesto: elegir
+   una de varias. Inactiva SOBRESALE (se puede pulsar), activa HUNDIDA
+   (ya se pulso). Una sola parada de tabulador y flechas para recorrer.
+
+   ACTIVACION AUTOMATICA O MANUAL. Por defecto, mover el foco cambia de
+   panel: es lo mas rapido cuando el contenido ya esta en el DOM. Pero
+   si cambiar de pestana dispara un recalculo, la automatica lanza uno
+   por cada flecha que el usuario pulsa de paso. Para eso esta
+   data-activacion="manual": la flecha mueve el foco y Enter activa. */
+.m-pestanas__lista {
+  display: inline-flex; gap: 3px; padding: 3px;
+  border-radius: var(--r-pill);
+  background: var(--sup-hundida);
+  box-shadow: var(--n-in-sm);
+}
+.m-pestanas__tab {
+  min-height: 32px; padding: 0 var(--e-4);
+  border: 0; border-radius: var(--r-pill);
+  background: var(--sup-app);
+  box-shadow: var(--n-xs);
+  font: var(--t-ui); color: var(--txt-medio);
+  cursor: pointer; white-space: nowrap;
+  transition: box-shadow var(--mov-rapido), color var(--mov-rapido);
+}
+.m-pestanas__tab:hover { box-shadow: var(--n-sm); color: var(--txt-fuerte); }
+.m-pestanas__tab[aria-selected="true"] {
+  box-shadow: var(--n-in-sm);
+  color: var(--txt-fuerte); font-weight: 700;
+}
+.m-pestanas__tab:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 2px; }
+.m-pestanas__panel {
+  margin-top: var(--e-4); padding: var(--e-5);
+  /* La medida de linea tambien manda dentro del panel. Sin esto el
+     parrafo se estira a lo ancho del contenedor y pasa de 80. */
+  font: var(--t-cuerpo); font-size: 14px; line-height: 22px;
+  color: var(--txt-medio);
+  background: var(--sup-elevada);
+  border: 1px solid var(--p-light);
+  border-radius: var(--r-md);
+}
+.m-pestanas__panel > * { max-width: 68ch; }
+.m-pestanas__panel[hidden] { display: none; }
+.m-pestanas__panel:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 2px; }
+
+/* ── Acordeón · .m-acordeon ───────────────────────────────────────────
+   <details> nativo: trae teclado, estado y, con el atributo `name`,
+   el comportamiento exclusivo SIN una linea de JavaScript. Reescribirlo
+   a mano es de donde salen los acordeones que no se abren con Enter.
+
+   La cabecera se pulsa siempre —tambien para cerrar— asi que tiene
+   relieve en reposo y queda HUNDIDA mientras esta abierta, que es su
+   estado activo. El panel es superficie: plano. */
+.m-acordeon { display: grid; gap: var(--e-2); }
+.m-acordeon details {
+  border-radius: var(--r-md);
+  background: var(--sup-app);
+}
+.m-acordeon summary {
+  display: flex; align-items: center; gap: var(--e-3);
+  min-height: 44px; padding: 0 var(--e-4);
+  border-radius: var(--r-md);
+  background: var(--sup-app);
+  box-shadow: var(--n-sm);
+  font: var(--t-ui); color: var(--txt-fuerte);
+  cursor: pointer; list-style: none;
+  transition: box-shadow var(--mov-rapido);
+}
+.m-acordeon summary::-webkit-details-marker { display: none; }
+.m-acordeon summary:hover { box-shadow: var(--n-md); }
+.m-acordeon details[open] > summary { box-shadow: var(--n-in-sm); }
+.m-acordeon summary:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 2px; }
+.m-acordeon .flecha {
+  margin-left: auto; flex: none;
+  color: var(--txt-debil);
+  transition: transform var(--mov-rapido);
+}
+.m-acordeon details[open] > summary .flecha { transform: rotate(180deg); }
+.m-acordeon__cuerpo {
+  padding: var(--e-4);
+  font: var(--t-cuerpo); font-size: 14px; line-height: 22px;
+  color: var(--txt-medio);
+  max-width: 68ch;
+}
+.m-acordeon .pastilla {
+  margin-left: var(--e-2);
+  font: var(--t-ui-sm); color: var(--txt-debil);
+  font-variant-numeric: tabular-nums;
+}
+@media (prefers-reduced-motion: reduce) {
+  .m-acordeon .flecha { transition: none; }
+}
+@media (pointer: coarse) {
+  .m-pestanas__tab { min-height: 44px; }
+}

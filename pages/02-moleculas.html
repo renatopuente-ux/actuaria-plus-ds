@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
 <link rel="stylesheet" href="../css/02-atomos.css?v=6fb95a93">
-<link rel="stylesheet" href="../css/03-moleculas.css?v=2860e6f7">
+<link rel="stylesheet" href="../css/03-moleculas.css?v=217e7990">
 <link rel="stylesheet" href="../css/04-organismos.css?v=824411ca">
 <link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=9f68a870">
@@ -382,12 +382,24 @@
   &lt;input type="file" multiple aria-label="Fichero"&gt;
 &lt;/div&gt;
 &lt;ul class="m-archivos"&gt;&lt;/ul&gt;</code></pre></section>
+  <section class="ficha" id="pestanas"><h2>Pestañas</h2><span class="clase">.m-pestanas</span><p class="resumen">Mismo lenguaje que el segmentado, porque es el mismo gesto. Una sola parada de tabulador y flechas para recorrer. <strong>La activación es automática por defecto</strong>; si cambiar de pestaña dispara un recálculo, se pasa a manual con <code>data-activacion="manual"</code>.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><div class="m-pestanas"><div class="m-pestanas__lista" role="tablist" aria-label="Detalle del estudio"><button type="button" class="m-pestanas__tab" role="tab" id="pt-res" aria-selected="true" aria-controls="pp-res" tabindex="0">Resultados</button><button type="button" class="m-pestanas__tab" role="tab" id="pt-hip" aria-selected="false" aria-controls="pp-hip" tabindex="-1">Hipótesis</button><button type="button" class="m-pestanas__tab" role="tab" id="pt-mov" aria-selected="false" aria-controls="pp-mov" tabindex="-1">Movimientos</button></div><div class="m-pestanas__panel" role="tabpanel" id="pp-res" aria-labelledby="pt-res" tabindex="0"><p>DBO a 31/12/2026: <strong>1 842 330 EUR</strong>. Coste del servicio del ejercicio: 112 480 EUR.</p></div><div class="m-pestanas__panel" role="tabpanel" id="pp-hip" aria-labelledby="pt-hip" tabindex="0" hidden><p>Tasa técnica 2,75 % · PERM/F 2000-P · rotación 4,2 % · crecimiento salarial 2,1 %.</p></div><div class="m-pestanas__panel" role="tabpanel" id="pp-mov" aria-labelledby="pt-mov" tabindex="0" hidden><p>Altas 38 · bajas 21 · jubilaciones 9 · traspasos 2.</p></div></div><span class="pie">Activación automática: la flecha cambia de panel</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Son secciones hermanas del mismo objeto y solo se ve una a la vez</li><li>Caben todas las etiquetas sin partirse en dos líneas</li><li>El usuario alterna entre ellas con frecuencia</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Más de seis pestañas, o etiquetas que no caben</li><li>Dejar activación automática si cambiar de pestaña dispara un cálculo caro</li><li>Usarlas para pasos de un proceso: eso es un asistente, y tiene orden</li></ul></div></div><pre class="codigo"><code>&lt;div class="m-pestanas"&gt;
+  &lt;div class="m-pestanas__lista" role="tablist" aria-label="Detalle"&gt;
+    &lt;button role="tab" id="pt-res" aria-selected="true" aria-controls="pp-res"&gt;Resultados&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div role="tabpanel" id="pp-res" aria-labelledby="pt-res" tabindex="0"&gt;...&lt;/div&gt;
+&lt;/div&gt;</code></pre></section><section class="ficha" id="acordeon"><h2>Acordeón</h2><span class="clase">.m-acordeon</span><p class="resumen"><code>&lt;details&gt;</code> nativo: trae teclado y estado, y con el atributo <code>name</code> el navegador hace el <strong>exclusivo sin una línea de JavaScript</strong>. La cabecera se pulsa también para cerrar, así que tiene relieve en reposo y queda hundida mientras está abierta.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><div class="m-acordeon"><details name="acc-demo" open><summary>Datos del colectivo<span class="pastilla">1 842 pólizas</span><svg class="flecha" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary><div class="m-acordeon__cuerpo">Fecha de valuación, colectivo cerrado y criterio de prorrateo. Se heredan del último estudio salvo que se marque lo contrario.</div></details><details name="acc-demo"><summary>Hipótesis financieras<span class="pastilla">4 parámetros</span><svg class="flecha" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary><div class="m-acordeon__cuerpo">Tasa técnica, crecimiento salarial, inflación de prestaciones y tasa de rotación.</div></details><details name="acc-demo"><summary>Tablas biométricas<span class="pastilla">2 seleccionadas</span><svg class="flecha" viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 6 4 4 4-4"/></svg></summary><div class="m-acordeon__cuerpo">Mortalidad y, si el plan lo cubre, invalidez. Se identifican con nombre, sexo, año y versión.</div></details></div><span class="pie">Exclusivo por <code>name</code>: abrir uno cierra el anterior</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Hay contenido secundario que no todos necesitan ver</li><li>Las secciones son independientes y sin orden obligatorio</li><li>El espacio vertical importa y el detalle es largo</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Esconder dentro algo que el usuario necesita para decidir</li><li>Reimplementarlo con <code>div</code> y JavaScript: se pierde el teclado</li><li>Abrirlos todos por defecto — entonces el acordeón no hace nada</li></ul></div></div><pre class="codigo"><code>&lt;div class="m-acordeon"&gt;
+  &lt;details name="grupo" open&gt;
+    &lt;summary&gt;Datos del colectivo &lt;svg class="flecha"&gt;…&lt;/svg&gt;&lt;/summary&gt;
+    &lt;div class="m-acordeon__cuerpo"&gt;…&lt;/div&gt;
+  &lt;/details&gt;
+&lt;/div&gt;</code></pre></section>
   </main>
 </div>
 <script src="../js/numero.js?v=4f763e4c" defer></script>
 <script src="../js/formulario.js?v=8c746630" defer></script>
 <script src="../js/combo.js?v=57805803" defer></script>
 <script src="../js/subida.js?v=0413ad23" defer></script>
+<script src="../js/pestanas.js?v=460c6f4d" defer></script>
 <script src="../js/ds.js?v=c3c2bbb3"></script>
 <script src="../js/superposicion.js?v=b81abd6e"></script>
 <script>
