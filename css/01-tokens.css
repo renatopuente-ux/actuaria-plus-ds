@@ -28,6 +28,15 @@
   --p-success-500: #00C781;  --p-success-100: #66DDB3;
   --p-warning-500: #FFBB38;  --p-warning-100: #FFD688;
   --p-danger-500:  #FF4040;  --p-danger-100:  #FF8C8C;
+  /* Tercer nivel del brandbook. Cada semantico trae 500, 100 soft y
+     text; el nivel `text` faltaba como token y por eso el boton de
+     peligro acabo usando --p-danger-500 #FF4040, que con blanco da
+     WCAG2 3.47 y APCA -66.1: INCUMPLE. El nivel text si pasa, 5.14 y
+     -79.4. Mismo patron para los otros tres semanticos. */
+  --p-danger-700:        #CC3333;
+  --p-success-700:       #00B374;
+  --p-warning-700:       #E6A832;
+  --p-info-700:          #366AD9;
   --p-info-500:    #3C76F1;  --p-info-100:    #ECF1FE;
 
   /* ── 1 · PRIMITIVO · escala de superficie ────────────────────────────

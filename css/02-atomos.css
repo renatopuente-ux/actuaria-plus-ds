@@ -106,7 +106,7 @@
    El rojo claro vale como RELLENO de una etiqueta que no lleva texto
    encima; como fondo de un boton con texto, no. */
 .a-btn--peligro {
-  background: var(--p-danger-500); color: #fff;
+  background: var(--p-danger-700); color: #fff;
   box-shadow: var(--n-sm);
 }
 .a-btn--peligro:hover  { box-shadow: var(--n-md); }
@@ -469,3 +469,76 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
    no puede estar extruido de la superficie, asi que no se le pone
    relieve: el color y la marca de verificacion ya la distinguen. */
 .a-casilla input:checked + .caja { box-shadow: none; }
+
+/* ── Casilla e interruptor · el estado no puede ser SOLO color ────────
+   Los dos fallaban por lo mismo y se arreglan con el mismo recurso.
+
+   LA CASILLA estaba vacia: un cuadrado navy liso. Eso incumple WCAG
+   1.4.1 (la informacion no puede depender solo del color) y ademas
+   miente, porque un relleno sin glifo es como se dibuja el estado
+   INDETERMINADO. Lleva su check, y el indeterminado su guion.
+
+   EL INTERRUPTOR tenia el pulgar oscuro. El pulgar es la pieza que SE
+   MUEVE y en todos los sistemas es la clara, porque simula un mando
+   fisico; uno oscuro se lee como un hueco. Lo habia oscurecido para
+   salvar un contraste (blanco sobre verde da 2.21), es decir, rompi la
+   convencion para aprobar un numero. La salida correcta es la de
+   Material 3: el pulgar vuelve a ser claro y lleva el glifo dentro, asi
+   que el estado deja de depender del color. Check navy sobre pulgar
+   blanco: 15.92.
+
+   Y LA PISTA NECESITA BORDE. Medido contra la superficie de la pagina:
+     pista encendida #00C781   1.87
+     pista apagada   #dbe0ea   1.12
+     encendida vs apagada      1.67
+   El control entero flotaba sin contorno. Un filete de 1px le da el
+   limite que WCAG 1.4.11 pide para identificar el componente. */
+
+/* — Casilla — */
+.a-casilla .caja {
+  border: 1px solid var(--p-light);
+  position: relative;
+}
+.a-casilla .caja::after {
+  content: ""; width: 15px; height: 15px;
+  background: var(--txt-inverso);
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.4'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M3.2%208.4l3.3%203.3L12.8%205'/></svg>"); mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.4'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M3.2%208.4l3.3%203.3L12.8%205'/></svg>");
+  opacity: 0; transform: scale(.6);
+  transition: opacity var(--mov-rapido), transform var(--mov-rapido);
+}
+.a-casilla input:checked + .caja { border-color: var(--p-navy); }
+.a-casilla input:checked + .caja::after { opacity: 1; transform: none; }
+/* indeterminado: relleno con guion, nunca relleno a secas */
+.a-casilla input:indeterminate + .caja { background: var(--p-navy); border-color: var(--p-navy); }
+.a-casilla input:indeterminate + .caja::after {
+  opacity: 1; transform: none;
+  -webkit-mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.4'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M4%208h8'/></svg>"); mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.4'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M4%208h8'/></svg>");
+}
+
+/* — Interruptor — */
+.a-interruptor .pista { border: 1px solid var(--p-light); }
+.a-interruptor .pista .pulgar {
+  background: var(--sup-elevada);
+  border: 1px solid var(--p-light);
+  box-shadow: none;
+  display: grid; place-items: center;
+}
+.a-interruptor .pista .pulgar::after {
+  content: ""; width: 13px; height: 13px;
+  background: var(--p-navy);
+  -webkit-mask-size: contain; mask-size: contain;
+  -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+  -webkit-mask-position: center; mask-position: center;
+  -webkit-mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.4'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M3.2%208.4l3.3%203.3L12.8%205'/></svg>"); mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.4'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M3.2%208.4l3.3%203.3L12.8%205'/></svg>");
+  opacity: 0; transform: scale(.5);
+  transition: opacity var(--mov-rapido), transform var(--mov-rapido);
+}
+.a-interruptor input:checked + .pista { border-color: var(--p-success-700); }
+.a-interruptor input:checked + .pista .pulgar::after { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .a-casilla .caja::after, .a-interruptor .pista .pulgar::after { transition: none; }
+}

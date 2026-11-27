@@ -113,20 +113,29 @@
 }
 .regla li {
   counter-increment: reglas;
-  display: grid; grid-template-columns: 15px 1fr; gap: var(--e-3);
-  align-items: start; max-width: 62ch;
+  /* NO es grid ni flex. El <li> lleva texto mezclado con <strong> y
+     <code>, y en una cuadricula CADA hijo es una celda — incluidos los
+     trozos de texto suelto, que se blockifican en items anonimos. El
+     resultado fue una palabra por linea y lineas pisandose.
+     La sangria francesa se hace con posicion absoluta, que deja el
+     parrafo como un unico flujo inline. */
+  position: relative;
+  padding-left: 26px;
+  max-width: 62ch;
 }
 /* El simbolo va en mascara, no como caracter: asi hereda el color por
    currentColor y se ve igual en cualquier sistema operativo. */
 .regla li::before {
-  content: ""; width: 15px; height: 15px; margin-top: 3px;
+  content: ""; position: absolute; left: 0; top: 4px;
+  width: 15px; height: 15px;
   background: currentColor;
   -webkit-mask-size: contain; mask-size: contain;
   -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
 }
 .regla--si li::before { color: var(--txt-ok);    -webkit-mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M3%208.6l3.4%203.4L13%204.6'/></svg>"); mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M3%208.6l3.4%203.4L13%204.6'/></svg>"); }
 .regla--no li::before { color: var(--txt-error); -webkit-mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M4.3%204.3l7.4%207.4M11.7%204.3l-7.4%207.4'/></svg>");  mask-image: url("data:image/svg+xml,<svg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%20fill='none'%20stroke='black'%20stroke-width='2.2'%20stroke-linecap='round'%20stroke-linejoin='round'><path%20d='M4.3%204.3l7.4%207.4M11.7%204.3l-7.4%207.4'/></svg>"); }
-.regla li > * { color: var(--txt-medio); }
+.regla li { color: var(--txt-medio); }
+.regla li strong { color: var(--txt-fuerte); font-weight: 700; }
 
 .codigo {
   margin-top: var(--e-4); padding: var(--e-4) var(--e-5);
@@ -158,3 +167,49 @@
    65-75 caracteres. Mas largo y el ojo pierde el renglon al volver. */
 .resumen, .ficha > p, .esc-cabecera p { max-width: 68ch; }
 .regla li { max-width: 62ch; }
+
+/* ── Reglas · el color por resplandor, no por franja ──────────────────
+   La franja lateral se retiro por decoracion. Pero las dos tarjetas SI
+   necesitan distinguirse de un vistazo, asi que el tono entra por donde
+   la marca ya lo hace en actuaria.com.
+
+   REFERENCIA MEDIDA EN PRODUCCION. La home no usa franjas: usa
+   `gradient_ball`, un resplandor radial que se desvanece —navy
+   rgba(0,13,77,.2), naranja rgba(224,89,42,.24), azul
+   rgba(56,92,173,.24)— y el filete de 1px de `card_features`. Es el
+   lenguaje de la casa, no un recurso inventado aqui.
+
+   PERO OPACO. Produccion lo resuelve con alpha; este sistema no admite
+   rellenos translucidos, porque el tono resultante depende de lo que
+   haya debajo y el contraste deja de ser calculable. Se consigue el
+   mismo efecto mezclando con color-mix contra la superficie de la
+   tarjeta: el degradado va de un tinte OPACO al blanco de la tarjeta.
+
+   MEDIDO EN EL PEOR PUNTO, el centro del resplandor:
+     tinte ok 12% #e0f8f0   texto medio 8.45   fuerte 16.49
+     tinte no 12% #f9e7e7   texto medio 7.89   fuerte 15.40
+   El filete sube al 30% porque no lleva texto encima: 1.63 y 2.04
+   contra la tarjeta, suficiente para delimitar segun WCAG 1.4.11.
+
+   El glifo de cada linea conserva su color saturado: es ahi donde el
+   color significa algo, y el resplandor solo ambienta. */
+.regla--si {
+  border-color: color-mix(in srgb, var(--p-success-500) 30%, var(--p-light));
+  background:
+    radial-gradient(120% 90% at 100% 0%,
+      color-mix(in srgb, var(--p-success-500) 12%, var(--sup-elevada)) 0%,
+      var(--sup-elevada) 58%);
+}
+.regla--no {
+  border-color: color-mix(in srgb, var(--p-danger-700) 30%, var(--p-light));
+  background:
+    radial-gradient(120% 90% at 100% 0%,
+      color-mix(in srgb, var(--p-danger-700) 12%, var(--sup-elevada)) 0%,
+      var(--sup-elevada) 58%);
+}
+/* el filete bajo el titulo sigue al borde de su tarjeta */
+.regla--si h3 { border-bottom-color: color-mix(in srgb, var(--p-success-500) 22%, var(--p-light)); }
+.regla--no h3 { border-bottom-color: color-mix(in srgb, var(--p-danger-700) 22%, var(--p-light)); }
+
+/* Si el navegador no soporta color-mix, el degradado no se pinta y la
+   tarjeta queda blanca con su filete: degrada sin romperse. */

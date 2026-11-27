@@ -55,6 +55,35 @@
       .forEach(([id, n]) => F('id-repetido', `«${id}» aparece ${n} veces`));
   }
 
+  /* 2b · TEXTO APLASTADO EN UNA CUADRICULA. Si un contenedor es grid o
+     flex y mezcla texto suelto con elementos, el navegador envuelve cada
+     trozo de texto en un item anonimo. A veces eso es inofensivo —dos
+     trozos uno al lado del otro en una fila ancha— y a veces parte el
+     parrafo en una palabra por linea.
+
+     No basta con detectar la MEZCLA, porque entonces se marcan como
+     fallo cabeceras y enlaces que funcionan. Hay que medir si el texto
+     esta aplastado de verdad: un Range sobre el nodo devuelve un
+     rectangulo POR LINEA, asi que un trozo corto repartido en 3 o mas
+     lineas esta siendo exprimido. Sin tocar el DOM. */
+  document.querySelectorAll('*').forEach(e => {
+    const d = getComputedStyle(e).display;
+    if (!/^(flex|grid|inline-flex|inline-grid)$/.test(d)) return;
+    if (!visible(e) || !e.children.length) return;
+    [...e.childNodes].forEach(n => {
+      if (n.nodeType !== 3) return;
+      const txt = n.textContent.trim();
+      if (txt.length < 4 || txt.length > 60) return;
+      const r = document.createRange(); r.selectNodeContents(n);
+      const lineas = r.getClientRects().length;
+      const palabras = txt.split(/\s+/).length;
+      if (lineas >= 3 && lineas >= palabras * 0.6) {
+        F('texto-partido',
+          `${nombre(e)} es ${d}: «${txt.slice(0,26)}» cae en ${lineas} lineas (${palabras} palabras)`);
+      }
+    });
+  });
+
   /* 2c · LINEA CENTRAL COMPARTIDA. Dos controles de la misma fila tienen
      que estar centrados entre si. Se descuadran cuando uno es mas alto
      —un boton dentro de un anillo mide 12px mas— y algun hijo fija
@@ -80,6 +109,45 @@
         const culpable = mismaLinea.find(x => Math.abs(x.c - min) > 2 || Math.abs(x.c - max) > 2);
         F('alineacion', `fila descuadrada ${Math.round(max - min)}px: ${nombre(culpable.e)}`);
       }
+    });
+  }
+
+  /* 2d · VARIANTE INEXISTENTE. Una clase `x--variante` cuyo modificador
+     no esta definido en ninguna hoja no da error: el elemento se queda
+     con el estilo base y parece simplemente «el neutro». Se detecta
+     comparando contra un hermano con la clase base a secas: si una
+     variante pinta EXACTAMENTE igual que la base, no existe. */
+  {
+    const vistos = new Map();
+    document.querySelectorAll('[class*="--"]').forEach(e => {
+      if (!visible(e)) return;
+      [...e.classList].forEach(c => {
+        const i = c.indexOf('--'); if (i < 1) return;
+        const base = c.slice(0, i);
+        if (!e.classList.contains(base)) return;
+        const s = getComputedStyle(e);
+        /* La firma incluye tamano y forma, no solo color: .a-btn--sm y
+           .a-btn--lg son variantes legitimas que no cambian ni un tono,
+           y compararlas solo por color las daba por inexistentes. */
+        const P = ['backgroundColor','color','borderTopColor','borderTopWidth','borderRadius',
+                   'paddingLeft','paddingTop','minHeight','minWidth','fontSize','fontWeight',
+                   'width','height','boxShadow','opacity','backgroundImage','flexDirection'];
+        const firma = base + '|' + P.map(k => s[k]).join('|');
+        if (!vistos.has(base)) {
+          const sonda = document.createElement(e.tagName);
+          sonda.className = base; sonda.textContent = 'x';
+          sonda.style.position = 'absolute'; sonda.style.left = '-9999px';
+          e.parentElement.appendChild(sonda);
+          const ss = getComputedStyle(sonda);
+          const PP = ['backgroundColor','color','borderTopColor','borderTopWidth','borderRadius',
+                      'paddingLeft','paddingTop','minHeight','minWidth','fontSize','fontWeight',
+                      'width','height','boxShadow','opacity','backgroundImage','flexDirection'];
+          vistos.set(base, base + '|' + PP.map(k => ss[k]).join('|'));
+          sonda.remove();
+        }
+        if (firma === vistos.get(base)) F('variante-fantasma',
+          `${nombre(e)} usa .${c}, que pinta igual que .${base}: el modificador no existe`);
+      });
     });
   }
 

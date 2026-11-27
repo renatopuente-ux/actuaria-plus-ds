@@ -250,3 +250,53 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
   .m-tabla .orden { padding: 0 var(--e-4); }
   .m-tabla th, .m-tabla td { padding: var(--e-4); }
 }
+
+/* ── Tabla · franjas alternas ─────────────────────────────────────────
+   En una tabla ancha el ojo pierde la fila al recorrerla de izquierda a
+   derecha y acaba leyendo el dato de la linea de al lado. La franja da
+   una guia continua que no depende de seguir una linea fina.
+
+   TRES ESCALONES QUE NO SE PISAN. El error tipico es pintar la franja
+   con el mismo tono que ya usa el raton: entonces las filas pares
+   parecen estar siempre resaltadas y el hover desaparece justo en la
+   mitad de la tabla. Se usa la escalera de superficies que ya existe,
+   sin inventar tonos:
+     impar   --sup-elevada  #FFFFFF   100.0% de luminosidad
+     par     --p-surface    #E8ECF4    83.7%   salto de 16.3
+     hover   --p-light      #D9DEEB    73.0%   salto de 10.7
+   El ojo distingue desde un 3%, asi que los tres se separan de sobra, y
+   el texto debil sigue en 4.63 sobre el escalon mas oscuro.
+
+   SE RETIRA LA LINEA ENTRE FILAS. Franja y filete dicen lo mismo; juntos
+   ensucian. La linea se queda solo bajo la cabecera, que si separa dos
+   cosas distintas. */
+/* La tabla ES una superficie, no un bloque transparente sobre el lienzo.
+   Sin fondo propio, la fila par (--p-surface) coincidia con el color del
+   lienzo y se leia como un HUECO entre dos tarjetas blancas, justo lo
+   contrario de una franja. */
+.m-tabla {
+  background: var(--sup-elevada);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+.m-tabla tbody tr { background: var(--sup-elevada); }
+.m-tabla tbody tr:nth-child(even) { background: var(--p-surface); }
+.m-tabla tbody td { border-bottom: 0; }
+.m-tabla thead th { border-bottom: 1px solid var(--p-light); }
+
+/* el raton gana a la franja, y la seleccion gana al raton */
+.m-tabla tbody tr:hover { background: var(--p-light); }
+.m-tabla tbody tr[aria-selected="true"] { background: var(--p-info-100); }
+/* el escalon de 'seleccionada + raton encima' NO se escribe a mano: se
+   deriva mezclando dos tokens de marca, asi sigue la paleta si cambian */
+.m-tabla tbody tr[aria-selected="true"]:hover {
+  background: color-mix(in srgb, var(--p-info-100) 88%, var(--p-info-500));
+}
+
+/* Con las franjas puestas, la tabla ya no necesita que cada celda tenga
+   su propio fondo: cualquier fondo en la celda tapa la franja. */
+.m-tabla tbody td { background: transparent; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .m-tabla tbody tr { transition: background var(--mov-rapido); }
+}
