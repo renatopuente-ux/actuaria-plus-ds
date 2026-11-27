@@ -412,6 +412,104 @@
         F('relieve', `celda de rejilla sin cursor de mano: ${nombre(e)}`);
     });
 
+  /* 6e · CONTRASTE (ley 6) y 6f · OPACIDAD (ley 5).
+     Las dos leyes estaban escritas desde el primer dia y NINGUNA tenia
+     comprobacion: cada medida se hacia a mano, caso por caso, y nada
+     vigilaba las regresiones. Es el mismo fallo que dejo pasar los dos
+     defectos de sustrato: una ley sin comprobacion es una nota.
+
+     El contraste se mide contra el SUSTRATO REAL —el primer ancestro
+     con fondo opaco— y no contra la pagina. Medir contra la pagina da
+     por bueno un texto gris sobre una tarjeta oscura. */
+  {
+    /* OJO CON color(srgb ...). Lo que devuelve getComputedStyle NO es
+       siempre rgb(): cuando el valor viene de un color-mix() —las
+       franjas de tabla, por ejemplo— Chrome serializa
+       «color(srgb 0.959412 0.966471 0.980588)», con los canales de 0 a
+       1 en vez de 0 a 255.
+
+       Leerlo como si fuera rgb() convierte un gris casi blanco en casi
+       negro. La primera version de esta comprobacion daba 215 fallos
+       por eso: texto perfectamente legible marcado como 1.14:1. Un
+       validador asi se ignora en dos dias (ley 11). */
+    const rgbA = c => {
+      if (!c) return null;
+      const m = c.match(/[\d.]+/g);
+      if (!m || m.length < 3) return null;
+      const n = m.map(Number);
+      if (/^color\(/i.test(c.trim())) {
+        const canales = n.slice(0, 3).map(x => Math.round(x * 255));
+        return n.length > 3 ? canales.concat(n[3]) : canales;
+      }
+      return n.slice(0, 4);
+    };
+    const relL = c => { const v = rgbA(c); if (!v) return null;
+      const f = x => { x /= 255; return x <= 0.04045 ? x/12.92 : Math.pow((x+0.055)/1.055, 2.4); };
+      return 0.2126*f(v[0]) + 0.7152*f(v[1]) + 0.0722*f(v[2]); };
+    const wcag = (a, b) => { const x = relL(a), y = relL(b);
+      if (x === null || y === null) return null;
+      return (Math.max(x,y)+0.05) / (Math.min(x,y)+0.05); };
+    const opacoC = c => { const v = rgbA(c);
+      return !!v && (v.length < 4 || v[3] >= 0.95); };
+    const sustrato = e => { let n = e.parentElement;
+      while (n && n !== document.documentElement) {
+        const c = getComputedStyle(n).backgroundColor;
+        if (opacoC(c)) return c;
+        n = n.parentElement;
+      }
+      return getComputedStyle(document.body).backgroundColor; };
+
+    /* APCA (Lc). La ley pide los DOS modelos porque discrepan: WCAG 2
+       aprueba combinaciones que APCA suspende, sobre todo texto oscuro
+       sobre naranja. Se informa del Lc en el mensaje; el filtro sigue
+       siendo WCAG, que es el exigible por norma. */
+    const apca = (txt, fondo) => {
+      const Y = c => { const v = rgbA(c); if (!v) return null;
+        const f = x => Math.pow(x/255, 2.4);
+        return 0.2126729*f(v[0]) + 0.7151522*f(v[1]) + 0.0721750*f(v[2]); };
+      let Yt = Y(txt), Yb = Y(fondo);
+      if (Yt === null || Yb === null) return null;
+      const clamp = y => y > 0.022 ? y : y + Math.pow(0.022 - y, 1.414);
+      Yt = clamp(Yt); Yb = clamp(Yb);
+      let L;
+      if (Yb > Yt) L = (Math.pow(Yb, 0.56) - Math.pow(Yt, 0.57)) * 1.14;
+      else         L = (Math.pow(Yb, 0.65) - Math.pow(Yt, 0.62)) * 1.14;
+      if (Math.abs(L) < 0.1) return 0;
+      L = L > 0 ? L - 0.027 : L + 0.027;
+      return Math.round(L * 100);
+    };
+
+    const conTexto = e => [...e.childNodes]
+      .some(n => n.nodeType === 3 && n.textContent.trim().length > 1);
+
+    [...document.querySelectorAll('body *')].filter(visible).forEach(e => {
+      const cs = getComputedStyle(e);
+
+      /* 6f · OPACIDAD. Un relleno con alpha cambia de tono segun lo que
+         tenga debajo, asi que su contraste deja de poder calcularse. La
+         ley 5 lo prohibe en cualquier superficie que lleve texto. */
+      const bg = cs.backgroundColor;
+      const v = rgbA(bg);
+      if (v && v.length === 4 && v[3] > 0.05 && v[3] < 0.95 && conTexto(e))
+        F('alpha', `${nombre(e)} lleva texto sobre un relleno con alpha (${v[3]}): el contraste deja de ser calculable`);
+
+      if (!conTexto(e)) return;
+      if (e.closest('.sr-only') || e.classList.contains('sr-only')) return;
+      const fondo = opacoC(bg) ? bg : sustrato(e);
+      const r = wcag(cs.color, fondo);
+      if (r === null) return;
+      const px = parseFloat(cs.fontSize);
+      const grande = px >= 24 || (px >= 18.66 && parseInt(cs.fontWeight, 10) >= 700);
+      const minimo = grande ? 3 : 4.5;
+      if (r < minimo) {
+        const lc = apca(cs.color, fondo);
+        F('contraste', `${nombre(e)} da ${r.toFixed(2)}:1 sobre su sustrato `
+                     + `(minimo ${minimo}${grande ? ', texto grande' : ''}` 
+                     + (lc === null ? '' : `, APCA Lc ${lc}`) + ')');
+      }
+    });
+  }
+
   /* 7 · FORMA. Pildora para la accion, rectangulo para la entrada. */
   [...document.querySelectorAll('.a-btn, .a-anillo')].filter(visible).forEach(e => {
     const r = parseFloat(getComputedStyle(e).borderTopLeftRadius);

@@ -111,18 +111,22 @@
   display: flex; align-items: center; gap: var(--e-3);
   min-height: 36px; padding: 0 var(--e-3);
   border-radius: var(--r-pill);
-  color: #dbe2f0; font: var(--t-ui); text-decoration: none;
+  color: var(--txt-medio); font: var(--t-ui); text-decoration: none;
   box-shadow: var(--n-dark);
   transition: box-shadow var(--mov-rapido), color var(--mov-rapido);
 }
-.o-lateral__enlace:hover { color: #fff; }
+.o-lateral__enlace:hover { color: var(--txt-inverso); }
 .o-lateral__enlace[aria-current="page"] {
-  box-shadow: var(--n-in-dark); color: #fff; font-weight: 700;
+  box-shadow: var(--n-in-dark); color: var(--txt-inverso); font-weight: 700;
 }
 .o-lateral__enlace svg { flex: none; opacity: .85; }
 .o-lateral__cuenta {
   margin-left: auto; padding: 1px 7px; border-radius: var(--r-pill);
-  background: rgba(255,255,255,.14); color: #fff;
+  /* Opaco. Llevaba rgba(255,255,255,.14), que una regla posterior ya
+     tapaba: una declaracion muerta que contradice el diseno vigente y
+     que habria devuelto la infraccion en cuanto alguien borrase la
+     regla que la tapa. */
+  background: var(--p-light); color: var(--txt-fuerte);
   font: 700 11px/18px var(--ff-ui); font-variant-numeric: tabular-nums;
 }
 
@@ -186,7 +190,7 @@
    La pareja sale del navy porque el navy es ahora SU sustrato. */
 .o-lateral__enlace[aria-current="page"] {
   background: var(--p-navy);
-  color: #fff;
+  color: var(--txt-inverso);
   box-shadow: var(--n-in-dark);
 }
 .o-lateral__enlace[aria-current="page"] svg { opacity: 1; }
@@ -197,8 +201,8 @@
   font-variant-numeric: tabular-nums;
 }
 .o-lateral__enlace[aria-current="page"] .o-lateral__cuenta {
-  background: color-mix(in srgb, #ffffff 18%, var(--p-navy));
-  color: #fff;
+  background: color-mix(in srgb, var(--p-white) 18%, var(--p-navy));
+  color: var(--txt-inverso);
 }
 
 /* ── Barra de navegación · .o-navegacion ──────────────────────────────

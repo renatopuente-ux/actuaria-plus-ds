@@ -46,6 +46,22 @@
        inset     #ffffff -4px -4px 8px
      Aqui la externa se expresa con el color solido del sistema (k=0.76)
      en vez de alpha, pero la geometria es la misma. */
+  /* ── Superposicion ───────────────────────────────────────────────────
+     El velo y las sombras de los flotantes SI llevan alpha, y no
+     incumplen la ley 5: la ley prohibe el alpha en un relleno QUE LLEVE
+     TEXTO, porque entonces el contraste deja de poder calcularse. Un
+     velo no lleva texto —oscurece lo de debajo, que es justo su
+     trabajo— y una sombra tampoco.
+
+     Van como tokens para que esten en la pagina de Tokens y alguien
+     pueda revisarlos, en vez de repetidos a mano en seis sitios. */
+  --velo: rgba(21, 31, 71, .55);
+  --sombra-flotante: 0 10px 28px rgba(21, 31, 71, .16);
+  --sombra-globo:    0 6px 18px rgba(21, 31, 71, .22);
+  /* Brillo del esqueleto de carga. Alpha legitimo: es un reflejo que
+     recorre un hueco vacio, no un relleno con texto. */
+  --brillo-carga: rgba(255, 255, 255, .65);
+
   --n-vidrio: 4px 4px 12px var(--neu-oscura),
               0 0 0 var(--neu-clara),
               inset -4px -4px 8px var(--neu-clara),
@@ -222,4 +238,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   :root { --mov-rapido: 0s; --mov-medio: 0s; }
+
 }

@@ -34,7 +34,9 @@
   display: flex; align-items: center; gap: var(--e-2);
   margin: var(--e-1) 0; padding: var(--e-2) var(--e-4);
   border-radius: var(--r-pill);
-  background: rgba(255,255,255,.42); color: var(--txt-debil);
+  /* Transparente. Llevaba rgba(255,255,255,.42), ya tapado por el
+     rediseno a cristal: declaracion muerta, fuera. */
+  background: transparent; color: var(--txt-debil);
   font: var(--t-ui); text-decoration: none;
   box-shadow: var(--n-xs);
   transition: background var(--mov-rapido), color var(--mov-rapido), box-shadow var(--mov-rapido);
@@ -44,7 +46,7 @@
   border-radius: var(--r-circle); background: var(--sup-hundida);
   font: var(--t-ui-sm); color: var(--txt-medio);
 }
-.esc-nav-link:hover { background: #fff; color: var(--txt-fuerte); box-shadow: var(--n-sm); }
+.esc-nav-link:hover { background: var(--p-white); color: var(--txt-fuerte); box-shadow: var(--n-sm); }
 .esc-nav-link.activo { background: var(--p-navy); color: var(--txt-inverso); box-shadow: var(--n-md); }
 .esc-nav-link.activo b { background: var(--p-naranja-soft); color: var(--p-navy); }
 
@@ -142,7 +144,7 @@
 
 .codigo {
   margin-top: var(--e-4); padding: var(--e-4) var(--e-5);
-  border-radius: var(--r-md); background: #0E1430; color: #E6EAF5;
+  border-radius: var(--r-md); background: var(--p-navy); color: var(--txt-inverso);
   font: 400 13px/21px ui-monospace, monospace; overflow-x: auto; white-space: pre;
 }
 @media (max-width: 900px) {
@@ -271,7 +273,7 @@
    naranja claro del brandbook: 9.76 sobre navy, que es el par que el
    propio brandbook exige para naranja sobre navy. */
 .esc-nav-link.activo b {
-  background: color-mix(in srgb, #ffffff 14%, var(--p-navy));
+  background: color-mix(in srgb, var(--p-white) 14%, var(--p-navy));
   color: var(--p-naranja-soft);
 }
 
@@ -425,3 +427,12 @@
 .pr-manual { font-style: italic; color: var(--txt-debil); }
 .pr-chips { display: flex; flex-wrap: wrap; gap: 2px; margin-top: var(--e-3); }
 .pr-nota { margin-top: var(--e-4); font: var(--t-ui-sm); color: var(--txt-debil); max-width: 68ch; }
+
+/* Recuento de la pagina de Tokens. Se usaba en el HTML generado y no
+   estaba definido en ninguna hoja: la clase no daba error, simplemente
+   no hacia nada, que es el fallo mas silencioso que hay en CSS. */
+.t-cuenta {
+  margin: 0 0 var(--e-4);
+  font: var(--t-ui-sm); color: var(--txt-debil);
+  font-variant-numeric: tabular-nums;
+}

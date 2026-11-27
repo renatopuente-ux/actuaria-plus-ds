@@ -89,7 +89,7 @@
 /* Relleno solido: solo en tamano grande, por el contraste.
    No existe .a-btn--acento-solido.a-btn--sm a proposito. */
 .a-btn--acento-solido {
-  background: var(--p-naranja); color: #fff; border: 0;
+  background: var(--p-naranja); color: var(--txt-inverso); border: 0;
   box-shadow: var(--n-sm);
   min-height: 52px; padding: 0 var(--e-8);
   font: 700 19px/26px var(--ff-ui);
@@ -106,7 +106,7 @@
    El rojo claro vale como RELLENO de una etiqueta que no lleva texto
    encima; como fondo de un boton con texto, no. */
 .a-btn--peligro {
-  background: var(--p-danger-700); color: #fff;
+  background: var(--p-danger-700); color: var(--txt-inverso);
   box-shadow: var(--n-sm);
 }
 .a-btn--peligro:hover  { box-shadow: var(--n-md); }
@@ -246,6 +246,13 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 
 /* ── a-barra · Barra de progreso ─────────────────────────────────────── */
 .a-barra { height: 8px; border-radius: var(--r-pill); background: var(--sup-hundida); box-shadow: var(--n-in-sm); overflow: hidden; }
+/* NO existe .a-barra--ok, y es deliberado. Medido contra la pista
+   #dbe0ea: success-500 da 1.67 y success-700 da 2.06, por debajo del
+   3:1 que WCAG 1.4.11 pide a un grafico. Oscurecer el verde esta
+   prohibido por la ley 7 —para salvar un contraste se cambia el texto
+   o la forma, nunca la marca— y, de todas formas, una barra que solo
+   cambia de color para decir «completada» incumpliria 1.4.1: la senal
+   es el 100% y el rotulo, no el tono. El azul pasa con 4.64. */
 .a-barra > i { display: block; height: 100%; border-radius: var(--r-pill); background: var(--p-azul); transition: width var(--mov-medio); }
 
 /* ── a-enlace ────────────────────────────────────────────────────────── */
@@ -256,7 +263,7 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 .a-esqueleto { border-radius: var(--r-sm); background: var(--sup-hundida); box-shadow: var(--n-in-sm); position: relative; overflow: hidden; }
 .a-esqueleto::after {
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  background: linear-gradient(90deg, transparent, var(--brillo-carga), transparent);
   animation: brillo 1.4s infinite;
 }
 @keyframes brillo { to { transform: translateX(100%); } }

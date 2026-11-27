@@ -9,13 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
-<link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
-<link rel="stylesheet" href="../css/02-atomos.css?v=e80fa22e">
+<link rel="stylesheet" href="../css/01-tokens.css?v=fd2a9269">
+<link rel="stylesheet" href="../css/02-atomos.css?v=bddce91a">
 <link rel="stylesheet" href="../css/03-moleculas.css?v=9980729d">
-<link rel="stylesheet" href="../css/04-organismos.css?v=e872f9db">
-<link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
+<link rel="stylesheet" href="../css/04-organismos.css?v=e0ed5479">
+<link rel="stylesheet" href="../css/05-superposicion.css?v=d14b8bef">
 <link rel="stylesheet" href="../css/06-plantillas.css?v=9026bb77">
-<link rel="stylesheet" href="../css/90-escaparate.css?v=4bd764a8">
+<link rel="stylesheet" href="../css/90-escaparate.css?v=cea5bd8c">
 </head>
 <body>
 <a class="sr-only" href="#principal">Saltar al contenido</a>
@@ -36,7 +36,7 @@
     <a class="esc-nav-link" href="../pages/00-principios.html">Principios</a>
   </nav>
   <main class="esc-main" id="principal">
-<header class="esc-intro"><h1>Tokens</h1><p>Las tres capas del sistema, leídas del CSS. Esta página la genera <code>tokens-page.py</code> a partir de <code>css/*.css</code>: no hay ninguna lista copiada a mano que se pueda quedar atrás.</p><p>Los contrastes se <strong>miden en el navegador</strong> al cargar, sobre los valores ya resueltos. Un <code>color-mix()</code> en el fuente es una expresión, no un color: solo el navegador sabe en qué acaba.</p></header><section class="ficha" id="capa-1"><h2>Primitivos</h2><p class="resumen">Valores en bruto de la marca. No tienen funcion todavia: un <code>#151F47</code> no se puede poner en una pantalla hasta que algo diga para que sirve. Aqui es donde manda el brandbook.</p><p class="t-cuenta">44 tokens</p>
+<header class="esc-intro"><h1>Tokens</h1><p>Las tres capas del sistema, leídas del CSS. Esta página la genera <code>tokens-page.py</code> a partir de <code>css/*.css</code>: no hay ninguna lista copiada a mano que se pueda quedar atrás.</p><p>Los contrastes se <strong>miden en el navegador</strong> al cargar, sobre los valores ya resueltos. Un <code>color-mix()</code> en el fuente es una expresión, no un color: solo el navegador sabe en qué acaba.</p></header><section class="ficha" id="capa-1"><h2>Primitivos</h2><p class="resumen">Valores en bruto de la marca. No tienen funcion todavia: un <code>#151F47</code> no se puede poner en una pantalla hasta que algo diga para que sirve. Aqui es donde manda el brandbook.</p><p class="t-cuenta">48 tokens</p>
 <h3 class="t-sec">PRIMITIVO · marca</h3><table class="t-tabla"><thead><tr><th>Muestra</th><th>Token</th><th>Valor declarado</th><th>Valor resuelto</th><th>Contraste</th></tr></thead><tbody>
 <tr data-token="--p-navy" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-navy)"></span></td><td class="t-nom"><code>--p-navy</code></td><td class="t-val"><code>#151F47</code></td><td class="t-res"></td><td class="t-con"></td></tr>
 <tr data-token="--p-azul" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-azul)"></span></td><td class="t-nom"><code>--p-azul</code></td><td class="t-val"><code>#3061AA</code></td><td class="t-res"></td><td class="t-con"></td></tr>
@@ -57,6 +57,10 @@
 <tr data-token="--p-success-700" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-success-700)"></span></td><td class="t-nom"><code>--p-success-700</code></td><td class="t-val"><code>#00B374</code></td><td class="t-res"></td><td class="t-con"></td></tr>
 <tr data-token="--p-warning-700" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-warning-700)"></span></td><td class="t-nom"><code>--p-warning-700</code></td><td class="t-val"><code>#E6A832</code></td><td class="t-res"></td><td class="t-con"></td></tr>
 <tr data-token="--p-info-700" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-info-700)"></span></td><td class="t-nom"><code>--p-info-700</code></td><td class="t-val"><code>#366AD9</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--velo" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--velo)"></span></td><td class="t-nom"><code>--velo</code></td><td class="t-val"><code>rgba(21, 31, 71, .55)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--sombra-flotante" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--sombra-flotante)"></span></td><td class="t-nom"><code>--sombra-flotante</code></td><td class="t-val"><code>0 10px 28px rgba(21, 31, 71, .16)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--sombra-globo" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--sombra-globo)"></span></td><td class="t-nom"><code>--sombra-globo</code></td><td class="t-val"><code>0 6px 18px rgba(21, 31, 71, .22)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
+<tr data-token="--brillo-carga" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--brillo-carga)"></span></td><td class="t-nom"><code>--brillo-carga</code></td><td class="t-val"><code>rgba(255, 255, 255, .65)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
 <tr data-token="--n-vidrio" data-tipo="sombra"><td class="t-mu"><span class="t-sw t-sw--sh" style="box-shadow:var(--n-vidrio)"></span></td><td class="t-nom"><code>--n-vidrio</code></td><td class="t-val"><code>4px 4px 12px var(--neu-oscura), 0 0 0 var(--neu-clara), inset -4px -4px 8px var(--neu-clara), inset 0 0 0 var(--neu-oscura)</code></td><td class="t-res"></td><td class="t-con"></td></tr>
 <tr data-token="--p-info-500" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-info-500)"></span></td><td class="t-nom"><code>--p-info-500</code></td><td class="t-val"><code>#3C76F1</code></td><td class="t-res"></td><td class="t-con"></td></tr>
 <tr data-token="--p-info-100" data-tipo="color"><td class="t-mu"><span class="t-sw" style="background:var(--p-info-100)"></span></td><td class="t-nom"><code>--p-info-100</code></td><td class="t-val"><code>#ECF1FE</code></td><td class="t-res"></td><td class="t-con"></td></tr>

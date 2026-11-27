@@ -75,6 +75,6 @@
 - [P3 · Detalle de estudio](https://renatopuente-ux.github.io/actuaria-plus-ds/pages/06-paginas.html#detalle-estudio): Indicadores, pestañas y columna de apoyo con las hipótesis del estudio.
 
 ## Fundamentos
-- [Tokens](https://renatopuente-ux.github.io/actuaria-plus-ds/pages/00-tokens.html): 96 tokens
+- [Tokens](https://renatopuente-ux.github.io/actuaria-plus-ds/pages/00-tokens.html): 100 tokens
 - [Principios](https://renatopuente-ux.github.io/actuaria-plus-ds/pages/00-principios.html): 12 leyes
 - [ds.json](https://renatopuente-ux.github.io/actuaria-plus-ds/ds.json): catalogo completo

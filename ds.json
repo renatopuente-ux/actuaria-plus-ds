@@ -161,6 +161,22 @@
       "valor": "#366AD9"
     },
     {
+      "token": "--velo",
+      "valor": "rgba(21, 31, 71, .55)"
+    },
+    {
+      "token": "--sombra-flotante",
+      "valor": "0 10px 28px rgba(21, 31, 71, .16)"
+    },
+    {
+      "token": "--sombra-globo",
+      "valor": "0 6px 18px rgba(21, 31, 71, .22)"
+    },
+    {
+      "token": "--brillo-carga",
+      "valor": "rgba(255, 255, 255, .65)"
+    },
+    {
       "token": "--n-vidrio",
       "valor": "4px 4px 12px var(--neu-oscura), 0 0 0 var(--neu-clara), inset -4px -4px 8px var(--neu-clara), inset 0 0 0 var(--neu-oscura)"
     },

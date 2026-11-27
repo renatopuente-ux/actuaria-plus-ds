@@ -27,7 +27,7 @@
   /* El velo se mide compuesto, no se copia una opacidad de otro proyecto:
      navy de marca al 55% sobre blanco da un gris azulado que aisla el
      primer plano sin apagar lo que hay detras. */
-  background: rgba(21, 31, 71, .55);
+  background: var(--velo);
 }
 .s-dialogo__cabeza {
   display: flex; align-items: flex-start; justify-content: space-between;
@@ -59,7 +59,7 @@
   background: var(--sup-elevada);
   color: var(--txt-medio);
 }
-.s-cajon::backdrop { background: rgba(21, 31, 71, .55); }
+.s-cajon::backdrop { background: var(--velo); }
 .s-cajon__cabeza {
   display: flex; align-items: center; justify-content: space-between;
   gap: var(--e-4);
@@ -81,7 +81,7 @@
   border: 1px solid var(--p-light);
   border-radius: var(--r-md);
   background: var(--sup-elevada);
-  box-shadow: 0 10px 28px rgba(21, 31, 71, .16);
+  box-shadow: var(--sombra-flotante);
   position: absolute; margin: 0;
 }
 .s-menu__opcion {
@@ -110,7 +110,7 @@
   border-radius: var(--r-md);
   background: var(--sup-elevada);
   color: var(--txt-medio);
-  box-shadow: 0 10px 28px rgba(21, 31, 71, .16);
+  box-shadow: var(--sombra-flotante);
   position: absolute; margin: 0;
 }
 .s-globo__titulo { font: var(--t-ui-lg); color: var(--txt-fuerte); margin-bottom: var(--e-2); }
@@ -125,7 +125,7 @@
   background: var(--p-navy); color: var(--txt-inverso);
   font: var(--t-ui-sm); max-width: 32ch;
   position: absolute; margin: 0;
-  box-shadow: 0 6px 18px rgba(21, 31, 71, .22);
+  box-shadow: var(--sombra-globo);
 }
 
 /* ── s-paleta · Paleta de comandos ─────────────────────────────────────
@@ -138,7 +138,7 @@
   border-radius: var(--r-lg);
   background: var(--sup-elevada);
 }
-.s-paleta::backdrop { background: rgba(21, 31, 71, .55); }
+.s-paleta::backdrop { background: var(--velo); }
 .s-paleta__busca { padding: var(--e-4); border-bottom: 1px solid var(--p-light); }
 .s-paleta__lista { max-height: 320px; overflow-y: auto; padding: var(--e-2); margin: 0; list-style: none; }
 .s-paleta__vacio { padding: var(--e-6); text-align: center; color: var(--txt-debil); font: var(--t-ui); }
