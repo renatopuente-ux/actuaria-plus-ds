@@ -314,3 +314,119 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
 @media (prefers-reduced-motion: no-preference) {
   .m-tabla tbody tr { transition: background var(--mov-rapido); }
 }
+
+/* ── Buscador con sugerencias · .m-combo ──────────────────────────────
+   Dos componentes con el mismo esqueleto ARIA:
+     .m-combo             AUTOCOMPLETAR: el texto libre vale. Las
+                          sugerencias ayudan, no obligan.
+     .m-combo--cerrado    COMBOBOX: el valor TIENE que salir de la
+                          lista. Al salir del campo sin elegir, se
+                          revierte.
+
+   El foco NO se mueve a la lista. Se queda en el campo y la opcion
+   activa se senala con aria-activedescendant. Mover el foco de verdad
+   obliga al usuario a volver al campo para seguir escribiendo, y
+   rompe el lector de pantalla a mitad de frase.
+
+   La lista va en un contenedor posicionado, no en la capa superior:
+   tiene que seguir al campo al rodar la pagina. A cambio, un ancestro
+   con overflow:hidden la recorta — por eso el envoltorio declara su
+   propio apilamiento. */
+.m-combo { position: relative; display: block; }
+.m-combo__campo { width: 100%; }
+.m-combo__lista {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0;
+  /* --z-capa, no un numero suelto: la lista tiene que quedar por
+     encima del contenido pero POR DEBAJO de los dialogos, o un combo
+     abierto se dibujaria sobre la ventana modal que lo contiene. */
+  z-index: var(--z-capa);
+  margin: 0; padding: var(--e-2);
+  list-style: none;
+  max-height: 260px; overflow-y: auto;
+  background: var(--sup-elevada);
+  border: 1px solid var(--p-light);
+  border-radius: var(--r-md);
+  box-shadow: var(--n-md);
+}
+.m-combo__lista[hidden] { display: none; }
+.m-combo__opcion {
+  display: flex; align-items: center; gap: var(--e-3);
+  min-height: 34px; padding: 0 var(--e-3);
+  border-radius: var(--r-sm);
+  font: var(--t-ui); color: var(--txt-medio);
+  cursor: pointer;
+}
+/* La opcion activa se marca con FONDO, no con relieve: esta dentro de
+   una lista, no es una pastilla que sobresalga del lienzo. */
+.m-combo__opcion[aria-selected="true"],
+.m-combo__opcion.activa {
+  background: var(--p-surface);
+  color: var(--txt-fuerte);
+  font-weight: 700;
+}
+.m-combo__opcion mark {
+  background: transparent;
+  color: var(--txt-enlace);
+  font-weight: 700;
+}
+.m-combo__opcion .secundario {
+  margin-left: auto;
+  font: var(--t-ui-sm); color: var(--txt-debil);
+  font-variant-numeric: tabular-nums;
+}
+.m-combo__vacio {
+  padding: var(--e-4) var(--e-3);
+  font: var(--t-ui); color: var(--txt-debil);
+}
+
+/* ── Subir archivos · .m-subida ───────────────────────────────────────
+   La ZONA no es un control: es un area de destino. Va plana, con borde
+   discontinuo, que es la convencion de «suelta aqui». Quien abre el
+   dialogo es el BOTON de dentro, que si lleva relieve.
+
+   Hacer cliqueable toda la zona obliga a un <div> con onclick —sin
+   teclado, sin nombre accesible— o a tragarse que cualquier clic
+   despistado abra el explorador de archivos. */
+.m-subida {
+  display: grid; place-items: center; gap: var(--e-3);
+  padding: var(--e-8) var(--e-5);
+  text-align: center;
+  background: var(--sup-app);
+  border: 2px dashed var(--p-light);
+  border-radius: var(--r-md);
+  transition: border-color var(--mov-rapido), background var(--mov-rapido);
+}
+.m-subida[data-encima="si"] {
+  border-color: var(--p-azul);
+  border-style: solid;
+  background: var(--fill-info);
+}
+.m-subida__texto { font: var(--t-ui); color: var(--txt-medio); }
+.m-subida__pista { font: var(--t-ui-sm); color: var(--txt-debil); }
+.m-subida input[type="file"] {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+.m-archivos { list-style: none; padding: 0; margin-top: var(--e-4); display: grid; gap: var(--e-2); }
+.m-archivo {
+  display: flex; align-items: center; gap: var(--e-3);
+  padding: var(--e-3);
+  background: var(--sup-elevada);
+  border: 1px solid var(--p-light);
+  border-radius: var(--r-md);
+}
+.m-archivo__icono { flex: none; color: var(--txt-debil); }
+.m-archivo__nombre { font: var(--t-ui); color: var(--txt-fuerte); overflow-wrap: anywhere; }
+.m-archivo__peso {
+  margin-left: auto; flex: none;
+  font: var(--t-ui-sm); color: var(--txt-debil);
+  font-variant-numeric: tabular-nums;
+}
+.m-archivo--malo { border-color: var(--p-danger-700); }
+.m-archivo__error { flex-basis: 100%; font: var(--t-ui-sm); color: var(--txt-error); }
+
+@media (pointer: coarse) {
+  .m-combo__opcion { min-height: 44px; }
+}

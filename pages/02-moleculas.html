@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
 <link rel="stylesheet" href="../css/02-atomos.css?v=6fb95a93">
-<link rel="stylesheet" href="../css/03-moleculas.css?v=90ede061">
+<link rel="stylesheet" href="../css/03-moleculas.css?v=2860e6f7">
 <link rel="stylesheet" href="../css/04-organismos.css?v=824411ca">
 <link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=9f68a870">
@@ -372,10 +372,22 @@
   
   
   
+  <section class="ficha" id="combo"><h2>Buscador con sugerencias</h2><span class="clase">.m-combo</span><p class="resumen">Dos comportamientos con el mismo esqueleto ARIA. En <strong>autocompletar</strong> el texto libre vale: las sugerencias ayudan. En <strong>cerrado</strong> el valor tiene que salir de la lista, y al salir del campo sin elegir se revierte.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><div class="m-campo"><label class="a-etiqueta" for="cb-tabla-c">Tabla de mortalidad</label><div class="m-combo" id="cb-tabla"><input class="a-campo m-combo__campo" id="cb-tabla-c" type="text" role="combobox" autocomplete="off" aria-expanded="false" aria-autocomplete="list" aria-controls="cb-tabla-l" aria-describedby="cb-tabla-a"><ul class="m-combo__lista" id="cb-tabla-l" role="listbox" aria-label="Tabla de mortalidad" hidden></ul><script type="application/json" data-opciones>[{"texto": "PERM/F 2000-P", "nota": "España"}, {"texto": "PERM/F 2020", "nota": "España"}, {"texto": "PERM/F 2000-C", "nota": "España"}, {"texto": "GKM-95", "nota": "Alemania"}, {"texto": "TV 88-90", "nota": "Francia"}, {"texto": "RP-2014", "nota": "EE. UU."}, {"texto": "IESS 2017", "nota": "Ecuador"}, {"texto": "CSO 2001", "nota": "EE. UU."}]</script></div><span class="ayuda" id="cb-tabla-a">Escribe para filtrar. El texto libre vale.</span><span class="sr-only" role="status" aria-live="polite" data-aviso></span></div></div><div class="muestra-ancha"><div class="m-campo"><label class="a-etiqueta" for="cb-col-c">Colectivo</label><div class="m-combo m-combo--cerrado" id="cb-col"><input class="a-campo m-combo__campo" id="cb-col-c" type="text" role="combobox" autocomplete="off" aria-expanded="false" aria-autocomplete="list" aria-controls="cb-col-l" aria-describedby="cb-col-a"><ul class="m-combo__lista" id="cb-col-l" role="listbox" aria-label="Colectivo" hidden></ul><script type="application/json" data-opciones>[{"texto": "Mutua del Sur", "nota": "1 842 pólizas"}, {"texto": "Previsión Norte", "nota": "964"}, {"texto": "Caja Andina", "nota": "3 120"}, {"texto": "Grupo Litoral", "nota": "412"}, {"texto": "Mutual Andes", "nota": "2 560"}]</script></div><span class="ayuda" id="cb-col-a">Solo valores de la lista. Si escribes otra cosa, se revierte.</span><span class="sr-only" role="status" aria-live="polite" data-aviso></span></div></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La lista es larga y escribir llega antes que desplegar</li><li>El usuario reconoce el valor pero no recuerda su nombre exacto</li><li>Conviene mostrar un dato secundario junto a cada opción</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Mover el foco a la lista: obliga a volver al campo para seguir escribiendo</li><li>Dejar el cerrado con texto que no está en la lista</li><li>Omitir el recuento de resultados — con lector de pantalla no se sabe si hay 50 o ninguno</li></ul></div></div><pre class="codigo"><code>&lt;div class="m-combo" id="cb"&gt;
+  &lt;input class="a-campo m-combo__campo" role="combobox"
+         aria-expanded="false" aria-autocomplete="list" aria-controls="cb-l"&gt;
+  &lt;ul class="m-combo__lista" id="cb-l" role="listbox" hidden&gt;&lt;/ul&gt;
+  &lt;script type="application/json" data-opciones&gt;[...]&lt;/script&gt;
+&lt;/div&gt;</code></pre></section><section class="ficha" id="subida"><h2>Subir archivos</h2><span class="clase">.m-subida</span><p class="resumen">La <strong>zona es un área de destino</strong>, no un control: plana y con borde discontinuo. Quien abre el diálogo es el botón de dentro, que sí lleva relieve. El tamaño y los errores se comprueban al soltar, no al enviar.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><div class="m-subida" data-max-mb="5" data-tipos=".csv,.xlsx,.txt"><span class="m-subida__texto">Arrastra el fichero del colectivo</span><button type="button" class="a-btn" data-abrir-archivo>Elegir archivo</button><span class="m-subida__pista">CSV, XLSX o TXT · hasta 5 MB</span><input type="file" multiple accept=".csv,.xlsx,.txt" aria-label="Fichero del colectivo"></div><ul class="m-archivos"></ul><span class="sr-only" role="status" aria-live="polite" data-aviso></span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El fichero es grande y arrastrar es más cómodo que navegar carpetas</li><li>Conviene validar formato y tamaño antes de enviar</li><li>Se suben varios ficheros de una vez</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Hacer cliqueable toda la zona con un <code>div</code>: sin teclado y sin nombre accesible</li><li>Aceptar el fichero y avisar del error al enviar, cuando ya se perdió el trabajo</li><li>Mostrar el tamaño en formato inglés si el resto de la aplicación usa coma</li></ul></div></div><pre class="codigo"><code>&lt;div class="m-subida" data-max-mb="5" data-tipos=".csv,.xlsx"&gt;
+  &lt;button type="button" class="a-btn"&gt;Elegir archivo&lt;/button&gt;
+  &lt;input type="file" multiple aria-label="Fichero"&gt;
+&lt;/div&gt;
+&lt;ul class="m-archivos"&gt;&lt;/ul&gt;</code></pre></section>
   </main>
 </div>
 <script src="../js/numero.js?v=4f763e4c" defer></script>
 <script src="../js/formulario.js?v=8c746630" defer></script>
+<script src="../js/combo.js?v=57805803" defer></script>
+<script src="../js/subida.js?v=0413ad23" defer></script>
 <script src="../js/ds.js?v=c3c2bbb3"></script>
 <script src="../js/superposicion.js?v=b81abd6e"></script>
 <script>
