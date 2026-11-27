@@ -10,8 +10,8 @@
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
-<link rel="stylesheet" href="../css/02-atomos.css?v=6fb95a93">
-<link rel="stylesheet" href="../css/03-moleculas.css?v=217e7990">
+<link rel="stylesheet" href="../css/02-atomos.css?v=cca364ba">
+<link rel="stylesheet" href="../css/03-moleculas.css?v=2b2b78eb">
 <link rel="stylesheet" href="../css/04-organismos.css?v=824411ca">
 <link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=9f68a870">
@@ -392,6 +392,13 @@
     &lt;summary&gt;Datos del colectivo &lt;svg class="flecha"&gt;…&lt;/svg&gt;&lt;/summary&gt;
     &lt;div class="m-acordeon__cuerpo"&gt;…&lt;/div&gt;
   &lt;/details&gt;
+&lt;/div&gt;</code></pre></section>
+  <section class="ficha" id="resumen"><h2>Lista de resumen</h2><span class="clase">.m-resumen</span><p class="resumen">Pares etiqueta/valor en <code>&lt;dl&gt;</code>, que es lo que el HTML tiene para esto. Un lector anuncia <q>Tasa técnica, 2,75 %</q> como una pareja; con <code>div</code> y dos <code>span</code> anuncia dos textos sueltos y hay que adivinar cuál va con cuál.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><dl class="m-resumen m-resumen--cifras m-resumen--rayado"><dt>Tasa técnica</dt><dd>2,75 %</dd><dt>Tabla de mortalidad</dt><dd>PERM/F 2000-P<span class="matiz">Unisex · versión 2024</span></dd><dt>Pólizas</dt><dd>1 842</dd><dt>DBO a 31/12/2026</dt><dd>1 842 330 EUR</dd><dt>Coste del servicio</dt><dd>112 480 EUR</dd></dl><span class="pie">Cifras a la derecha y tabulares: se comparan sin leer dígito a dígito</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Se describen los atributos de UN objeto</li><li>El usuario compara cifras entre filas</li><li>Hace falta un matiz bajo el valor (versión, fecha, origen)</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Usar <code>div</code> en vez de <code>dl</code>: se pierde la pareja para el lector</li><li>Alinear cifras a la izquierda — impide comparar magnitudes</li><li>Meter acciones dentro: una lista de resumen describe, no opera</li></ul></div></div><pre class="codigo"><code>&lt;dl class="m-resumen m-resumen--cifras"&gt;
+  &lt;dt&gt;Tasa técnica&lt;/dt&gt;&lt;dd&gt;2,75 %&lt;/dd&gt;
+  &lt;dt&gt;Pólizas&lt;/dt&gt;&lt;dd&gt;1 842&lt;/dd&gt;
+&lt;/dl&gt;</code></pre></section><section class="ficha" id="texto"><h2>Bloque de texto</h2><span class="clase">.m-texto</span><p class="resumen">Prosa larga: notas metodológicas, descripciones, avisos. Lo único que hace es imponer la <strong>medida de línea</strong> y el ritmo vertical. 68 caracteres no es un gusto: por encima de ~80 el ojo pierde el salto de línea y relee la misma.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><div class="m-texto"><h3>Criterio de prorrateo</h3><p>La obligación se devenga <strong>linealmente desde la fecha de entrada</strong> hasta la primera fecha en que la prestación queda consolidada. Si el plan reconoce antigüedad previa, el periodo de devengo empieza en la fecha reconocida, no en la de alta.</p><ul><li>Colectivo cerrado: no se admiten altas posteriores a la fecha de valuación.</li><li>Las bajas del ejercicio se prorratean hasta su fecha efectiva.</li></ul><p>El parámetro se declara en <code>hipotesis.prorrateo</code> y queda registrado en el estudio.</p></div><span class="pie">Máximo 68 caracteres por línea</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Hay más de dos frases seguidas</li><li>El texto explica un criterio que alguien tendrá que auditar</li><li>Conviene mezclar prosa con listas o fragmentos de código</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Dejarlo sin límite de ancho dentro de un contenedor grande</li><li>Usarlo para una sola frase: eso es la ayuda de un campo</li><li>Justificar el texto a ambos lados — abre ríos y estorba la lectura</li></ul></div></div><pre class="codigo"><code>&lt;div class="m-texto"&gt;
+  &lt;h3&gt;Criterio de prorrateo&lt;/h3&gt;
+  &lt;p&gt;La obligación se devenga…&lt;/p&gt;
 &lt;/div&gt;</code></pre></section>
   </main>
 </div>

@@ -526,3 +526,60 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
 @media (pointer: coarse) {
   .m-pestanas__tab { min-height: 44px; }
 }
+
+/* ── Lista de resumen · .m-resumen ────────────────────────────────────
+   Pares etiqueta/valor de un objeto. Va en <dl>, que es lo que el HTML
+   tiene para esto: un lector de pantalla anuncia «Tasa técnica, 2,75 %»
+   como una pareja. Con <div> y dos <span> anuncia dos textos sueltos y
+   el usuario tiene que adivinar cual va con cual.
+
+   Las cifras en columna derecha y tabulares, para comparar de un
+   vistazo sin leer digito a digito. */
+.m-resumen {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  gap: var(--e-3) var(--e-5);
+  margin: 0;
+}
+.m-resumen dt {
+  font: var(--t-ui); color: var(--txt-debil);
+  white-space: nowrap;
+}
+.m-resumen dd {
+  margin: 0;
+  font: var(--t-ui); color: var(--txt-fuerte);
+  overflow-wrap: anywhere;
+}
+.m-resumen--cifras dd {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.m-resumen .matiz { display: block; font: var(--t-ui-sm); color: var(--txt-debil); }
+/* Separador entre filas: filete, no franja. */
+.m-resumen--rayado dt, .m-resumen--rayado dd {
+  padding-bottom: var(--e-3);
+  border-bottom: 1px solid var(--p-light);
+}
+.m-resumen--rayado dt:last-of-type, .m-resumen--rayado dd:last-of-type { border-bottom: 0; }
+
+/* ── Bloque de texto · .m-texto ───────────────────────────────────────
+   Prosa larga: notas metodologicas, descripciones, avisos legales. Lo
+   unico que hace es imponer la MEDIDA DE LINEA y el ritmo vertical.
+
+   68 caracteres no es un gusto: por encima de ~80 el ojo pierde el
+   salto de linea y relee la misma. Es la regla que mas se incumple
+   cuando un parrafo se mete en un contenedor ancho. */
+.m-texto {
+  max-width: 68ch;
+  font: var(--t-cuerpo); font-size: 15px; line-height: 24px;
+  color: var(--txt-medio);
+}
+.m-texto > * + * { margin-top: var(--e-4); }
+.m-texto h3 { font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte); }
+.m-texto strong { color: var(--txt-fuerte); }
+.m-texto ul, .m-texto ol { padding-left: var(--e-5); }
+.m-texto li + li { margin-top: var(--e-2); }
+.m-texto code {
+  padding: 1px 5px; border-radius: var(--r-sm);
+  background: var(--sup-hundida); font-size: 13px;
+}

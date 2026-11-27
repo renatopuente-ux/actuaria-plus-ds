@@ -778,3 +778,97 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
   .a-deslizador input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
   .a-deslizador input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; }
 }
+
+/* ── Avatar · .a-avatar ───────────────────────────────────────────────
+   Iniciales sobre un relleno de la paleta. INFORMATIVO: plano, opaco y
+   sin cursor, salvo que sea el disparador de un menu — y entonces es un
+   boton y lleva relieve.
+
+   El naranja NO entra como relleno: con blanco da 3.64, que solo vale
+   para texto grande, y unas iniciales de 13px no lo son. Quedan navy
+   (15.92), azul (6.15) y claro con tinta oscura (13.64). */
+.a-avatar {
+  display: inline-grid; place-items: center;
+  width: 34px; height: 34px;
+  border-radius: var(--r-circle);
+  background: var(--p-navy);
+  color: var(--txt-inverso);
+  font: var(--t-ui-sm); font-weight: 700;
+  letter-spacing: .02em;
+  cursor: default; user-select: none;
+  overflow: hidden; flex: none;
+}
+.a-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.a-avatar--azul  { background: var(--p-azul); }
+.a-avatar--claro { background: var(--p-light); color: var(--txt-fuerte); }
+.a-avatar--sm { width: 26px; height: 26px; font-size: 11px; }
+.a-avatar--lg { width: 46px; height: 46px; font-size: 16px; }
+
+/* Pila de avatares: el solape se hace con un borde del color de la
+   superficie, no con sombra, para que no se ensucie al amontonarse. */
+.a-avatares { display: inline-flex; }
+.a-avatares .a-avatar { margin-left: -10px; border: 2px solid var(--sup-elevada); }
+.a-avatares .a-avatar:first-child { margin-left: 0; }
+.a-avatares .a-resto {
+  margin-left: -10px; border: 2px solid var(--sup-elevada);
+  background: var(--sup-hundida); color: var(--txt-medio);
+}
+
+/* ── Punto de estado · .a-punto ───────────────────────────────────────
+   MEDIDO: sobre tarjeta blanca el verde da 2.21 y el ambar 1.69, por
+   debajo del 3:1 que WCAG 1.4.11 pide a un grafico pequeno. Dos
+   consecuencias, las dos obligatorias:
+
+     1. El punto lleva ARO oscuro, que le da un contorno visible sea
+        cual sea el relleno.
+     2. El punto NUNCA va solo. Siempre acompanado del texto que dice
+        el estado — si no, la informacion depende solo del color y eso
+        incumple WCAG 1.4.1.
+
+   Por eso el atomo es la pareja punto+texto, no el punto suelto: asi
+   no se puede usar mal por descuido. */
+.a-estado {
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  font: var(--t-ui); color: var(--txt-medio);
+  cursor: default;
+}
+.a-estado .a-punto {
+  width: 9px; height: 9px; flex: none;
+  border-radius: var(--r-circle);
+  border: 1px solid var(--txt-medio);
+  background: var(--txt-debil);
+}
+.a-estado--ok    .a-punto { background: var(--p-success-500); }
+.a-estado--aviso .a-punto { background: var(--p-warning-500); }
+.a-estado--error .a-punto { background: var(--p-danger-700); }
+.a-estado--curso .a-punto { background: var(--p-info-500); }
+
+/* ── Valoración · .a-valoracion ───────────────────────────────────────
+   Marca de calidad de un dato, no una opinion. Por defecto es de SOLO
+   LECTURA: plana, sin cursor y con la cifra escrita al lado, porque
+   contar estrellas a ojo es mas lento que leer un numero.
+
+   La variante editable convierte cada paso en un radio de verdad,
+   dentro de un radiogroup con una sola parada de tabulador. */
+.a-valoracion { display: inline-flex; align-items: center; gap: var(--e-2); cursor: default; }
+.a-valoracion .marca { color: var(--p-light); }
+.a-valoracion .marca--llena { color: var(--p-warning-700); }
+.a-valoracion .cifra {
+  margin-left: var(--e-1);
+  font: var(--t-ui-sm); color: var(--txt-medio);
+  font-variant-numeric: tabular-nums;
+}
+.a-valoracion--editable { gap: 0; }
+.a-valoracion--editable [role="radio"] {
+  display: grid; place-items: center;
+  width: 32px; height: 32px;
+  border: 0; border-radius: var(--r-circle);
+  background: transparent; box-shadow: none;
+  color: var(--p-light); cursor: pointer;
+}
+.a-valoracion--editable [role="radio"][data-llena="si"] { color: var(--p-warning-700); }
+.a-valoracion--editable [role="radio"]:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 2px; }
+
+@media (pointer: coarse) {
+  .a-valoracion--editable [role="radio"] { width: 44px; height: 44px; }
+}
