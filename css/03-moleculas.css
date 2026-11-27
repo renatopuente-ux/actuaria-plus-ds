@@ -583,3 +583,111 @@ input[type="search"]::-webkit-search-cancel-button { -webkit-appearance: none; a
   padding: 1px 5px; border-radius: var(--r-sm);
   background: var(--sup-hundida); font-size: 13px;
 }
+
+/* ── Calendario · .m-cal ──────────────────────────────────────────────
+   EXCEPCION DECLARADA a la ley de relieve. En una rejilla donde las 42
+   celdas son cliqueables por convencion, darles relieve a todas no
+   senala nada: una senal necesita fondo SIN senal para destacar. Aqui
+   la superficie con relieve es la rejilla; la celda se declara con el
+   cursor, el hover y el foco.
+
+   Se marca con data-superficie="rejilla" para que sea una decision
+   explicita, y qa.js exige a cambio que cada celda tenga cursor de
+   mano (comprobacion 6c).
+
+   Lo que SI sigue la ley: el dia elegido queda HUNDIDO, porque es el
+   estado activo, igual que en el segmentado y las pestanas. */
+/* Fila campo + calendario: el calendario es inline-block y, suelto
+   junto a un bloque, se le monta encima. Necesita un contenedor que
+   los ponga en fila de verdad. */
+.m-cal-fila {
+  display: flex; flex-wrap: wrap; align-items: flex-start;
+  gap: var(--e-5);
+}
+.m-cal-fila > .m-campo { width: 220px; flex: none; }
+
+.m-cal {
+  display: inline-block; padding: var(--e-4);
+  border-radius: var(--r-lg);
+  background: var(--sup-app);
+  box-shadow: var(--n-md);
+}
+.m-cal__barra {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--e-3); margin-bottom: var(--e-4);
+}
+.m-cal__mes {
+  font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte);
+}
+/* capitalize pone mayuscula en CADA palabra y deja «Diciembre De 2026».
+   En espanol la preposicion va en minuscula, asi que solo se toca la
+   primera letra. */
+.m-cal__mes::first-letter { text-transform: uppercase; }
+.m-cal__nav {
+  display: grid; place-items: center;
+  width: 32px; height: 32px; flex: none;
+  border: 0; border-radius: var(--r-circle);
+  background: var(--sup-app);
+  box-shadow: var(--n-xs);
+  color: var(--txt-medio); cursor: pointer;
+  transition: box-shadow var(--mov-rapido);
+}
+.m-cal__nav:hover { box-shadow: var(--n-sm); color: var(--txt-fuerte); }
+.m-cal__nav:active { box-shadow: var(--n-in-sm); }
+.m-cal__nav:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 2px; }
+
+.m-cal__cabecera, .m-cal__rejilla {
+  display: grid; grid-template-columns: repeat(7, 36px); gap: 2px;
+}
+.m-cal__cabecera { margin-bottom: var(--e-2); }
+.m-cal__cabecera span {
+  display: grid; place-items: center; height: 24px;
+  font: var(--t-ui-sm); font-weight: 700; color: var(--txt-debil);
+}
+.m-cal__dia {
+  display: grid; place-items: center;
+  height: 34px;
+  border: 0; border-radius: var(--r-md);
+  background: transparent; box-shadow: none;
+  font: var(--t-ui); color: var(--txt-fuerte);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background var(--mov-rapido), box-shadow var(--mov-rapido);
+}
+.m-cal__dia:hover { background: var(--p-light); }
+.m-cal__dia:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 1px; }
+/* Fuera del mes: sigue siendo cliqueable, solo que apagado. */
+.m-cal__dia[data-otro-mes="si"] { color: var(--txt-debil); opacity: .55; }
+/* Hoy: aro, no relleno — el relleno es para el dia ELEGIDO y los dos a
+   la vez se confundirian. */
+.m-cal__dia[aria-current="date"] {
+  box-shadow: inset 0 0 0 1.5px var(--p-azul);
+  font-weight: 700;
+}
+/* Elegido: hundido y opaco, como manda la ley para el estado activo. */
+.m-cal__dia[aria-selected="true"] {
+  background: var(--p-navy);
+  color: var(--txt-inverso);
+  box-shadow: var(--n-in-sm);
+  font-weight: 700;
+}
+.m-cal__dia[aria-selected="true"][aria-current="date"] {
+  box-shadow: inset 0 0 0 1.5px var(--p-naranja-soft);
+}
+.m-cal__dia[aria-disabled="true"] {
+  opacity: .35; cursor: not-allowed;
+  background: transparent; box-shadow: none;
+}
+.m-cal__pie {
+  margin-top: var(--e-3); padding-top: var(--e-3);
+  border-top: 1px solid var(--p-light);
+  font: var(--t-ui-sm); color: var(--txt-debil);
+}
+@media (pointer: coarse) {
+  .m-cal__cabecera, .m-cal__rejilla { grid-template-columns: repeat(7, 44px); }
+  .m-cal__dia { height: 44px; }
+  .m-cal__nav { width: 44px; height: 44px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .m-cal__dia, .m-cal__nav { transition: none; }
+}

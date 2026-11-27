@@ -257,6 +257,15 @@
       })
       .forEach(e => {
         if (e.closest('.a-anillo')) return;            /* la sombra la lleva el anillo */
+        /* REJILLA DENSA: excepcion DECLARADA, no silenciosa. En una
+           cuadricula donde TODAS las celdas son cliqueables por
+           convencion —un calendario— dar relieve a las 42 no senala
+           nada: una senal necesita fondo sin senal para destacar. Ahi
+           la superficie con relieve es la rejilla, y la celda se
+           declara con el cursor, el hover y el foco.
+           Se exige declararlo con data-superficie="rejilla" para que
+           sea una decision y no un descuido, y se COMPENSA abajo. */
+        if (e.closest('[data-superficie="rejilla"]')) return;
         if (sobresale(sombra(e))) return;              /* en reposo, correcto */
         if (hundido(e) && pulsado(e)) return;          /* pulsado, correcto */
         if (hundido(e)) { F('relieve', `hundido sin estar activo: ${nombre(e)}`); return; }
@@ -277,6 +286,18 @@
         if (sobresale(sombra(e))) F('relieve', `no se puede pulsar pero tiene relieve: ${nombre(e)}`);
       });
   }
+
+  /* 6c · CONTRAPARTIDA DE LA REJILLA. La excepcion de arriba no es un
+     indulto: si la celda no senala con relieve, tiene que senalar con
+     el cursor. Una celda cliqueable con cursor de texto o de flecha es
+     exactamente el fallo que la ley evita. */
+  [...document.querySelectorAll('[data-superficie="rejilla"] button:not([disabled]), ' +
+                                '[data-superficie="rejilla"] [role="gridcell"]:not([aria-disabled="true"])')]
+    .filter(visible)
+    .forEach(e => {
+      if (getComputedStyle(e).cursor !== 'pointer')
+        F('relieve', `celda de rejilla sin cursor de mano: ${nombre(e)}`);
+    });
 
   /* 7 · FORMA. Pildora para la accion, rectangulo para la entrada. */
   [...document.querySelectorAll('.a-btn, .a-anillo')].filter(visible).forEach(e => {
