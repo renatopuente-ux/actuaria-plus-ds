@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
-<link rel="stylesheet" href="../css/02-atomos.css?v=0970e361">
+<link rel="stylesheet" href="../css/02-atomos.css?v=6fb95a93">
 <link rel="stylesheet" href="../css/03-moleculas.css?v=90ede061">
 <link rel="stylesheet" href="../css/04-organismos.css?v=824411ca">
 <link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
@@ -289,9 +289,20 @@
   
   
   
+  <section class="ficha" id="grupo"><h2>Grupo de campo</h2><span class="clase">.a-grupo</span><p class="resumen">Campo con un afijo fijo: la unidad, la divisa o un prefijo. El afijo <strong>informa</strong>, así que va plano, opaco y sin cursor; el que se escribe sigue siendo el campo.</p><div class="lienzo lienzo--col"><div class="muestra"><span class="a-grupo a-grupo--num"><input value="2,75" aria-label="Tasa técnica"><span class="afijo">%</span></span><span class="pie">Afijo al final</span></div><div class="muestra"><span class="a-grupo a-grupo--num"><span class="afijo">EUR</span><input value="1 842 330" aria-label="Provisión"></span><span class="pie">Afijo al principio</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>La unidad es fija y no la elige el usuario</li><li>Evita repetir la unidad en la etiqueta y en la ayuda</li><li>El dato es numérico y conviene alinearlo a la derecha</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Meter en el afijo algo que se pueda pulsar: eso es un botón, y lleva relieve</li><li>Usarlo para una unidad que el usuario puede cambiar — eso es un desplegable</li><li>Dejar el campo sin etiqueta propia: el afijo no es su nombre</li></ul></div></div><pre class="codigo"><code>&lt;span class="a-grupo a-grupo--num"&gt;
+  &lt;input value="2,75" aria-label="Tasa técnica"&gt;
+  &lt;span class="afijo"&gt;%&lt;/span&gt;
+&lt;/span&gt;</code></pre></section><section class="ficha" id="segmentado"><h2>Segmentado</h2><span class="clase">.a-segmentado</span><p class="resumen">Elección única entre pocas opciones visibles a la vez. Es un <code>radiogroup</code> de verdad: <strong>una sola parada de tabulador</strong> y las flechas recorren las opciones.</p><div class="lienzo lienzo--col"><div class="muestra"><div class="a-segmentado" role="radiogroup" aria-label="Periodo"><button type="button" role="radio" aria-checked="true" data-valor="mes">Mes</button><button type="button" role="radio" aria-checked="false" data-valor="trimestre">Trimestre</button><button type="button" role="radio" aria-checked="false" data-valor="ano">Año</button></div><span class="pie">Inactivo sobresale · activo hundido</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Hay entre dos y cinco opciones y caben todas</li><li>El usuario gana viéndolas sin desplegar nada</li><li>La elección cambia la vista al instante</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Más de cinco opciones: eso es un desplegable</li><li>Dejar los inactivos planos — miente sobre que se pueden pulsar</li><li>Usarlo para varias elecciones a la vez: eso son casillas</li></ul></div></div><pre class="codigo"><code>&lt;div class="a-segmentado" role="radiogroup" aria-label="Periodo"&gt;
+  &lt;button type="button" role="radio" aria-checked="true"&gt;Mes&lt;/button&gt;
+  &lt;button type="button" role="radio" aria-checked="false"&gt;Trimestre&lt;/button&gt;
+&lt;/div&gt;</code></pre></section><section class="ficha" id="deslizador"><h2>Deslizador</h2><span class="clase">.a-deslizador</span><p class="resumen">Valor dentro de un rango cuando importa la <strong>magnitud relativa</strong>, no la cifra exacta. Siempre con su valor escrito al lado: un deslizador sin número no se puede auditar.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><label class="a-etiqueta" for="d-tasa">Tasa técnica</label><div class="a-deslizador"><input type="range" id="d-tasa" min="0" max="600" step="25" value="275" aria-describedby="d-tasa-v"><output class="valor" id="d-tasa-v" data-unidad="pb">275 pb</output></div><span class="pie">El pulgar es más alto que el recorrido: su contorno se apoya en la página</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Importa más la proporción que el dígito exacto</li><li>El rango tiene topes claros y un paso natural</li><li>Se acompaña siempre del valor en cifras</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Pedir precisión: para eso está el campo numérico</li><li>Rangos enormes donde un paso del teclado no llega a ninguna parte</li><li>Esconder el valor y dejar solo la posición del pulgar</li></ul></div></div><pre class="codigo"><code>&lt;div class="a-deslizador"&gt;
+  &lt;input type="range" min="0" max="600" step="25" value="275"&gt;
+  &lt;output class="valor" data-unidad="pb"&gt;275 pb&lt;/output&gt;
+&lt;/div&gt;</code></pre></section>
   </main>
 </div>
 <script src="../js/numero.js?v=4f763e4c" defer></script>
+<script src="../js/formulario.js?v=8c746630" defer></script>
 <script src="../js/ds.js?v=c3c2bbb3"></script>
 <script src="../js/superposicion.js?v=b81abd6e"></script>
 <script>

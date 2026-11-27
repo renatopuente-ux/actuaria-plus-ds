@@ -55,7 +55,10 @@ fuentes = (glob.glob(os.path.join(R, "css", "*.css"))
 for f in fuentes:
     for n, linea in enumerate(open(f, encoding="utf-8"), 1):
         for zona in zonas_css(f, linea):
-            for m in re.finditer(r"var\(\s*(--[\w-]+)", sin_comentarios(zona)):
+            # var(--x, respaldo) NO entra: esta comprobacion existe para
+            # cazar el fallo SILENCIOSO, y un respaldo lo hace imposible.
+            # El patron exige que tras el nombre venga `)`, no una coma.
+            for m in re.finditer(r"var\(\s*(--[\w-]+)\s*\)", sin_comentarios(zona)):
                 if m.group(1) not in definidos:
                     fallos.append(f"{os.path.relpath(f, R)}:{n}  {m.group(1)}  ->  {zona.strip()[:70]}")
 

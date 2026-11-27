@@ -222,8 +222,20 @@
        igual que uno plano. */
     const hundido = e => { const s = sombra(e);
       return s !== 'none' && entradas(s).some(x => /\binset\b/.test(x) && /[1-9]\d*px/.test(x)); };
+    /* «Activo» se declara de varias formas segun el patron ARIA, y todas
+       valen para justificar el hundido:
+         aria-pressed   boton de dos estados
+         aria-checked   radio o casilla dentro de un grupo
+         aria-selected  pestana u opcion de una lista
+         aria-current   la pagina o el paso en el que ya estas
+         aria-sort      la columna por la que se ordena
+       Faltaba aria-checked y el segmentado salia como «hundido sin
+       estar activo»: el componente era correcto y el incompleto era
+       este comprobador. */
     const pulsado = e =>
-      e.getAttribute('aria-pressed') === 'true' ||
+      e.getAttribute('aria-pressed')  === 'true' ||
+      e.getAttribute('aria-checked')  === 'true' ||
+      e.getAttribute('aria-selected') === 'true' ||
       e.hasAttribute('aria-current') ||
       !!e.closest('[aria-sort]') ||
       e.matches(':active');

@@ -638,3 +638,143 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
   }
   .a-numero .paso-num[data-num="+"] { border-radius: 0 var(--r-md) var(--r-md) 0; }
 }
+
+/* ── Grupo de campo · .a-grupo ────────────────────────────────────────
+   Campo con afijo: «%», «EUR», «anos». El afijo INFORMA, asi que va
+   plano, opaco y sin cursor; el que se escribe es el campo, que
+   conserva su hundido. Separarlos asi evita el error tipico de
+   maquetar el afijo como si fuera un boton. */
+.a-grupo {
+  display: inline-flex;
+  align-items: stretch;
+  min-height: 38px;
+  border-radius: var(--r-md);
+  background: var(--sup-hundida);
+  box-shadow: var(--n-in-sm);
+}
+.a-grupo:focus-within { outline: 2px solid var(--p-azul); outline-offset: 3px; }
+.a-grupo .a-campo,
+.a-grupo input {
+  flex: 1 1 auto; min-width: 0;
+  border: 0; background: transparent; box-shadow: none;
+  font: var(--t-ui); color: var(--txt-fuerte);
+  padding: 0 var(--e-3);
+}
+.a-grupo input:focus { outline: none; }
+.a-grupo .afijo {
+  display: grid; place-items: center;
+  padding: 0 var(--e-3);
+  background: var(--p-light);
+  color: var(--txt-debil);
+  font: var(--t-ui-sm);
+  cursor: default; user-select: none;
+  white-space: nowrap;
+}
+.a-grupo .afijo:first-child { border-radius: var(--r-md) 0 0 var(--r-md); }
+.a-grupo .afijo:last-child  { border-radius: 0 var(--r-md) var(--r-md) 0; }
+.a-grupo--num input { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ── Segmentado · .a-segmentado ───────────────────────────────────────
+   Eleccion unica entre pocas opciones. Es un radiogroup de verdad, no
+   una fila de botones: con teclado se recorre con las flechas y solo
+   hay UNA parada de tabulador para todo el grupo.
+
+   La ley de relieve se aplica entera: inactivo SOBRESALE porque se
+   puede pulsar, activo esta HUNDIDO porque ya se pulso. Dejar los
+   inactivos planos miente sobre su interactividad. */
+.a-segmentado {
+  display: inline-flex;
+  gap: 3px; padding: 3px;
+  border-radius: var(--r-pill);
+  background: var(--sup-hundida);
+  box-shadow: var(--n-in-sm);
+}
+.a-segmentado [role="radio"] {
+  min-height: 32px; padding: 0 var(--e-4);
+  border: 0; border-radius: var(--r-pill);
+  background: var(--sup-app);
+  box-shadow: var(--n-xs);
+  font: var(--t-ui); color: var(--txt-medio);
+  cursor: pointer; white-space: nowrap;
+  transition: box-shadow var(--mov-rapido), color var(--mov-rapido);
+}
+.a-segmentado [role="radio"]:hover { box-shadow: var(--n-sm); color: var(--txt-fuerte); }
+.a-segmentado [role="radio"][aria-checked="true"] {
+  box-shadow: var(--n-in-sm);
+  color: var(--txt-fuerte); font-weight: 700;
+}
+.a-segmentado [role="radio"]:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 2px; }
+
+/* ── Deslizador · .a-deslizador ───────────────────────────────────────
+   EL PROBLEMA DEL PULGAR, medido: se apoya en dos sustratos a la vez y
+   ningun color unico sirve.
+     pulgar blanco  vs relleno 15.92  ·  vs vacio  1.32   falla
+     pulgar navy    vs relleno  1.00  ·  vs vacio 12.03   falla
+   Y tampoco basta con ponerle un aro: cualquier aro queda cerca del
+   relleno (el mejor da 2.59).
+
+   La salida es geometrica, no cromatica: el pulgar es MAS ALTO que el
+   recorrido, asi que su contorno se apoya en la pagina (aro navy contra
+   la superficie: 13.45) y no en el relleno. Y el relleno se detiene
+   antes de llegar, dejando un hueco, para que los dos navys no lleguen
+   a tocarse. */
+.a-deslizador { display: flex; align-items: center; gap: var(--e-4); }
+.a-deslizador input[type="range"] {
+  /* --relleno lo escribe el JS en cada 'input'. Se declara aqui con su
+     valor inicial para que el recorrido se pinte correctamente aunque
+     el script no haya corrido todavia: sin esto, el primer fotograma
+     muestra la barra entera rellena. */
+  --relleno: 0%;
+  -webkit-appearance: none; appearance: none;
+  flex: 1 1 auto; min-width: 120px;
+  height: 20px; margin: 0;
+  background: transparent;
+  cursor: pointer;
+}
+/* recorrido: es una ranura, asi que va hundido */
+.a-deslizador input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px; border-radius: var(--r-pill);
+  background:
+    linear-gradient(to right,
+      var(--p-navy) 0 calc(var(--relleno, 0%) - 7px),
+      var(--sup-hundida) calc(var(--relleno, 0%) + 7px) 100%);
+  box-shadow: var(--n-in-sm);
+}
+.a-deslizador input[type="range"]::-moz-range-track {
+  height: 6px; border-radius: var(--r-pill);
+  background:
+    linear-gradient(to right,
+      var(--p-navy) 0 calc(var(--relleno, 0%) - 7px),
+      var(--sup-hundida) calc(var(--relleno, 0%) + 7px) 100%);
+  box-shadow: var(--n-in-sm);
+}
+/* pulgar: es un mando, asi que SOBRESALE */
+.a-deslizador input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 20px; height: 20px; margin-top: -7px;
+  border-radius: var(--r-circle);
+  background: var(--sup-elevada);
+  border: 2px solid var(--p-navy);
+  box-shadow: var(--n-xs);
+}
+.a-deslizador input[type="range"]::-moz-range-thumb {
+  width: 20px; height: 20px; border: 2px solid var(--p-navy);
+  border-radius: var(--r-circle);
+  background: var(--sup-elevada);
+  box-shadow: var(--n-xs);
+}
+.a-deslizador input[type="range"]:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 4px; }
+.a-deslizador .valor {
+  min-width: 68px; text-align: right;
+  font: var(--t-ui); font-variant-numeric: tabular-nums;
+  color: var(--txt-fuerte);
+}
+
+@media (pointer: coarse) {
+  .a-grupo { min-height: 44px; }
+  .a-grupo input { font-size: 16px; }
+  .a-segmentado [role="radio"] { min-height: 44px; }
+  .a-deslizador input[type="range"] { height: 28px; }
+  .a-deslizador input[type="range"]::-webkit-slider-thumb { width: 26px; height: 26px; margin-top: -10px; }
+  .a-deslizador input[type="range"]::-moz-range-thumb { width: 26px; height: 26px; }
+}
