@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
 <link rel="stylesheet" href="../css/02-atomos.css?v=e80fa22e">
 <link rel="stylesheet" href="../css/03-moleculas.css?v=9980729d">
-<link rel="stylesheet" href="../css/04-organismos.css?v=93d4a572">
+<link rel="stylesheet" href="../css/04-organismos.css?v=e872f9db">
 <link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
 <link rel="stylesheet" href="../css/06-plantillas.css?v=9026bb77">
 <link rel="stylesheet" href="../css/90-escaparate.css?v=4bd764a8">
@@ -320,7 +320,7 @@
   
   
   
-  <section class="ficha" id="navegacion"><h2>Barra de navegación</h2><span class="clase">.o-navegacion</span><p class="resumen"><strong>Medida en producción, no inventada.</strong> Es una cápsula de cristal: fondo claro, radio 67px y un <code>inset</code> blanco que es lo que da el efecto — sin él es una caja gris. Los enlaces van en <strong>texto plano</strong>; la píldora se reserva al CTA.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><nav class="o-navegacion" aria-label="Principal"><a class="o-navegacion__marca" href="#navegacion">ACTUARIA</a><div class="o-navegacion__enlaces"><a class="o-navegacion__enlace" href="#navegacion" aria-current="page">Estudios</a><a class="o-navegacion__enlace" href="#navegacion">Colectivos</a><a class="o-navegacion__enlace" href="#navegacion">Informes</a></div><div class="o-navegacion__final"><a class="o-navegacion__cta" href="#navegacion">Nuevo estudio</a><span class="a-avatar a-avatar--azul">RP</span></div></nav><span class="pie">El sitio actual se marca con filete naranja, no con relieve</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Es la navegación de primer nivel de toda la plataforma</li><li>Hay entre tres y seis destinos y caben sin partirse</li><li>Hace falta un CTA único y claro a la derecha</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Dar relieve a los enlaces: parecen botones y no lo son</li><li>Quitar el <code>inset</code> blanco — ahí se pierde el cristal</li><li>Marcar el activo con fondo: el filete basta y no grita</li></ul></div></div><pre class="codigo"><code>&lt;nav class="o-navegacion" aria-label="Principal"&gt;
+  <section class="ficha" id="navegacion"><h2>Barra de navegación</h2><span class="clase">.o-navegacion</span><p class="resumen"><strong>Medida en producción, no inventada.</strong> Es una cápsula de cristal: fondo claro, radio 67px y un <code>inset</code> blanco que es lo que da el efecto — sin él es una caja gris. Los enlaces van en <strong>texto plano</strong>; la píldora se reserva al CTA.</p><div class="lienzo lienzo--col"><div class="muestra-ancha"><nav class="o-navegacion" aria-label="Principal"><a class="o-navegacion__marca" href="#navegacion">ACTUARIA</a><div class="o-navegacion__enlaces"><a class="o-navegacion__enlace" href="#navegacion" aria-current="page">Estudios</a><a class="o-navegacion__enlace" href="#navegacion">Colectivos</a><a class="o-navegacion__enlace" href="#navegacion">Informes</a></div><div class="o-navegacion__final"><span class="a-anillo"><a class="o-navegacion__cta" href="#navegacion">Nuevo estudio</a></span><span class="a-avatar a-avatar--azul">RP</span></div></nav><span class="pie">El sitio actual se marca con filete naranja, no con relieve</span></div></div><div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Es la navegación de primer nivel de toda la plataforma</li><li>Hay entre tres y seis destinos y caben sin partirse</li><li>Hace falta un CTA único y claro a la derecha</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Dar relieve a los enlaces: parecen botones y no lo son</li><li>Quitar el <code>inset</code> blanco — ahí se pierde el cristal</li><li>Marcar el activo con fondo: el filete basta y no grita</li></ul></div></div><pre class="codigo"><code>&lt;nav class="o-navegacion" aria-label="Principal"&gt;
   &lt;a class="o-navegacion__marca" href="/"&gt;ACTUARIA&lt;/a&gt;
   &lt;div class="o-navegacion__enlaces"&gt;
     &lt;a class="o-navegacion__enlace" aria-current="page"&gt;Estudios&lt;/a&gt;
@@ -347,6 +347,7 @@ document.addEventListener('click', e => {
                               accion:{ texto:'Deshacer', hacer(){} }, destino:b });
 });
 </script>
+  
   
   
   

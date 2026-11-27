@@ -324,22 +324,23 @@
       });
 
     /* 6d · LA SOMBRA LA DECIDE EL SUSTRATO (ley 3).
-       La pareja neumorfica se deriva de la superficie INMEDIATA: una
-       oscura abajo-derecha y una CLARA arriba-izquierda. Esa clara es
-       casi blanca porque el lienzo es claro.
+       La pareja neumorfica se deriva de la superficie INMEDIATA. Eso
+       significa que un elemento con color propio NO puede llevar
+       sombra exterior, se ponga la pareja que se ponga:
 
-       Si esa misma pareja se pone alrededor de un relleno oscuro —un
-       boton navy— el resplandor blanco no se lee como luz: se lee como
-       suciedad. Por eso un elemento de color propio no puede estar
-       extruido; va DENTRO de un anillo del color del lienzo, y es el
-       anillo el que lleva la sombra.
+         pareja del lienzo claro sobre un relleno navy
+           -> resplandor blanco donde no hay nada blanco: suciedad.
+         pareja derivada del navy sobre el lienzo claro
+           -> halo oscuro alrededor del boton: el mismo defecto al reves.
 
-       Se mide: fondo oscuro (luminancia < .18) con alguna sombra
-       exterior clara (> .55) y sin anillo alrededor. Me lo salte yo
-       mismo al montar la capa de Paginas: cuatro botones principales
-       sin anillo, y esta comprobacion no existia para avisarme. */
+       La primera version de esta comprobacion solo miraba la primera y
+       dejo pasar la segunda, que es la que el equipo vio en el CTA de
+       la barra. La regla correcta no habla de claro ni de oscuro:
+       SI EL FONDO DEL ELEMENTO NO ES EL DE SU SUSTRATO, NO LLEVA
+       SOMBRA PROPIA — va dentro de un .a-anillo del color del
+       sustrato, y es el anillo el que se extruye. */
     const rgbDe = c => {
-      const m = c.match(/\d+(\.\d+)?/g);
+      const m = c && c.match(/[\d.]+/g);
       return m && m.length >= 3 ? m.slice(0,3).map(Number) : null;
     };
     const lumDe = c => {
@@ -347,19 +348,55 @@
       const f = x => { x /= 255; return x <= 0.04045 ? x/12.92 : Math.pow((x+0.055)/1.055, 2.4); };
       return 0.2126*f(v[0]) + 0.7152*f(v[1]) + 0.0722*f(v[2]);
     };
+    const ratio = (a, b) => {
+      const x = lumDe(a), y = lumDe(b);
+      if (x === null || y === null) return 1;
+      return (Math.max(x,y) + 0.05) / (Math.min(x,y) + 0.05);
+    };
+    const opaco = c => {
+      if (!c || c === 'transparent') return false;
+      const m = c.match(/rgba?\(([^)]+)\)/);
+      if (!m) return false;
+      const p = m[1].split(',');
+      return p.length < 4 || parseFloat(p[3]) >= 0.9;
+    };
+    const sustratoDe = e => {
+      let n = e.parentElement;
+      while (n && n !== document.documentElement) {
+        const c = getComputedStyle(n).backgroundColor;
+        if (opaco(c)) return c;
+        n = n.parentElement;
+      }
+      return getComputedStyle(document.body).backgroundColor;
+    };
     [...document.querySelectorAll('*')].filter(visible).forEach(e => {
       const cs = getComputedStyle(e);
-      if (cs.backgroundImage !== 'none') return;        /* degradados aparte */
-      const op = rgbDe(cs.backgroundColor);
-      if (!op || (cs.backgroundColor.startsWith('rgba') && parseFloat(cs.backgroundColor.split(',')[3]) < 0.9)) return;
-      const L = lumDe(cs.backgroundColor);
-      if (L === null || L > 0.18) return;               /* solo rellenos OSCUROS */
-      if (e.closest('.a-anillo')) return;               /* resuelto como manda */
+      if (cs.backgroundImage !== 'none') return;     /* degradados, aparte */
+      if (!opaco(cs.backgroundColor)) return;
+      if (e.closest('.a-anillo')) return;            /* resuelto como manda */
       const s = sombra(e); if (s === 'none') return;
-      const sucias = entradas(s).filter(x =>
-        !/\binset\b/.test(x) && /[1-9]\d*px/.test(x) && (lumDe(x) ?? 0) > 0.55);
-      if (sucias.length)
-        F('sustrato', `${nombre(e)} es oscuro y lleva la sombra clara del lienzo: va dentro de .a-anillo`);
+      /* Solo la PAREJA neumorfica, no cualquier sombra. La pareja se
+         reconoce porque tiene dos sombras opuestas: la oscura hacia
+         abajo-derecha (desplazamientos positivos) y la clara hacia
+         arriba-izquierda (negativos). Eso es lo que simula un relieve.
+
+         Una sombra sola y hacia abajo —la de una barra fija sobre el
+         contenido que se desplaza bajo ella— no simula relieve: indica
+         que algo flota por encima. Es otro dispositivo y la ley 3 no
+         lo gobierna. Sin esta distincion, la comprobacion marcaba la
+         barra superior de la documentacion, que es correcta. */
+      const fuera = entradas(s).filter(x => !/\binset\b/.test(x) && /[1-9]\d*px/.test(x));
+      if (!fuera.length) return;
+      const desp = x => (x.replace(/rgba?\([^)]*\)/g, '').match(/-?[\d.]+px/g) || []).slice(0, 2);
+      const haciaFuera = fuera.some(x => desp(x).some(d => parseFloat(d) < 0));
+      const haciaDentro = fuera.some(x => desp(x).every(d => parseFloat(d) >= 0));
+      if (!(haciaFuera && haciaDentro)) return;      /* no es una pareja */
+      const r = ratio(cs.backgroundColor, sustratoDe(e));
+      /* 2:1 deja pasar los escalones de la escalera de superficies
+         —blanco sobre #E8ECF4 son 1.18— y caza el color propio. */
+      if (r > 2)
+        F('sustrato', `${nombre(e)} tiene color propio (${r.toFixed(1)}:1 contra su sustrato) `
+                    + `y sombra exterior: va dentro de .a-anillo`);
     });
   }
 

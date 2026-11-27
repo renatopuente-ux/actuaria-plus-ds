@@ -254,9 +254,14 @@
   background: var(--p-navy); color: var(--txt-inverso);
   font: var(--t-ui); font-weight: 700;
   text-decoration: none; white-space: nowrap;
-  box-shadow: var(--n-dark);
+  /* SIN sombra propia. Le puse --n-dark, que es la pareja derivada del
+     navy, pero el CTA se apoya en el CRISTAL, que es claro: el
+     resultado era un halo oscuro alrededor del boton. Un elemento con
+     color propio no se extruye nunca; va dentro de .a-anillo y es el
+     anillo —del color del sustrato— el que lleva el relieve. */
+  box-shadow: none;
 }
-.o-navegacion__cta:hover { box-shadow: var(--n-dark); filter: brightness(1.12); }
+.o-navegacion__cta:hover { filter: brightness(1.12); }
 .o-navegacion__cta:focus-visible { outline: 2px solid var(--p-azul); outline-offset: 3px; }
 
 /* ── Pie · .o-pie ─────────────────────────────────────────────────────
