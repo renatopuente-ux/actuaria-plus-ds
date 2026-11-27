@@ -322,6 +322,45 @@
         if (e.dataset.superficie === 'contenedor') return;   /* tarjetas y paneles, declarados */
         if (sobresale(sombra(e))) F('relieve', `no se puede pulsar pero tiene relieve: ${nombre(e)}`);
       });
+
+    /* 6d · LA SOMBRA LA DECIDE EL SUSTRATO (ley 3).
+       La pareja neumorfica se deriva de la superficie INMEDIATA: una
+       oscura abajo-derecha y una CLARA arriba-izquierda. Esa clara es
+       casi blanca porque el lienzo es claro.
+
+       Si esa misma pareja se pone alrededor de un relleno oscuro —un
+       boton navy— el resplandor blanco no se lee como luz: se lee como
+       suciedad. Por eso un elemento de color propio no puede estar
+       extruido; va DENTRO de un anillo del color del lienzo, y es el
+       anillo el que lleva la sombra.
+
+       Se mide: fondo oscuro (luminancia < .18) con alguna sombra
+       exterior clara (> .55) y sin anillo alrededor. Me lo salte yo
+       mismo al montar la capa de Paginas: cuatro botones principales
+       sin anillo, y esta comprobacion no existia para avisarme. */
+    const rgbDe = c => {
+      const m = c.match(/\d+(\.\d+)?/g);
+      return m && m.length >= 3 ? m.slice(0,3).map(Number) : null;
+    };
+    const lumDe = c => {
+      const v = rgbDe(c); if (!v) return null;
+      const f = x => { x /= 255; return x <= 0.04045 ? x/12.92 : Math.pow((x+0.055)/1.055, 2.4); };
+      return 0.2126*f(v[0]) + 0.7152*f(v[1]) + 0.0722*f(v[2]);
+    };
+    [...document.querySelectorAll('*')].filter(visible).forEach(e => {
+      const cs = getComputedStyle(e);
+      if (cs.backgroundImage !== 'none') return;        /* degradados aparte */
+      const op = rgbDe(cs.backgroundColor);
+      if (!op || (cs.backgroundColor.startsWith('rgba') && parseFloat(cs.backgroundColor.split(',')[3]) < 0.9)) return;
+      const L = lumDe(cs.backgroundColor);
+      if (L === null || L > 0.18) return;               /* solo rellenos OSCUROS */
+      if (e.closest('.a-anillo')) return;               /* resuelto como manda */
+      const s = sombra(e); if (s === 'none') return;
+      const sucias = entradas(s).filter(x =>
+        !/\binset\b/.test(x) && /[1-9]\d*px/.test(x) && (lumDe(x) ?? 0) > 0.55);
+      if (sucias.length)
+        F('sustrato', `${nombre(e)} es oscuro y lleva la sombra clara del lienzo: va dentro de .a-anillo`);
+    });
   }
 
   /* 6c · CONTRAPARTIDA DE LA REJILLA. La excepcion de arriba no es un
