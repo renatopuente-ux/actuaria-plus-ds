@@ -344,6 +344,8 @@
 .t-con b.neutro { color: var(--txt-medio); font-weight: 600; }
 /* La medida de linea tambien manda en la entradilla */
 .esc-intro p { max-width: 68ch; }
+.esc-intro { margin-bottom: var(--e-8); }
+.esc-intro + .ficha { margin-top: 0; }
 
 /* Muestras. Planas y sin cursor: solo informan. */
 .t-sw {
@@ -361,3 +363,62 @@
 .t-sw--na { display: grid; place-items: center; background: transparent; border-style: dashed; color: var(--txt-debil); }
 @keyframes t-vaiven { from { transform: translateX(-11px); } to { transform: translateX(11px); } }
 @media (prefers-reduced-motion: reduce) { .t-sw--mov i { animation: none; } }
+
+/* ── Pagina de principios ─────────────────────────────────────────────
+   Documento de lectura, no escaparate: medida de linea corta y
+   jerarquia por peso, no por color. */
+.pr-jer { list-style: none; padding: 0; display: grid; gap: var(--e-4); }
+/* La columna de texto se limita AQUI, no en el <p>. La medida se mide
+   sobre el elemento que forma la linea, y con `1fr` el <li> ocupaba 101
+   caracteres aunque su parrafo tuviera max-width. */
+.pr-jer li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 68ch);
+  gap: var(--e-4); align-items: start;
+  /* La medida se mide sobre el elemento que FORMA la linea. Limitar
+     solo la columna no basta: el <li> seguia ocupando 101 caracteres. */
+  max-width: calc(34px + var(--e-4) + 68ch);
+}
+.pr-n {
+  display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: var(--r-circle);
+  background: var(--p-navy); color: var(--txt-inverso);
+  font: var(--t-ui); font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.pr-jer h3 { font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte); margin-bottom: var(--e-1); }
+.pr-jer p  { font: var(--t-cuerpo); font-size: 14px; line-height: 22px; color: var(--txt-medio); max-width: 68ch; }
+.pr-jer q  { font-style: italic; }
+
+.pr-ley {
+  padding: var(--e-5) 0;
+  border-top: 1px solid var(--p-light);
+}
+.pr-ley:first-of-type { border-top: 0; }
+.pr-ley h3 {
+  display: flex; align-items: baseline; gap: var(--e-3);
+  font: var(--t-ui); font-weight: 700; color: var(--txt-fuerte);
+  margin-bottom: var(--e-3);
+}
+.pr-i {
+  font: var(--t-ui-sm); font-weight: 700; color: var(--txt-debil);
+  font-variant-numeric: tabular-nums;
+}
+.pr-regla {
+  font: var(--t-cuerpo); font-size: 15px; line-height: 24px;
+  color: var(--txt-fuerte); max-width: 68ch; margin-bottom: var(--e-3);
+}
+.pr-porque, .pr-vig {
+  font: var(--t-cuerpo); font-size: 14px; line-height: 22px;
+  color: var(--txt-medio); max-width: 68ch;
+}
+.pr-porque { margin-bottom: var(--e-2); }
+.pr-chk {
+  display: inline-block; margin: 2px 4px 2px 0;
+  padding: 2px 8px; border-radius: var(--r-pill);
+  background: var(--p-surface); border: 1px solid var(--p-light);
+  font-size: 12px; color: var(--txt-medio); cursor: default;
+}
+.pr-chk--suelta { opacity: .5; }
+.pr-manual { font-style: italic; color: var(--txt-debil); }
+.pr-chips { display: flex; flex-wrap: wrap; gap: 2px; margin-top: var(--e-3); }
+.pr-nota { margin-top: var(--e-4); font: var(--t-ui-sm); color: var(--txt-debil); max-width: 68ch; }

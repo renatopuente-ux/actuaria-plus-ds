@@ -37,15 +37,27 @@ for f in glob.glob(os.path.join(R, "css", "*.css")):
     definidos |= set(re.findall(DECL,
                                 sin_comentarios(open(f, encoding="utf-8").read())))
 
+def zonas_css(f, linea):
+    """En un .css manda la linea entera. En un .html, var() solo SURTE
+    EFECTO dentro de style="" o de un bloque <style>: en la prosa es
+    texto. La pagina de principios documenta el fallo de `var(--e-7)`
+    escribiendolo, y marcarlo seria un falso positivo que acabaria
+    ensenando a ignorar el informe."""
+    if f.endswith(".css"):
+        return [linea]
+    return (re.findall(r'style="([^"]*)"', linea)
+            + re.findall(r"style='([^']*)'", linea))
+
 fallos = []
 fuentes = (glob.glob(os.path.join(R, "css", "*.css"))
            + glob.glob(os.path.join(R, "pages", "*.html"))
            + glob.glob(os.path.join(R, "*.html")))
 for f in fuentes:
     for n, linea in enumerate(open(f, encoding="utf-8"), 1):
-        for m in re.finditer(r"var\(\s*(--[\w-]+)", sin_comentarios(linea)):
-            if m.group(1) not in definidos:
-                fallos.append(f"{os.path.relpath(f, R)}:{n}  {m.group(1)}  ->  {linea.strip()[:70]}")
+        for zona in zonas_css(f, linea):
+            for m in re.finditer(r"var\(\s*(--[\w-]+)", sin_comentarios(zona)):
+                if m.group(1) not in definidos:
+                    fallos.append(f"{os.path.relpath(f, R)}:{n}  {m.group(1)}  ->  {zona.strip()[:70]}")
 
 print(f"{len(definidos)} tokens definidos")
 if fallos:

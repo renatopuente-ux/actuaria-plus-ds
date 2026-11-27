@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Principios · Actuaria DS 27</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
+<link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
+<link rel="stylesheet" href="../css/01-tokens.css?v=84ef6902">
+<link rel="stylesheet" href="../css/02-atomos.css?v=0970e361">
+<link rel="stylesheet" href="../css/03-moleculas.css?v=90ede061">
+<link rel="stylesheet" href="../css/04-organismos.css?v=824411ca">
+<link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
+<link rel="stylesheet" href="../css/90-escaparate.css?v=9f68a870">
+</head>
+<body>
+<a class="sr-only" href="#principal">Saltar al contenido</a>
+<header class="esc-topbar">
+  <a class="esc-marca" href="../index.html">ACTUARIA <span>DS 27</span></a>
+</header>
+<div class="esc-shell">
+  <nav class="esc-nav" aria-label="Capas del design system">
+    <span class="esc-nav-tit">Atomic Design</span>
+    <a class="esc-nav-link" href="../pages/01-atomos.html" data-capa="1"><b>1</b> Átomos</a>
+    <a class="esc-nav-link" href="../pages/02-moleculas.html" data-capa="2"><b>2</b> Moléculas</a>
+    <a class="esc-nav-link" href="../pages/03-organismos.html" data-capa="3"><b>3</b> Organismos</a>
+    <a class="esc-nav-link" href="../pages/04-superposicion.html" data-capa="4">Superposición</a>
+    <span class="esc-nav-link esc-nav-link--pendiente" aria-disabled="true" data-capa="5"><b>5</b> Páginas</span>
+    <span class="esc-nav-tit">Fundamentos</span>
+    <a class="esc-nav-link" href="../pages/00-tokens.html">Tokens</a>
+    <a class="esc-nav-link" href="../pages/00-principios.html">Principios</a>
+  </nav>
+  <main class="esc-main" id="principal">
+<header class="esc-intro"><h1>Principios</h1><p>Las reglas que deciden cómo se construye cada pieza, y la comprobación que vigila cada una.</p></header><section class="ficha" id="jerarquia"><h2>Jerarquía normativa</h2><p class="resumen">Cuando dos fuentes se contradicen, gana la de arriba. Esto no es una preferencia: es el orden con el que se resuelve cualquier discusión sobre este sistema.</p><ol class="pr-jer">
+<li><span class="pr-n">1</span><div><h3>La decisión del equipo de Actuaria</h3><p>Manda sobre todo lo demás, incluidas las guías externas y este documento.</p></div></li>
+<li><span class="pr-n">2</span><div><h3>El brandbook</h3><p>Normativo. <q>Si un color, fuente o valor no aparece en tokens.json o en /brand, NO es de marca: no lo inventes.</q> Cuando el brandbook y la producción difieran, manda el brandbook y la brecha se <strong>reporta</strong>, nunca se resuelve en silencio.</p></div></li>
+<li><span class="pr-n">3</span><div><h3>Las guías externas de UI/UX</h3><p>Útiles mientras no contradigan a las dos anteriores. Donde chocan, queda anotado: aquí la sombra SÍ es affordance y los rótulos de marca SÍ van en mayúsculas.</p></div></li>
+</ol></section>
+<section class="ficha" id="leyes"><h2>Las leyes</h2><p class="resumen">Cada una dice qué comprobación la vigila. Un principio sin comprobación es una intención, no una regla.</p>
+<article class="pr-ley"><h3><span class="pr-i">01</span>El relieve dice qué se pulsa</h3><p class="pr-regla">Relieve en reposo = se pulsa. Hundido = ya está activo. Plano y opaco = solo informa.</p><p class="pr-porque"><strong>Por qué.</strong> Es la única señal que distingue un control de una etiqueta cuando los dos son una píldora pequeña. Un elemento que invita a pulsar y no responde no se lee como decorativo: se lee como interfaz rota.</p><p class="pr-vig"><strong>Lo vigila:</strong> <code class="pr-chk">relieve</code><code class="pr-chk">cursor</code><code class="pr-chk">deshabilitado</code></p></article>
+<article class="pr-ley"><h3><span class="pr-i">02</span>La ley gobierna controles, no enlaces</h3><p class="pr-regla">Un enlace no se pulsa, se sigue. Va en texto plano y se identifica por color, subrayado, cursor y contexto. Si lleva fondo o borde propio, vuelve a ser un control y la ley le alcanza.</p><p class="pr-porque"><strong>Por qué.</strong> Si la ley alcanzara a los enlaces, cada enlace de un párrafo tendría que ser un botón. Y dar relieve a los seis enlaces de un menú hace que el activo deje de verse.</p><p class="pr-vig"><strong>Lo vigila:</strong> <code class="pr-chk">enlace</code><code class="pr-chk">enlace-solo-color</code><code class="pr-chk">relieve</code></p></article>
+<article class="pr-ley"><h3><span class="pr-i">03</span>La sombra la decide el sustrato</h3><p class="pr-regla">La pareja de sombras sale de la superficie INMEDIATA, no de la página. Un elemento de color propio no puede estar extruido: va dentro de un anillo del color del lienzo.</p><p class="pr-porque"><strong>Por qué.</strong> En cuanto un componente introduce una sub-superficie de color —la pista de un interruptor, una cabecera navy— lo que se apoya encima hereda por inercia la pareja clara y aparece un halo gris sucio.</p><p class="pr-vig"><strong>Lo vigila:</strong> <code class="pr-chk">relieve</code></p></article>
+<article class="pr-ley"><h3><span class="pr-i">04</span>La forma es la segunda señal</h3><p class="pr-regla">Píldora completa solo en botones. Rectángulo suave en lo que se escribe. Círculo con relieve = botón de icono; círculo plano = icono informativo.</p><p class="pr-porque"><strong>Por qué.</strong> La redundancia es deliberada: si alguien toca las sombras, la forma sigue diciendo para qué sirve cada cosa.</p><p class="pr-vig"><strong>Lo vigila:</strong> <code class="pr-chk">forma</code></p></article>
+<article class="pr-ley"><h3><span class="pr-i">05</span>Opaco, nunca un tinte con alpha</h3><p class="pr-regla">Los rellenos son colores sólidos. Nada de <code>rgba()</code> como fondo de algo que lleve texto.</p><p class="pr-porque"><strong>Por qué.</strong> Un relleno translúcido hereda la superficie de debajo: la misma pastilla mide 8:1 sobre blanco y 1.32:1 sobre navy. El contraste deja de ser calculable.</p><p class="pr-vig"><strong>Lo vigila:</strong> <span class="pr-manual">revisión humana</span></p></article>
+<article class="pr-ley"><h3><span class="pr-i">06</span>Se mide con WCAG 2 y con APCA</h3><p class="pr-regla">Los dos modelos, siempre. Cuando discrepen, mirar el componente.</p><p class="pr-porque"><strong>Por qué.</strong> WCAG 2 sobrepondera el offset +0.05 en luminancias bajas, así que en tonos medios saturados premia el texto oscuro cuando el ojo pide el claro. Sobre el naranja de marca: WCAG 2 dice 5.05 para la tinta oscura y APCA dice 39.8, que no llega al mínimo legible.</p><p class="pr-vig"><strong>Lo vigila:</strong> <span class="pr-manual">revisión humana</span></p></article>
+<article class="pr-ley"><h3><span class="pr-i">07</span>Para salvar un contraste se cambia el texto, nunca la marca</h3><p class="pr-regla">El color de marca se queda. Se cambia la tinta, el tamaño o la FORMA del componente.</p><p class="pr-porque"><strong>Por qué.</strong> Un relleno oscuro y saturado no sostiene texto pequeño, y forzar el botón a crecer para aprobar la casilla produce un botón de portada metido en una barra de herramientas. La salida es que el color no tenga que sostener texto: aro de color sobre superficie clara.</p><p class="pr-vig"><strong>Lo vigila:</strong> <span class="pr-manual">revisión humana</span></p></article>
+<article class="pr-ley"><h3><span class="pr-i">08</span>El nivel de un semántico se elige midiendo</h3><p class="pr-regla">No por el nombre. Los niveles del brandbook no están igualados perceptualmente: <code>ok</code> y <code>error</code> funcionan con su 100, <code>aviso</code> necesita el 500 y <code>info</code> no funciona con ninguno neto.</p><p class="pr-porque"><strong>Por qué.</strong> El 100 de info es un lavado casi blanco (87.9 de luminosidad) mientras sus hermanos son tonos saturados entre 42 y 71. Usarlo por coherencia de nombre lo hace desaparecer sobre la superficie.</p><p class="pr-vig"><strong>Lo vigila:</strong> <span class="pr-manual">revisión humana</span></p></article>
+<article class="pr-ley"><h3><span class="pr-i">09</span>Escritorio primero, y la escala la decide el puntero</h3><p class="pr-regla">Las reglas táctiles se condicionan a <code>pointer: coarse</code>, nunca a un ancho.</p><p class="pr-porque"><strong>Por qué.</strong> Un iPad en horizontal mide 1024px y sigue siendo táctil. El mínimo de 16px en campos existe solo por el zoom automático de iOS, así que imponerlo en escritorio roba densidad sin dar nada.</p><p class="pr-vig"><strong>Lo vigila:</strong> <code class="pr-chk">tactil-44</code><code class="pr-chk">entrada-16px</code><code class="pr-chk">area-tactil</code></p></article>
+<article class="pr-ley"><h3><span class="pr-i">10</span>Se verifica la maquetación, no solo el color</h3><p class="pr-regla">Un <code>var()</code> inexistente no da error: la propiedad cae a su valor inicial y el componente se ve mal en silencio.</p><p class="pr-porque"><strong>Por qué.</strong> <code>gap: var(--e-7)</code> con una escala que salta del 6 al 8 deja <code>gap: 0</code> y los elementos se montan. Ningún grep lo ve: hay que preguntar al valor computado.</p><p class="pr-vig"><strong>Lo vigila:</strong> <code class="pr-chk">var-fantasma</code><code class="pr-chk">variante-fantasma</code><code class="pr-chk">texto-partido</code><code class="pr-chk">alineacion</code><code class="pr-chk">tapado</code><code class="pr-chk">id-repetido</code><code class="pr-chk">medida</code><code class="pr-chk">plantilla</code></p></article>
+<article class="pr-ley"><h3><span class="pr-i">11</span>Un validador con falsos positivos se acaba ignorando</h3><p class="pr-regla">Cada comprobación nueva debe demostrar que SABE fallar: inyectar el defecto, ver que lo caza, retirarlo y ver que vuelve a cero.</p><p class="pr-porque"><strong>Por qué.</strong> Un informe con rojos que no son problemas enseña a ignorar los rojos que sí lo son. Y un cero por una prueba que no se ejecutó es peor que un fallo.</p><p class="pr-vig"><strong>Lo vigila:</strong> <span class="pr-manual">revisión humana</span></p></article>
+<article class="pr-ley"><h3><span class="pr-i">12</span>Un concepto, un bloque</h3><p class="pr-regla">Las variantes viven dentro del átomo. Una capa superior compone: no introduce color ni sombra propios.</p><p class="pr-porque"><strong>Por qué.</strong> Si una molécula necesita un valor que no existe abajo, lo que falta es un átomo, no una excepción en la molécula.</p><p class="pr-vig"><strong>Lo vigila:</strong> <code class="pr-chk">sin-nombre</code><code class="pr-chk">emoji</code><code class="pr-chk">movimiento</code></p></article>
+</section>
+<section class="ficha" id="cobertura"><h2>Cobertura</h2><p class="resumen">20 comprobaciones automaticas, leídas de <code>qa.js</code>, más <code>tokens-check.py</code> sobre el fuente. La lista se genera: no puede quedarse atrás.</p><div class="pr-chips">
+<code class="pr-chk">alineacion</code>
+<code class="pr-chk">area-tactil</code>
+<code class="pr-chk">cursor</code>
+<code class="pr-chk">deshabilitado</code>
+<code class="pr-chk">emoji</code>
+<code class="pr-chk">enlace</code>
+<code class="pr-chk">enlace-solo-color</code>
+<code class="pr-chk">entrada-16px</code>
+<code class="pr-chk">forma</code>
+<code class="pr-chk">id-repetido</code>
+<code class="pr-chk">medida</code>
+<code class="pr-chk">movimiento</code>
+<code class="pr-chk">plantilla</code>
+<code class="pr-chk">relieve</code>
+<code class="pr-chk">sin-nombre</code>
+<code class="pr-chk">tactil-44</code>
+<code class="pr-chk">tapado</code>
+<code class="pr-chk">texto-partido</code>
+<code class="pr-chk">var-fantasma</code>
+<code class="pr-chk">variante-fantasma</code>
+</div>
+</section>
+  </main>
+</div>
+<script src="../js/numero.js?v=4f763e4c" defer></script>
+<script src="../js/ds.js?v=c3c2bbb3"></script>
+<script src="../js/superposicion.js?v=b81abd6e"></script>
+<script>
+  /* Marca el enlace de la pagina actual.
+     Cuidado: en la raiz publicada la URL es /repo/ y pop() devuelve "",
+     y ''.endsWith('') es true -> se marcaban TODOS los enlaces. Hay que
+     normalizar el vacio a index.html antes de comparar. */
+  (() => {
+    const archivo = (location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.esc-nav-link').forEach(a => {
+      const destino = a.getAttribute('href').split('/').pop() || 'index.html';
+      if (destino === archivo) { a.classList.add('activo'); a.setAttribute('aria-current', 'page'); }
+    });
+  })();
+</script>
+</body>
+</html>
