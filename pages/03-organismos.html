@@ -161,7 +161,11 @@
             </nav>
             <button class="a-btn a-btn--sm"><svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3v10m0 0 4-4m-4 4-4-4M4 16h12"/></svg> Exportar selección</button>
           </div>
-        </section>
+        <div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Hay que recorrer muchos registros y encontrar uno concreto</li><li>El usuario filtra, ordena y pagina sobre el mismo conjunto</li><li>Cada fila lleva acciones propias además de abrirse</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Dejar la cabecera sola cuando no hay resultados: va <code>.m-vacio</code></li><li>Pintar la franja alterna con el tono del hover — desaparece en las filas pares</li><li>Meter más de dos acciones por fila: la tercera va a un menú</li></ul></div></div><pre class="codigo"><code>&lt;section class="o-listado"&gt;
+  &lt;div class="m-filtros"&gt;…&lt;/div&gt;
+  &lt;table class="m-tabla"&gt;…&lt;/table&gt;
+  &lt;nav class="m-paginacion"&gt;…&lt;/nav&gt;
+&lt;/section&gt;</code></pre></section>
       </div>    </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>Hay que buscar, filtrar y recorrer un conjunto grande</li><li>El total y la posición se mantienen al volver del detalle</li><li>Cada acción de fila dice a qué fila pertenece</li></ul></div>
@@ -215,7 +219,10 @@
               <span class="a-anillo"><button class="a-btn a-btn--principal">Continuar</button></span>
             </div>
           </div>
-        </section>
+        <div class="reglas"><div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El proceso tiene de 3 a 7 pasos con orden obligatorio</li><li>Cada paso se puede validar por separado</li><li>El usuario necesita saber cuánto le queda</li></ul></div><div class="regla regla--no"><h3>Nunca</h3><ul><li>Impedir volver a un paso anterior — el equipo confirmó que sí se puede</li><li>Esconder «Continuar» cuando no valida: se deshabilita, para que se vea que existe</li><li>Usarlo para secciones sin orden: eso son pestañas</li></ul></div></div><pre class="codigo"><code>&lt;form class="o-asistente"&gt;
+  &lt;nav class="m-pasos m-pasos--navegable"&gt;…&lt;/nav&gt;
+  &lt;fieldset&gt;&lt;legend&gt;Hipótesis&lt;/legend&gt;…&lt;/fieldset&gt;
+&lt;/form&gt;</code></pre></section>
       </div>    </div>
     <div class="reglas">
       <div class="regla regla--si"><h3>Usar cuando</h3><ul><li>El alta tiene pasos con validación entre ellos</li><li>Se puede guardar a medias y retomar después</li><li>Volver a un paso anterior conserva lo escrito</li></ul></div>
@@ -340,6 +347,8 @@ document.addEventListener('click', e => {
                               accion:{ texto:'Deshacer', hacer(){} }, destino:b });
 });
 </script>
+  
+  
   
   
   

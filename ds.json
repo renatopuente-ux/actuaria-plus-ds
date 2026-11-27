@@ -1,0 +1,1838 @@
+{
+  "nombre": "Actuaria DS 27",
+  "descripcion": "Sistema de diseno neumorfico de Actuaria+, en Atomic Design.",
+  "base": "https://renatopuente-ux.github.io/actuaria-plus-ds/",
+  "idioma": "es",
+  "jerarquia_normativa": [
+    "1. La decision del equipo de Actuaria",
+    "2. El brandbook de Actuaria",
+    "3. Las guias externas de UI/UX"
+  ],
+  "reglas_duras": [
+    "Si un color, fuente o valor no aparece en tokens.json o en /brand, NO es de marca: no lo inventes.",
+    "RELIEVE = se puede pulsar · HUNDIDO = pulsado o activo · PLANO = informativo.",
+    "Los rellenos son opacos: nada de alpha, porque el contraste tiene que poder calcularse.",
+    "Titulos en Lemon Milk en mayusculas (respaldo Nunito Black); cuerpo en Prompt Regular.",
+    "Naranja sobre navy: usar #FFBBA1 para cumplir AA; nunca #DF5E2D puro como texto sobre navy.",
+    "El naranja no vale como relleno con texto pequeno encima: con blanco da 3.64.",
+    "La plataforma es de escritorio; lo tactil se adapta con pointer: coarse, nunca por ancho."
+  ],
+  "leyes": [
+    {
+      "n": "01",
+      "ley": "El relieve dice qué se pulsa",
+      "regla": "Relieve en reposo = se pulsa. Hundido = ya está activo. Plano y opaco = solo informa.",
+      "por_que": "Por qué. Es la única señal que distingue un control de una etiqueta cuando los dos son una píldora pequeña. Un elemento que invita a pulsar y no responde no se lee como decorativo: se lee como interfaz rota."
+    },
+    {
+      "n": "02",
+      "ley": "La ley gobierna controles, no enlaces",
+      "regla": "Un enlace no se pulsa, se sigue. Va en texto plano y se identifica por color, subrayado, cursor y contexto. Si lleva fondo o borde propio, vuelve a ser un control y la ley le alcanza.",
+      "por_que": "Por qué. Si la ley alcanzara a los enlaces, cada enlace de un párrafo tendría que ser un botón. Y dar relieve a los seis enlaces de un menú hace que el activo deje de verse."
+    },
+    {
+      "n": "03",
+      "ley": "La sombra la decide el sustrato",
+      "regla": "La pareja de sombras sale de la superficie INMEDIATA, no de la página. Un elemento de color propio no puede estar extruido: va dentro de un anillo del color del lienzo.",
+      "por_que": "Por qué. En cuanto un componente introduce una sub-superficie de color —la pista de un interruptor, una cabecera navy— lo que se apoya encima hereda por inercia la pareja clara y aparece un halo gris sucio."
+    },
+    {
+      "n": "04",
+      "ley": "La forma es la segunda señal",
+      "regla": "Píldora completa solo en botones. Rectángulo suave en lo que se escribe. Círculo con relieve = botón de icono; círculo plano = icono informativo.",
+      "por_que": "Por qué. La redundancia es deliberada: si alguien toca las sombras, la forma sigue diciendo para qué sirve cada cosa."
+    },
+    {
+      "n": "05",
+      "ley": "Opaco, nunca un tinte con alpha",
+      "regla": "Los rellenos son colores sólidos. Nada de rgba() como fondo de algo que lleve texto.",
+      "por_que": "Por qué. Un relleno translúcido hereda la superficie de debajo: la misma pastilla mide 8:1 sobre blanco y 1.32:1 sobre navy. El contraste deja de ser calculable."
+    },
+    {
+      "n": "06",
+      "ley": "Se mide con WCAG 2 y con APCA",
+      "regla": "Los dos modelos, siempre. Cuando discrepen, mirar el componente.",
+      "por_que": "Por qué. WCAG 2 sobrepondera el offset +0.05 en luminancias bajas, así que en tonos medios saturados premia el texto oscuro cuando el ojo pide el claro. Sobre el naranja de marca: WCAG 2 dice 5.05 para la tinta oscura y APCA dice 39.8, que no llega al mínimo legible."
+    },
+    {
+      "n": "07",
+      "ley": "Para salvar un contraste se cambia el texto, nunca la marca",
+      "regla": "El color de marca se queda. Se cambia la tinta, el tamaño o la FORMA del componente.",
+      "por_que": "Por qué. Un relleno oscuro y saturado no sostiene texto pequeño, y forzar el botón a crecer para aprobar la casilla produce un botón de portada metido en una barra de herramientas. La salida es que el color no tenga que sostener texto: aro de color sobre superficie clara."
+    },
+    {
+      "n": "08",
+      "ley": "El nivel de un semántico se elige midiendo",
+      "regla": "No por el nombre. Los niveles del brandbook no están igualados perceptualmente: ok y error funcionan con su 100, aviso necesita el 500 y info no funciona con ninguno neto.",
+      "por_que": "Por qué. El 100 de info es un lavado casi blanco (87.9 de luminosidad) mientras sus hermanos son tonos saturados entre 42 y 71. Usarlo por coherencia de nombre lo hace desaparecer sobre la superficie."
+    },
+    {
+      "n": "09",
+      "ley": "Escritorio primero, y la escala la decide el puntero",
+      "regla": "Las reglas táctiles se condicionan a pointer: coarse, nunca a un ancho.",
+      "por_que": "Por qué. Un iPad en horizontal mide 1024px y sigue siendo táctil. El mínimo de 16px en campos existe solo por el zoom automático de iOS, así que imponerlo en escritorio roba densidad sin dar nada."
+    },
+    {
+      "n": "10",
+      "ley": "Se verifica la maquetación, no solo el color",
+      "regla": "Un var() inexistente no da error: la propiedad cae a su valor inicial y el componente se ve mal en silencio.",
+      "por_que": "Por qué. gap: var(--e-7) con una escala que salta del 6 al 8 deja gap: 0 y los elementos se montan. Ningún grep lo ve: hay que preguntar al valor computado."
+    },
+    {
+      "n": "11",
+      "ley": "Un validador con falsos positivos se acaba ignorando",
+      "regla": "Cada comprobación nueva debe demostrar que SABE fallar: inyectar el defecto, ver que lo caza, retirarlo y ver que vuelve a cero.",
+      "por_que": "Por qué. Un informe con rojos que no son problemas enseña a ignorar los rojos que sí lo son. Y un cero por una prueba que no se ejecutó es peor que un fallo."
+    },
+    {
+      "n": "12",
+      "ley": "Un concepto, un bloque",
+      "regla": "Las variantes viven dentro del átomo. Una capa superior compone: no introduce color ni sombra propios.",
+      "por_que": "Por qué. Si una molécula necesita un valor que no existe abajo, lo que falta es un átomo, no una excepción en la molécula."
+    }
+  ],
+  "tokens": [
+    {
+      "token": "--p-navy",
+      "valor": "#151F47"
+    },
+    {
+      "token": "--p-azul",
+      "valor": "#3061AA"
+    },
+    {
+      "token": "--p-naranja",
+      "valor": "#DF5E2D"
+    },
+    {
+      "token": "--p-surface",
+      "valor": "#E8ECF4"
+    },
+    {
+      "token": "--p-light",
+      "valor": "#D9DEEB"
+    },
+    {
+      "token": "--p-white",
+      "valor": "#FFFFFF"
+    },
+    {
+      "token": "--p-naranja-soft",
+      "valor": "#FFBBA1"
+    },
+    {
+      "token": "--p-success-500",
+      "valor": "#00C781"
+    },
+    {
+      "token": "--p-success-100",
+      "valor": "#66DDB3"
+    },
+    {
+      "token": "--p-warning-500",
+      "valor": "#FFBB38"
+    },
+    {
+      "token": "--p-warning-100",
+      "valor": "#FFD688"
+    },
+    {
+      "token": "--p-danger-500",
+      "valor": "#FF4040"
+    },
+    {
+      "token": "--p-danger-100",
+      "valor": "#FF8C8C"
+    },
+    {
+      "token": "--p-danger-700",
+      "valor": "#CC3333"
+    },
+    {
+      "token": "--p-success-700",
+      "valor": "#00B374"
+    },
+    {
+      "token": "--p-warning-700",
+      "valor": "#E6A832"
+    },
+    {
+      "token": "--p-info-700",
+      "valor": "#366AD9"
+    },
+    {
+      "token": "--n-vidrio",
+      "valor": "4px 4px 12px var(--neu-oscura), 0 0 0 var(--neu-clara), inset -4px -4px 8px var(--neu-clara), inset 0 0 0 var(--neu-oscura)"
+    },
+    {
+      "token": "--p-info-500",
+      "valor": "#3C76F1"
+    },
+    {
+      "token": "--p-info-100",
+      "valor": "#ECF1FE"
+    },
+    {
+      "token": "--p-sup-0",
+      "valor": "var(--p-white)"
+    },
+    {
+      "token": "--p-sup-1",
+      "valor": "#E8ECF4"
+    },
+    {
+      "token": "--p-sup-2",
+      "valor": "#dbe0ea"
+    },
+    {
+      "token": "--p-sup-3",
+      "valor": "#cfd3df"
+    },
+    {
+      "token": "--p-sup-4",
+      "valor": "#c2c7d5"
+    },
+    {
+      "token": "--sup-app",
+      "valor": "var(--p-sup-1)"
+    },
+    {
+      "token": "--sup-elevada",
+      "valor": "var(--p-sup-0)"
+    },
+    {
+      "token": "--sup-hundida",
+      "valor": "var(--p-sup-2)"
+    },
+    {
+      "token": "--sup-inversa",
+      "valor": "var(--p-navy)"
+    },
+    {
+      "token": "--txt-fuerte",
+      "valor": "#0B1230"
+    },
+    {
+      "token": "--txt-medio",
+      "valor": "#3A4568"
+    },
+    {
+      "token": "--txt-debil",
+      "valor": "#55607F"
+    },
+    {
+      "token": "--txt-inverso",
+      "valor": "var(--p-white)"
+    },
+    {
+      "token": "--txt-acento",
+      "valor": "#A8431C"
+    },
+    {
+      "token": "--txt-enlace",
+      "valor": "#1D3F8F"
+    },
+    {
+      "token": "--txt-ok",
+      "valor": "#14532D"
+    },
+    {
+      "token": "--txt-aviso",
+      "valor": "#6B3E00"
+    },
+    {
+      "token": "--txt-error",
+      "valor": "#7D1919"
+    },
+    {
+      "token": "--txt-info",
+      "valor": "#1D3F8F"
+    },
+    {
+      "token": "--fill-ok",
+      "valor": "var(--p-success-100)"
+    },
+    {
+      "token": "--fill-aviso",
+      "valor": "var(--p-warning-500)"
+    },
+    {
+      "token": "--fill-error",
+      "valor": "var(--p-danger-100)"
+    },
+    {
+      "token": "--fill-info",
+      "valor": "color-mix(in srgb, var(--p-info-500) 34%, #ffffff)"
+    },
+    {
+      "token": "--fill-neutro",
+      "valor": "var(--p-light)"
+    },
+    {
+      "token": "--ff-display",
+      "valor": "'Lemon Milk Pro', 'Nunito', system-ui, sans-serif"
+    },
+    {
+      "token": "--ff-ui",
+      "valor": "'Nunito', system-ui, sans-serif"
+    },
+    {
+      "token": "--ff-cuerpo",
+      "valor": "'Prompt', Georgia, serif"
+    },
+    {
+      "token": "--t-display",
+      "valor": "700 40px/46px var(--ff-display)"
+    },
+    {
+      "token": "--t-h1",
+      "valor": "700 32px/38px var(--ff-display)"
+    },
+    {
+      "token": "--t-h2",
+      "valor": "700 25px/31px var(--ff-display)"
+    },
+    {
+      "token": "--t-h3",
+      "valor": "700 20px/26px var(--ff-ui)"
+    },
+    {
+      "token": "--t-ui-lg",
+      "valor": "600 16px/24px var(--ff-ui)"
+    },
+    {
+      "token": "--t-ui",
+      "valor": "600 14px/20px var(--ff-ui)"
+    },
+    {
+      "token": "--t-ui-sm",
+      "valor": "600 12px/16px var(--ff-ui)"
+    },
+    {
+      "token": "--t-cuerpo",
+      "valor": "400 16px/26px var(--ff-cuerpo)"
+    },
+    {
+      "token": "--t-dato",
+      "valor": "700 28px/32px var(--ff-display)"
+    },
+    {
+      "token": "--e-1",
+      "valor": "4px"
+    },
+    {
+      "token": "--e-2",
+      "valor": "8px"
+    },
+    {
+      "token": "--e-3",
+      "valor": "12px"
+    },
+    {
+      "token": "--e-4",
+      "valor": "16px"
+    },
+    {
+      "token": "--e-5",
+      "valor": "20px"
+    },
+    {
+      "token": "--e-6",
+      "valor": "24px"
+    },
+    {
+      "token": "--e-8",
+      "valor": "32px"
+    },
+    {
+      "token": "--e-10",
+      "valor": "40px"
+    },
+    {
+      "token": "--e-12",
+      "valor": "48px"
+    },
+    {
+      "token": "--e-14",
+      "valor": "56px"
+    },
+    {
+      "token": "--e-16",
+      "valor": "64px"
+    },
+    {
+      "token": "--e-20",
+      "valor": "80px"
+    },
+    {
+      "token": "--e-24",
+      "valor": "96px"
+    },
+    {
+      "token": "--r-sm",
+      "valor": "8px"
+    },
+    {
+      "token": "--r-md",
+      "valor": "16px"
+    },
+    {
+      "token": "--r-lg",
+      "valor": "24px"
+    },
+    {
+      "token": "--r-xl",
+      "valor": "32px"
+    },
+    {
+      "token": "--r-pill",
+      "valor": "999px"
+    },
+    {
+      "token": "--r-circle",
+      "valor": "50%"
+    },
+    {
+      "token": "--r-campo",
+      "valor": "12px"
+    },
+    {
+      "token": "--neu-oscura",
+      "valor": "#b0b3b9"
+    },
+    {
+      "token": "--neu-clara",
+      "valor": "#ffffff"
+    },
+    {
+      "token": "--n-xs",
+      "valor": "2px 2px 5px var(--neu-oscura), -2px -2px 4px var(--neu-clara), inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara)"
+    },
+    {
+      "token": "--n-sm",
+      "valor": "4px 4px 9px var(--neu-oscura), -3px -3px 7px var(--neu-clara), inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara)"
+    },
+    {
+      "token": "--n-md",
+      "valor": "6px 6px 14px var(--neu-oscura), -5px -5px 12px var(--neu-clara), inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara)"
+    },
+    {
+      "token": "--n-lg",
+      "valor": "10px 10px 22px var(--neu-oscura), -8px -8px 18px var(--neu-clara), inset 0 0 0 var(--neu-oscura), inset 0 0 0 var(--neu-clara)"
+    },
+    {
+      "token": "--n-in-sm",
+      "valor": "0 0 0 var(--neu-oscura), 0 0 0 var(--neu-clara), inset 3px 3px 6px var(--neu-oscura), inset -2px -2px 5px var(--neu-clara)"
+    },
+    {
+      "token": "--n-in",
+      "valor": "0 0 0 var(--neu-oscura), 0 0 0 var(--neu-clara), inset 5px 5px 10px var(--neu-oscura), inset -4px -4px 8px var(--neu-clara)"
+    },
+    {
+      "token": "--neu-oscura-inv",
+      "valor": "#101836"
+    },
+    {
+      "token": "--neu-clara-inv",
+      "valor": "#223272"
+    },
+    {
+      "token": "--n-dark",
+      "valor": "4px 4px 10px var(--neu-oscura-inv), -3px -3px 8px var(--neu-clara-inv), inset 0 0 0 var(--neu-oscura-inv), inset 0 0 0 var(--neu-clara-inv)"
+    },
+    {
+      "token": "--n-in-dark",
+      "valor": "0 0 0 var(--neu-oscura-inv), 0 0 0 var(--neu-clara-inv), inset 4px 4px 8px var(--neu-oscura-inv), inset -3px -3px 6px var(--neu-clara-inv)"
+    },
+    {
+      "token": "--mov-rapido",
+      "valor": ".14s cubic-bezier(.4,0,.2,1)"
+    },
+    {
+      "token": "--mov-medio",
+      "valor": ".24s cubic-bezier(.4,0,.2,1)"
+    },
+    {
+      "token": "--z-base",
+      "valor": "0"
+    },
+    {
+      "token": "--z-pegajoso",
+      "valor": "100"
+    },
+    {
+      "token": "--z-cabecera",
+      "valor": "200"
+    },
+    {
+      "token": "--z-capa",
+      "valor": "300"
+    },
+    {
+      "token": "--z-modal",
+      "valor": "400"
+    },
+    {
+      "token": "--z-aviso",
+      "valor": "500"
+    }
+  ],
+  "componentes": [
+    {
+      "id": "leyes",
+      "nombre": "Las tres leyes",
+      "capa": 1,
+      "tipo": "guia",
+      "clase": null,
+      "instancia_de": null,
+      "resumen": "Se cumplen en todo el sistema y no admiten excepciones. Entre las tres dejan claro qué puede tocar el usuario sin que tenga que probar nada.",
+      "usar_cuando": [
+        "Relieve si se pulsa. Hundido si se escribe. Plano y opaco si solo informa",
+        "Píldora en la acción. Rectángulo de 12px en la entrada. Círculo en el icono",
+        "La sombra la decide el sustrato, nunca el color del elemento"
+      ],
+      "nunca": [
+        "Dar relieve a tarjetas y paneles: si todo sobresale, nada sobresale",
+        "Campo con forma de píldora: compite con los botones",
+        "Círculo con relieve para algo que solo informa: el usuario lo pulsará y creerá que está roto",
+        "Rellenos con rgba: su contraste cambia según el fondo"
+      ],
+      "ejemplo": null,
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#leyes"
+    },
+    {
+      "id": "boton",
+      "nombre": "Botón",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-btn",
+      "instancia_de": null,
+      "resumen": "La acción. Siempre en píldora y siempre en relieve. El acento es un rol, no un botón. Por defecto va como aro naranja sobre la superficie, que funciona a cualquier tamaño; el relleno sólido se reserva a tamaño grande.",
+      "usar_cuando": [
+        "La acción es real y el usuario puede ejecutarla ahora",
+        "Necesitas jerarquía: principal > por defecto > fantasma",
+        "El deshabilitado explica por qué lo está, con texto o tooltip"
+      ],
+      "nunca": [
+        "Dos acentos compitiendo en la misma vista",
+        "Reducir el acento a tamaño pequeño: por debajo de 18.66px en negrita el blanco deja de cumplir",
+        "Oscurecer el naranja para salvar contraste: el brandbook prohíbe inventar color",
+        "Poner texto oscuro sobre el naranja: WCAG 2 lo aprueba, pero APCA da Lc 39.8 y no se lee",
+        "Quitar el relieve por estética: pierde la señal de pulsable"
+      ],
+      "ejemplo": "<span class=\"a-anillo\">\n  <button class=\"a-btn a-btn--principal\">Calcular provisión</button>\n</span>\n\n<button class=\"a-btn\">Guardar borrador</button>\n<button class=\"a-btn a-btn--acento\">Solicitar estudio</button>\n<button class=\"a-btn a-btn--fantasma\">Cancelar</button>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#boton"
+    },
+    {
+      "id": "acento",
+      "nombre": "El acento, a escala",
+      "capa": 1,
+      "tipo": "guia",
+      "clase": null,
+      "instancia_de": null,
+      "resumen": "El naranja #DF5E2D es un tono oscuro y saturado: con texto blanco da WCAG 2 3.64, que solo cumple si el texto es grande. Eso vale para una portada, no para pantallas densas. Por eso el acento tiene dos formas, y la que escala es la que viene por defecto.",
+      "usar_cuando": [
+        "Barra de herramientas, tabla, formulario denso → aro, a 34 o 44px",
+        "Hero, estado vacío, pantalla de bienvenida → sólido a 52px",
+        "Acción de sistema recurrente → navy, que aguanta cualquier tamaño",
+        "El aro da 3.07 contra la superficie y cumple el 3:1 que WCAG 1.4.11 pide a los bordes de control"
+      ],
+      "nunca": [
+        "Relleno naranja por debajo de 19px/700: el blanco cae a 3.64 y deja de cumplir",
+        "Texto oscuro sobre el relleno naranja: WCAG 2 lo aprueba, pero APCA da 39.8 y no se lee",
+        "Oscurecer el naranja para que encaje: el brandbook prohíbe inventar color",
+        "Más de un acento por pantalla, sea de la forma que sea"
+      ],
+      "ejemplo": "<!-- plataforma: denso, escala a cualquier tamano -->\n<button class=\"a-btn a-btn--acento a-btn--sm\">Solicitar</button>\n\n<!-- hero o estado vacio: solo aqui el relleno solido -->\n<button class=\"a-btn a-btn--acento-solido\">Solicitar estudio</button>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#acento"
+    },
+    {
+      "id": "anillo",
+      "nombre": "Anillo",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-anillo",
+      "instancia_de": null,
+      "resumen": "Halo del color de la superficie que envuelve al botón navy. Solo para rellenos de color: si el botón ya es del color de la superficie, como el de icono, el anillo no resuelve nada y solo añade ruido. El neumorfismo extruye un objeto de su propia superficie, así que una pastilla navy nunca puede estar realmente extruida: lo que se extruye es el anillo, y la pastilla se apoya dentro, plana.",
+      "usar_cuando": [
+        "Es la acción principal de la pantalla, una sola",
+        "El botón tiene relleno de color — navy — y no debe proyectarlo sobre el lienzo",
+        "Hace falta presencia sin recurrir a más tamaño"
+      ],
+      "nunca": [
+        "Poner anillo a todos los botones: si todo destaca, nada destaca",
+        "Dejar sombra al botón de dentro: la sombra la lleva el anillo",
+        "Anidar un anillo dentro de otro",
+        "Ponerlo a un botón que ya es del color de la superficie: no hay color que aislar"
+      ],
+      "ejemplo": "<span class=\"a-anillo\">\n  <button class=\"a-btn a-btn--principal\">Calcular provisión</button>\n</span>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#anillo"
+    },
+    {
+      "id": "icono",
+      "nombre": "Botón de icono",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-icono",
+      "instancia_de": null,
+      "resumen": "Acción sin texto. Círculo perfecto y con relieve: se pulsa. Obligatorio aria-label, o un lector de pantalla anuncia un botón vacío.",
+      "usar_cuando": [
+        "El icono es inequívoco: cerrar, descargar, añadir",
+        "El espacio es escaso: barras de herramientas, filas de tabla"
+      ],
+      "nunca": [
+        "Iconos ambiguos sin etiqueta visible al lado",
+        "Omitir aria-label",
+        "Usarlo para la acción principal de una pantalla"
+      ],
+      "ejemplo": "<button class=\"a-icono\" aria-label=\"Descargar informe\">⇩</button>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#icono"
+    },
+    {
+      "id": "medallon",
+      "nombre": "Icono informativo",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-medallon",
+      "instancia_de": null,
+      "resumen": "El mismo círculo, sin relieve. Acompaña a un dato; no ofrece una acción.",
+      "usar_cuando": [
+        "Icono de una tarjeta de KPI o de una fila de estado",
+        "El icono refuerza un texto que ya dice lo mismo",
+        "Es decorativo: entonces aria-hidden=\"true\""
+      ],
+      "nunca": [
+        "Para algo pulsable: eso es .a-icono, con relieve y aria-label",
+        "Como única fuente de información: el color y la forma no son accesibles por sí solos",
+        "Darle cursor:pointer"
+      ],
+      "ejemplo": "<span class=\"a-medallon a-medallon--ok\" aria-hidden=\"true\">✓</span>\n<span>Finalizado</span>   <!-- el texto dice lo mismo que el icono -->",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#medallon"
+    },
+    {
+      "id": "campo",
+      "nombre": "Campo de texto",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-campo",
+      "instancia_de": null,
+      "resumen": "La entrada. Hundida, porque se escribe dentro, y rectangular con esquinas de 12px: conserva su forma para no confundirse con un botón. El foco es un outline, no una sombra.",
+      "usar_cuando": [
+        "Cualquier entrada de texto, número o fecha",
+        "El campo inválido explica el error con texto, no solo con el borde",
+        "Siempre con <label> asociado"
+      ],
+      "nunca": [
+        "Forma de píldora: es la señal reservada a los botones",
+        "Relieve: el usuario esperaría pulsarlo, no escribir en él",
+        "Usar el placeholder como etiqueta: desaparece al escribir"
+      ],
+      "ejemplo": "<label class=\"a-etiqueta\" for=\"tasa\">Tasa de descuento</label>\n<input class=\"a-campo\" id=\"tasa\" placeholder=\"4,25 %\">",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#campo"
+    },
+    {
+      "id": "select",
+      "nombre": "Desplegable",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-select",
+      "instancia_de": null,
+      "resumen": "Elección entre opciones cerradas. Misma forma rectangular que el campo, porque pertenece a la misma familia de entrada.",
+      "usar_cuando": [
+        "Entre 3 y 12 opciones conocidas y estables",
+        "La opción por defecto es la más probable"
+      ],
+      "nunca": [
+        "Para dos opciones: eso es un interruptor",
+        "Para más de 12: hace falta un buscador",
+        "Dejar la primera opción como instrucción sin valor real"
+      ],
+      "ejemplo": "<select class=\"a-select\">\n  <option>Crédito unitario proyectado</option>\n</select>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#select"
+    },
+    {
+      "id": "chip",
+      "nombre": "Etiqueta de estado",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-chip",
+      "instancia_de": null,
+      "resumen": "Dato categórico en una palabra. Plano y con relleno opaco: no se pulsa. Los colores no llevan alpha, así que su contraste no cambia con el fondo.",
+      "usar_cuando": [
+        "Estado de una fila, un expediente o un estudio",
+        "El texto basta para entenderlo sin ver el color"
+      ],
+      "nunca": [
+        "Para filtrar: un filtro se pulsa y necesita relieve",
+        "Rellenos con rgba",
+        "Más de dos chips seguidos en una misma celda"
+      ],
+      "ejemplo": "<span class=\"a-chip a-chip--ok\">Finalizado</span>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#chip"
+    },
+    {
+      "id": "control",
+      "nombre": "Interruptor y casilla",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-interruptor · .a-casilla",
+      "instancia_de": null,
+      "resumen": "Decisiones binarias. El carril va hundido y el pulgar en relieve: lo que sobresale es lo que se arrastra. El interruptor aplica el cambio al momento; la casilla espera a que se confirme.",
+      "usar_cuando": [
+        "Interruptor: el efecto es inmediato y reversible",
+        "Casilla: forma parte de un formulario que se envía",
+        "Siempre con etiqueta de texto al lado"
+      ],
+      "nunca": [
+        "Interruptor para algo que requiere confirmar",
+        "Casilla para activar algo al instante",
+        "Interruptor sin etiqueta: no se sabe qué activa"
+      ],
+      "ejemplo": "<label class=\"a-interruptor\">\n  <input type=\"checkbox\" checked>\n  <span class=\"pista\"><span class=\"pulgar\"></span></span>\n</label>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#control"
+    },
+    {
+      "id": "progreso",
+      "nombre": "Progreso y carga",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-barra · .a-esqueleto",
+      "instancia_de": null,
+      "resumen": "Avance y espera. Ambos hundidos: son superficies pasivas, no se tocan.",
+      "usar_cuando": [
+        "Barra: el avance es medible y conocido",
+        "Esqueleto: se conoce la forma de lo que va a llegar",
+        "Barra con role=\"progressbar\" y sus valores"
+      ],
+      "nunca": [
+        "Esqueleto para esperas de menos de 300 ms: parpadea",
+        "Barra sin porcentaje numérico cuando el dato importa",
+        "Animar el esqueleto si está activo prefers-reduced-motion"
+      ],
+      "ejemplo": "<div class=\"a-barra\" role=\"progressbar\" aria-valuenow=\"62\"\n     aria-valuemin=\"0\" aria-valuemax=\"100\">\n  <i style=\"width:62%\"></i>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#progreso"
+    },
+    {
+      "id": "grupo",
+      "nombre": "Grupo de campo",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-grupo",
+      "instancia_de": null,
+      "resumen": "Campo con un afijo fijo: la unidad, la divisa o un prefijo. El afijo informa, así que va plano, opaco y sin cursor; el que se escribe sigue siendo el campo.",
+      "usar_cuando": [
+        "La unidad es fija y no la elige el usuario",
+        "Evita repetir la unidad en la etiqueta y en la ayuda",
+        "El dato es numérico y conviene alinearlo a la derecha"
+      ],
+      "nunca": [
+        "Meter en el afijo algo que se pueda pulsar: eso es un botón, y lleva relieve",
+        "Usarlo para una unidad que el usuario puede cambiar — eso es un desplegable",
+        "Dejar el campo sin etiqueta propia: el afijo no es su nombre"
+      ],
+      "ejemplo": "<span class=\"a-grupo a-grupo--num\">\n  <input value=\"2,75\" aria-label=\"Tasa técnica\">\n  <span class=\"afijo\">%</span>\n</span>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#grupo"
+    },
+    {
+      "id": "segmentado",
+      "nombre": "Segmentado",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-segmentado",
+      "instancia_de": null,
+      "resumen": "Elección única entre pocas opciones visibles a la vez. Es un radiogroup de verdad: una sola parada de tabulador y las flechas recorren las opciones.",
+      "usar_cuando": [
+        "Hay entre dos y cinco opciones y caben todas",
+        "El usuario gana viéndolas sin desplegar nada",
+        "La elección cambia la vista al instante"
+      ],
+      "nunca": [
+        "Más de cinco opciones: eso es un desplegable",
+        "Dejar los inactivos planos — miente sobre que se pueden pulsar",
+        "Usarlo para varias elecciones a la vez: eso son casillas"
+      ],
+      "ejemplo": "<div class=\"a-segmentado\" role=\"radiogroup\" aria-label=\"Periodo\">\n  <button type=\"button\" role=\"radio\" aria-checked=\"true\">Mes</button>\n  <button type=\"button\" role=\"radio\" aria-checked=\"false\">Trimestre</button>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#segmentado"
+    },
+    {
+      "id": "deslizador",
+      "nombre": "Deslizador",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-deslizador",
+      "instancia_de": null,
+      "resumen": "Valor dentro de un rango cuando importa la magnitud relativa, no la cifra exacta. Siempre con su valor escrito al lado: un deslizador sin número no se puede auditar.",
+      "usar_cuando": [
+        "Importa más la proporción que el dígito exacto",
+        "El rango tiene topes claros y un paso natural",
+        "Se acompaña siempre del valor en cifras"
+      ],
+      "nunca": [
+        "Pedir precisión: para eso está el campo numérico",
+        "Rangos enormes donde un paso del teclado no llega a ninguna parte",
+        "Esconder el valor y dejar solo la posición del pulgar"
+      ],
+      "ejemplo": "<div class=\"a-deslizador\">\n  <input type=\"range\" min=\"0\" max=\"600\" step=\"25\" value=\"275\">\n  <output class=\"valor\" data-unidad=\"pb\">275 pb</output>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#deslizador"
+    },
+    {
+      "id": "avatar",
+      "nombre": "Avatar",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-avatar",
+      "instancia_de": null,
+      "resumen": "Iniciales sobre un relleno de la paleta. Informativo: plano y sin cursor, salvo que sea el disparador de un menú — y entonces es un botón. El naranja no entra como relleno: con blanco da 3.64, que solo vale para texto grande, y unas iniciales no lo son.",
+      "usar_cuando": [
+        "Hay que identificar a una persona en poco espacio",
+        "Se repite la misma persona en varias filas y la foto ayuda a escanear",
+        "Varias personas comparten algo y conviene mostrarlas apiladas"
+      ],
+      "nunca": [
+        "Relleno naranja con iniciales: 3.64 no basta a ese tamaño",
+        "Darle relieve si no abre nada — el usuario lo pulsará",
+        "Usarlo como única identificación: el nombre tiene que estar cerca"
+      ],
+      "ejemplo": "<span class=\"a-avatar\">RP</span>\n<span class=\"a-avatar a-avatar--azul\">MC</span>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#avatar"
+    },
+    {
+      "id": "estado",
+      "nombre": "Punto de estado",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-estado",
+      "instancia_de": null,
+      "resumen": "El átomo es la pareja punto + texto, no el punto suelto. Medido: sobre tarjeta blanca el verde da 2.21 y el ámbar 1.69, por debajo del 3:1 que WCAG 1.4.11 pide a un gráfico pequeño. Por eso el punto lleva aro y nunca va solo.",
+      "usar_cuando": [
+        "El estado acompaña a un nombre en una lista o una cabecera",
+        "Hay cuatro o cinco estados y el color ayuda a escanear",
+        "El espacio no da para una pastilla completa"
+      ],
+      "nunca": [
+        "Dejar el punto solo: la información dependería del color (WCAG 1.4.1)",
+        "Inventar un quinto color fuera de los semánticos del brandbook",
+        "Usarlo para algo que se pueda pulsar — eso es un filtro"
+      ],
+      "ejemplo": "<span class=\"a-estado a-estado--ok\">\n  <span class=\"a-punto\"></span>Vigente\n</span>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#estado"
+    },
+    {
+      "id": "valoracion",
+      "nombre": "Valoración",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-valoracion",
+      "instancia_de": null,
+      "resumen": "Marca de calidad de un dato, no una opinión. Por defecto es de solo lectura: plana, sin cursor y con la cifra al lado, porque contar marcas a ojo es más lento que leer un número.",
+      "usar_cuando": [
+        "Resume en un vistazo la calidad o completitud de un dato",
+        "Va siempre acompañada de la cifra exacta",
+        "El valor viene calculado, no lo escribe el usuario"
+      ],
+      "nunca": [
+        "Usarla para una cifra que importa con decimales: eso es un número",
+        "Dejarla sin la cifra al lado — obliga a contar marcas",
+        "Darle cursor si no es editable"
+      ],
+      "ejemplo": "<span class=\"a-valoracion\" role=\"img\" aria-label=\"Calidad: 4 de 5\">\n  <svg class=\"marca marca--llena\">…</svg>\n  <span class=\"cifra\">4,0</span>\n</span>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#valoracion"
+    },
+    {
+      "id": "numero",
+      "nombre": "Campo numérico",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-numero",
+      "instancia_de": null,
+      "resumen": "type=\"number\" trae tres problemas de serie. El peor: con el cursor encima, rodar la página cambia la cifra en silencio — en un estudio actuarial eso altera un resultado sin que nadie lo vea. Aquí se neutraliza la rueda, se ocultan las flechas nativas y se ponen botones de verdad.",
+      "usar_cuando": [
+        "La cifra tiene un rango conocido y pasos naturales",
+        "El usuario ajusta arriba y abajo más que teclea",
+        "Conviene ver el límite sin tener que probarlo"
+      ],
+      "nunca": [
+        "Dejar la rueda del ratón activa sobre un dato de cálculo",
+        "Usarlo para un importe largo: ahí se teclea, no se pulsa",
+        "Fiarse de las flechas nativas — miden 8px y no tienen nombre"
+      ],
+      "ejemplo": "<div class=\"a-numero\">\n  <button data-paso=\"-1\" aria-label=\"Restar 1\">–</button>\n  <input type=\"number\" min=\"50\" max=\"75\" step=\"1\">\n  <button data-paso=\"1\" aria-label=\"Sumar 1\">+</button>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#numero"
+    },
+    {
+      "id": "enlace",
+      "nombre": "Enlace de texto",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-enlace",
+      "instancia_de": null,
+      "resumen": "Exento de la ley de relieve: un enlace no se pulsa, se sigue, y se identifica por el subrayado. Si la ley lo alcanzara, cada enlace de un párrafo tendría que ser un botón — que es justo lo que actuaria.com no hace: sus enlaces de navegación son texto plano.",
+      "usar_cuando": [
+        "Lleva a otro sitio y no cambia nada",
+        "Va dentro de un párrafo, en medio de la prosa",
+        "La acción es secundaria y no merece un botón"
+      ],
+      "nunca": [
+        "Quitarle el subrayado: el color solo no basta (WCAG 1.4.1)",
+        "Usarlo para una acción destructiva — eso es un botón",
+        "Escribir «aquí» o «leer más»: el destino tiene que leerse solo"
+      ],
+      "ejemplo": "<a class=\"a-enlace\" href=\"/metodologia\">nota metodológica</a>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#enlace"
+    },
+    {
+      "id": "separador",
+      "nombre": "Separador",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-separador",
+      "instancia_de": null,
+      "resumen": "Un filete de 1px, no una franja. Y la decisión que casi nunca se toma: si solo decora, lleva aria-hidden; si de verdad separa dos grupos con sentido distinto, es un <hr> y se anuncia. Marcar todas las rayas llena el lector de «separador, separador».",
+      "usar_cuando": [
+        "Separa dos grupos que el usuario leería como uno solo",
+        "Divide cifras en una fila (vertical y decorativo)",
+        "Hace falta un rótulo que abra una sección dentro de un panel"
+      ],
+      "nunca": [
+        "Poner role=\"separator\" a cada raya de la pantalla",
+        "Usar una franja gruesa: el separador organiza, no decora",
+        "Separar cosas que ya separa el espacio en blanco"
+      ],
+      "ejemplo": "<hr class=\"a-separador\">\n<span class=\"a-separador a-separador--vert\" aria-hidden=\"true\"></span>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#separador"
+    },
+    {
+      "id": "hueco",
+      "nombre": "Hueco de composición",
+      "capa": 1,
+      "tipo": "atomo",
+      "clase": ".a-hueco",
+      "instancia_de": null,
+      "resumen": "Marca dónde una plantilla espera contenido. No es parte del producto: solo vive en la documentación y en las maquetas. Es el content structure de Frost — enseña la estructura sin inventar contenido falso que luego alguien copie. Por eso es deliberadamente feo.",
+      "usar_cuando": [
+        "Se está montando una plantilla y aún no hay contenido real",
+        "Hay que enseñar la estructura a alguien sin que la confunda con el diseño final",
+        "Conviene declarar qué cabe en ese espacio (rango de filas, longitud del titular)"
+      ],
+      "nunca": [
+        "Dejarlo en una pantalla de producción",
+        "Rellenarlo con lorem ipsum: oculta justo lo que la plantilla debe revelar",
+        "Darle el aspecto de un componente acabado"
+      ],
+      "ejemplo": "<div class=\"a-hueco\">Cabecera de estudio</div>\n<div class=\"a-hueco a-hueco--alto\">Listado · entre 0 y 300 filas</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/01-atomos.html#hueco"
+    },
+    {
+      "id": "campo",
+      "nombre": "Grupo de campo",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-campo",
+      "instancia_de": null,
+      "resumen": "La unidad real de un formulario: etiqueta, campo, ayuda y error. La etiqueta va encima y el error debajo y en línea, nunca solo como borde rojo.",
+      "usar_cuando": [
+        "Cualquier entrada de un formulario real",
+        "El campo necesita explicación: unidad, formato o rango",
+        "Hay que mostrar un error de validación"
+      ],
+      "nunca": [
+        "Señalar el error solo con el borde rojo: el color por sí solo no es accesible",
+        "Usar el placeholder como etiqueta: desaparece al escribir",
+        "Vaciar el campo cuando la validación falla"
+      ],
+      "ejemplo": "<div class=\"m-campo m-campo--obligatorio\">\n  <label class=\"a-etiqueta\" for=\"tasa\">Tasa de descuento</label>\n  <input class=\"a-campo\" id=\"tasa\" aria-describedby=\"tasa-ayuda\">\n  <span class=\"ayuda\" id=\"tasa-ayuda\">Anual efectiva, en porcentaje</span>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#campo"
+    },
+    {
+      "id": "busqueda",
+      "nombre": "Buscador",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-busqueda",
+      "instancia_de": null,
+      "resumen": "Campo hundido con la lupa dentro. El botón de limpiar aparece solo cuando hay texto.",
+      "usar_cuando": [
+        "La lista supera las 12 filas",
+        "El usuario sabe qué busca y puede nombrarlo",
+        "Se acompaña de un estado vacío cuando no hay resultados"
+      ],
+      "nunca": [
+        "Obligar a pulsar Intro: filtra mientras se escribe",
+        "Dejar el botón de limpiar visible con el campo vacío",
+        "Devolver «0 resultados» sin sugerir qué hacer"
+      ],
+      "ejemplo": "<div class=\"m-busqueda\">\n  <svg>...</svg>\n  <input class=\"a-campo\" type=\"search\" aria-label=\"Buscar\">\n  <button class=\"limpiar\" aria-label=\"Limpiar búsqueda\">...</button>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#busqueda"
+    },
+    {
+      "id": "kpi",
+      "nombre": "Indicador",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-kpi",
+      "instancia_de": null,
+      "resumen": "Dato grande con su variación. Las cifras son tabulares, así que la columna no salta al cambiar un dígito, y la variación lleva flecha y signo además del color.",
+      "usar_cuando": [
+        "El dato resume el estado de un estudio o una cartera",
+        "La variación tiene un periodo de referencia explícito",
+        "Hay sitio para el rótulo completo sin recortarlo"
+      ],
+      "nunca": [
+        "Variación solo en color: añade siempre flecha y signo",
+        "Cifras sin tabular-nums: la columna salta al actualizarse",
+        "Más de cuatro indicadores en una fila"
+      ],
+      "ejemplo": "<div class=\"m-kpi\">\n  <span class=\"a-medallon a-medallon--marca\" aria-hidden=\"true\">...</span>\n  <span class=\"cuerpo\">\n    <span class=\"rotulo\">Provisión matemática</span>\n    <span class=\"cifra\">14 239 118</span>\n    <span class=\"delta delta--sube\"><svg>...</svg> +3,8 %</span>\n  </span>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#kpi"
+    },
+    {
+      "id": "pasos",
+      "nombre": "Pasos del asistente",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-pasos",
+      "instancia_de": null,
+      "resumen": "Actuaria+ usa la variante navegable: su asistente permite volver a un paso anterior pulsándolo, así que los completados son botones con relieve. La variante plana queda para flujos que no dejan saltar — darle relieve a un paso que no responde hace que el usuario lo pulse y crea que está roto.",
+      "usar_cuando": [
+        "El flujo tiene principio y fin conocidos, como el alta de un estudio",
+        "Informativo si el asistente valida cada paso y no deja saltar",
+        "Navegable solo si volver a un paso anterior funciona de verdad",
+        "El paso completado lleva marca, no solo un color distinto"
+      ],
+      "nunca": [
+        "Dar relieve a un paso que no se puede pulsar: el usuario lo intentará y creerá que está roto",
+        "Hacer botón el paso actual: ya estás en él",
+        "Hacer botón un paso futuro: aún no tiene sus datos",
+        "Más de siete pasos visibles a la vez"
+      ],
+      "ejemplo": "<!-- Actuaria+: el completado vuelve atras -->\n<ol class=\"m-pasos m-pasos--navegable\">\n  <li><button class=\"paso paso--hecho\">...</button></li>\n  <li><span class=\"paso\" aria-current=\"step\">...</span></li>\n  <li><span class=\"paso paso--futuro\">...</span></li>\n</ol>\n\n<!-- flujo que no deja saltar: todo plano -->\n<ol class=\"m-pasos\">\n  <li><span class=\"paso paso--hecho\">...</span></li>\n  <li><span class=\"paso\" aria-current=\"step\">...</span></li>\n  <li><span class=\"paso paso--futuro\">...</span></li>\n</ol>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#pasos"
+    },
+    {
+      "id": "filtros",
+      "nombre": "Barra de filtros",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-filtros",
+      "instancia_de": null,
+      "resumen": "Un filtro se pulsa, así que lleva relieve y es un <button> con aria-pressed. No confundir con la etiqueta de estado, que es plana porque solo informa.",
+      "usar_cuando": [
+        "Hay más de 20 filas y categorías conocidas",
+        "El filtro activo se puede quitar con un segundo clic",
+        "Se muestra cuántos resultados quedan"
+      ],
+      "nunca": [
+        "Usar .a-chip como filtro: es plano porque no se pulsa",
+        "Filtros que requieren pulsar «Aplicar» para surtir efecto",
+        "Ocultar que hay filtros activos al cambiar de pestaña"
+      ],
+      "ejemplo": "<button class=\"filtro\" aria-pressed=\"true\">Vigentes</button>\n<button class=\"filtro\" aria-pressed=\"false\">Vencidas</button>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#filtros"
+    },
+    {
+      "id": "tabla",
+      "nombre": "Tabla de datos",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-tabla",
+      "instancia_de": null,
+      "resumen": "El caballo de batalla de la plataforma. Cifras tabulares y alineadas a la derecha; la cabecera ordenable es un botón real y el th lleva aria-sort.",
+      "usar_cuando": [
+        "Hay que comparar valores entre filas",
+        "Las columnas numéricas van a la derecha y en cifras tabulares",
+        "Cada acción de fila nombra a qué fila pertenece"
+      ],
+      "nunca": [
+        "Alinear números a la izquierda: impide comparar magnitudes",
+        "Cabecera ordenable como <div> con onclick",
+        "Acciones de fila con el mismo aria-label en todas"
+      ],
+      "ejemplo": "<th scope=\"col\" aria-sort=\"descending\">\n  <button class=\"orden\">Provisión <svg>...</svg></button>\n</th>\n<td class=\"num\">4 182 900</td>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#tabla"
+    },
+    {
+      "id": "paginacion",
+      "nombre": "Paginación",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-paginacion",
+      "instancia_de": null,
+      "resumen": "Dentro de un <nav> con nombre. La página actual se marca con aria-current=\"page\", y el rango dice siempre de cuántos.",
+      "usar_cuando": [
+        "La lista supera unas 50 filas",
+        "El usuario necesita saber cuántos elementos hay en total",
+        "La posición se conserva al volver desde el detalle"
+      ],
+      "nunca": [
+        "Ocultar el total: el usuario no sabe cuánto queda",
+        "Paginar por debajo de 25 filas: mejor mostrarlas todas",
+        "Marcar la página actual solo con un color distinto"
+      ],
+      "ejemplo": "<nav class=\"m-paginacion\" aria-label=\"Paginación de pólizas\">\n  <span class=\"rango\">61–90 de 1 842</span>\n  <button class=\"pag\" aria-current=\"page\">3</button>\n</nav>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#paginacion"
+    },
+    {
+      "id": "alerta",
+      "nombre": "Mensaje de sistema",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-alerta",
+      "instancia_de": null,
+      "resumen": "Rellenos opacos, siempre con icono además del color. Solo el de error usa role=\"alert\"; los demás usan role=\"status\" para no interrumpir al lector de pantalla.",
+      "usar_cuando": [
+        "Informar del resultado de una acción del sistema",
+        "El mensaje dice qué pasó y qué hacer a continuación",
+        "El error conserva lo que el usuario había escrito"
+      ],
+      "nunca": [
+        "Mostrar códigos de error crudos o trazas",
+        "Culpar al usuario o escribir «Inválido» a secas",
+        "Dar un fallo de guardado solo en un aviso que se cierra solo",
+        "Usar role=\"alert\" en mensajes que no son urgentes"
+      ],
+      "ejemplo": "<div class=\"m-alerta m-alerta--error\" role=\"alert\">\n  <svg>...</svg>\n  <span class=\"texto\">\n    <strong>No se pudo guardar el estudio</strong>\n    <span>Tus datos siguen en el formulario: vuelve a intentarlo.</span>\n  </span>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#alerta"
+    },
+    {
+      "id": "vacio",
+      "nombre": "Estado vacío",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-vacio",
+      "instancia_de": null,
+      "resumen": "Una pantalla vacía es una invitación a actuar, no un cartel de «no hay datos». Siempre lleva la acción que la llena.",
+      "usar_cuando": [
+        "Una lista está vacía por primera vez",
+        "Una búsqueda o un filtro no devuelve resultados",
+        "Se puede explicar en una frase para qué sirve lo que falta"
+      ],
+      "nunca": [
+        "Dejar solo «No hay datos» sin salida",
+        "Mostrarlo mientras aún se está cargando: ahí va un esqueleto",
+        "Poner la ilustración y esconder la acción"
+      ],
+      "ejemplo": "<div class=\"m-vacio\">\n  <h3>Sin estudios todavía</h3>\n  <p>Un estudio reúne el colectivo, las hipótesis y las tablas.</p>\n  <span class=\"a-anillo\">\n    <button class=\"a-btn a-btn--principal\">Crear el primer estudio</button>\n  </span>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#vacio"
+    },
+    {
+      "id": "combo",
+      "nombre": "Buscador con sugerencias",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-combo",
+      "instancia_de": null,
+      "resumen": "Dos comportamientos con el mismo esqueleto ARIA. En autocompletar el texto libre vale: las sugerencias ayudan. En cerrado el valor tiene que salir de la lista, y al salir del campo sin elegir se revierte.",
+      "usar_cuando": [
+        "La lista es larga y escribir llega antes que desplegar",
+        "El usuario reconoce el valor pero no recuerda su nombre exacto",
+        "Conviene mostrar un dato secundario junto a cada opción"
+      ],
+      "nunca": [
+        "Mover el foco a la lista: obliga a volver al campo para seguir escribiendo",
+        "Dejar el cerrado con texto que no está en la lista",
+        "Omitir el recuento de resultados — con lector de pantalla no se sabe si hay 50 o ninguno"
+      ],
+      "ejemplo": "<div class=\"m-combo\" id=\"cb\">\n  <input class=\"a-campo m-combo__campo\" role=\"combobox\"\n         aria-expanded=\"false\" aria-autocomplete=\"list\" aria-controls=\"cb-l\">\n  <ul class=\"m-combo__lista\" id=\"cb-l\" role=\"listbox\" hidden></ul>\n  <script type=\"application/json\" data-opciones>[...]</script>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#combo"
+    },
+    {
+      "id": "subida",
+      "nombre": "Subir archivos",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-subida",
+      "instancia_de": null,
+      "resumen": "La zona es un área de destino, no un control: plana y con borde discontinuo. Quien abre el diálogo es el botón de dentro, que sí lleva relieve. El tamaño y los errores se comprueban al soltar, no al enviar.",
+      "usar_cuando": [
+        "El fichero es grande y arrastrar es más cómodo que navegar carpetas",
+        "Conviene validar formato y tamaño antes de enviar",
+        "Se suben varios ficheros de una vez"
+      ],
+      "nunca": [
+        "Hacer cliqueable toda la zona con un div: sin teclado y sin nombre accesible",
+        "Aceptar el fichero y avisar del error al enviar, cuando ya se perdió el trabajo",
+        "Mostrar el tamaño en formato inglés si el resto de la aplicación usa coma"
+      ],
+      "ejemplo": "<div class=\"m-subida\" data-max-mb=\"5\" data-tipos=\".csv,.xlsx\">\n  <button type=\"button\" class=\"a-btn\">Elegir archivo</button>\n  <input type=\"file\" multiple aria-label=\"Fichero\">\n</div>\n<ul class=\"m-archivos\"></ul>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#subida"
+    },
+    {
+      "id": "pestanas",
+      "nombre": "Pestañas",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-pestanas",
+      "instancia_de": null,
+      "resumen": "Mismo lenguaje que el segmentado, porque es el mismo gesto. Una sola parada de tabulador y flechas para recorrer. La activación es automática por defecto; si cambiar de pestaña dispara un recálculo, se pasa a manual con data-activacion=\"manual\".",
+      "usar_cuando": [
+        "Son secciones hermanas del mismo objeto y solo se ve una a la vez",
+        "Caben todas las etiquetas sin partirse en dos líneas",
+        "El usuario alterna entre ellas con frecuencia"
+      ],
+      "nunca": [
+        "Más de seis pestañas, o etiquetas que no caben",
+        "Dejar activación automática si cambiar de pestaña dispara un cálculo caro",
+        "Usarlas para pasos de un proceso: eso es un asistente, y tiene orden"
+      ],
+      "ejemplo": "<div class=\"m-pestanas\">\n  <div class=\"m-pestanas__lista\" role=\"tablist\" aria-label=\"Detalle\">\n    <button role=\"tab\" id=\"pt-res\" aria-selected=\"true\" aria-controls=\"pp-res\">Resultados</button>\n  </div>\n  <div role=\"tabpanel\" id=\"pp-res\" aria-labelledby=\"pt-res\" tabindex=\"0\">...</div>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#pestanas"
+    },
+    {
+      "id": "acordeon",
+      "nombre": "Acordeón",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-acordeon",
+      "instancia_de": null,
+      "resumen": "<details> nativo: trae teclado y estado, y con el atributo name el navegador hace el exclusivo sin una línea de JavaScript. La cabecera se pulsa también para cerrar, así que tiene relieve en reposo y queda hundida mientras está abierta.",
+      "usar_cuando": [
+        "Hay contenido secundario que no todos necesitan ver",
+        "Las secciones son independientes y sin orden obligatorio",
+        "El espacio vertical importa y el detalle es largo"
+      ],
+      "nunca": [
+        "Esconder dentro algo que el usuario necesita para decidir",
+        "Reimplementarlo con div y JavaScript: se pierde el teclado",
+        "Abrirlos todos por defecto — entonces el acordeón no hace nada"
+      ],
+      "ejemplo": "<div class=\"m-acordeon\">\n  <details name=\"grupo\" open>\n    <summary>Datos del colectivo <svg class=\"flecha\">…</svg></summary>\n    <div class=\"m-acordeon__cuerpo\">…</div>\n  </details>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#acordeon"
+    },
+    {
+      "id": "resumen",
+      "nombre": "Lista de resumen",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-resumen",
+      "instancia_de": null,
+      "resumen": "Pares etiqueta/valor en <dl>, que es lo que el HTML tiene para esto. Un lector anuncia Tasa técnica, 2,75 % como una pareja; con div y dos span anuncia dos textos sueltos y hay que adivinar cuál va con cuál.",
+      "usar_cuando": [
+        "Se describen los atributos de UN objeto",
+        "El usuario compara cifras entre filas",
+        "Hace falta un matiz bajo el valor (versión, fecha, origen)"
+      ],
+      "nunca": [
+        "Usar div en vez de dl: se pierde la pareja para el lector",
+        "Alinear cifras a la izquierda — impide comparar magnitudes",
+        "Meter acciones dentro: una lista de resumen describe, no opera"
+      ],
+      "ejemplo": "<dl class=\"m-resumen m-resumen--cifras\">\n  <dt>Tasa técnica</dt><dd>2,75 %</dd>\n  <dt>Pólizas</dt><dd>1 842</dd>\n</dl>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#resumen"
+    },
+    {
+      "id": "texto",
+      "nombre": "Bloque de texto",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-texto",
+      "instancia_de": null,
+      "resumen": "Prosa larga: notas metodológicas, descripciones, avisos. Lo único que hace es imponer la medida de línea y el ritmo vertical. 68 caracteres no es un gusto: por encima de ~80 el ojo pierde el salto de línea y relee la misma.",
+      "usar_cuando": [
+        "Hay más de dos frases seguidas",
+        "El texto explica un criterio que alguien tendrá que auditar",
+        "Conviene mezclar prosa con listas o fragmentos de código"
+      ],
+      "nunca": [
+        "Dejarlo sin límite de ancho dentro de un contenedor grande",
+        "Usarlo para una sola frase: eso es la ayuda de un campo",
+        "Justificar el texto a ambos lados — abre ríos y estorba la lectura"
+      ],
+      "ejemplo": "<div class=\"m-texto\">\n  <h3>Criterio de prorrateo</h3>\n  <p>La obligación se devenga…</p>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#texto"
+    },
+    {
+      "id": "calendario",
+      "nombre": "Calendario",
+      "capa": 2,
+      "tipo": "molecula",
+      "clase": ".m-cal",
+      "instancia_de": null,
+      "resumen": "Cuadrícula ARIA con una sola parada de tabulador. Flechas mueven un día, arriba y abajo una semana, Inicio y Fin van a los extremos de la semana, Re Pág y Av Pág cambian de mes (con Mayús, de año). La semana empieza en lunes.",
+      "usar_cuando": [
+        "La fecha tiene contexto: fin de mes, día hábil, cierre de ejercicio",
+        "Hay un rango válido y conviene ver qué queda fuera",
+        "El usuario elige, no teclea una fecha que ya conoce"
+      ],
+      "nunca": [
+        "Para una fecha de nacimiento: teclear es más rápido que retroceder 40 años",
+        "Quitar el campo de texto — con teclado, escribir gana al calendario",
+        "Dejar el día fuera de rango cliqueable: se marca, no se esconde"
+      ],
+      "ejemplo": "<div class=\"m-cal\" data-superficie=\"rejilla\"\n     data-valor=\"2026-12-31\" data-min=\"2026-01-01\"\n     data-max=\"2027-06-30\" data-campo=\"f-val\">\n  <div class=\"m-cal__rejilla\" role=\"grid\" aria-label=\"Fecha\"></div>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/02-moleculas.html#calendario"
+    },
+    {
+      "id": "cabecera",
+      "nombre": "Cabecera de estudio",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-cabecera",
+      "instancia_de": null,
+      "resumen": "Identidad a la izquierda, acciones a la derecha. Una sola acción principal, y es la que lleva anillo.",
+      "usar_cuando": [
+        "Una pantalla de detalle con identidad propia",
+        "El usuario necesita saber dónde está y cómo volver",
+        "Hay una acción claramente principal sobre el resto"
+      ],
+      "nunca": [
+        "Dos acciones con anillo compitiendo",
+        "Ruta de navegación en pantallas de un solo nivel",
+        "Esconder el estado del estudio bajo una pestaña"
+      ],
+      "ejemplo": "<header class=\"o-cabecera\">\n  <div class=\"o-cabecera__id\">...</div>\n  <div class=\"o-cabecera__acciones\">\n    <span class=\"a-anillo\"><button class=\"a-btn a-btn--principal\">...</button></span>\n  </div>\n</header>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#cabecera"
+    },
+    {
+      "id": "indicadores",
+      "nombre": "Cuadro de indicadores",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-indicadores",
+      "instancia_de": null,
+      "resumen": "Rejilla que se adapta sola, con un mínimo de 232px por tarjeta: lo que necesita la cifra más larga sin recortarse.",
+      "usar_cuando": [
+        "Resumir el estado de un estudio de un vistazo",
+        "Entre tres y seis indicadores, no más",
+        "Cada cifra tiene un periodo de referencia explícito"
+      ],
+      "nunca": [
+        "Rellenar la rejilla con indicadores que nadie mira",
+        "Dar relieve a las tarjetas: no se pulsan",
+        "Cifras sin tabular-nums"
+      ],
+      "ejemplo": "<div class=\"o-indicadores\">\n  <div class=\"m-kpi\">...</div>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#indicadores"
+    },
+    {
+      "id": "listado",
+      "nombre": "Listado con filtros",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-listado",
+      "instancia_de": null,
+      "resumen": "El organismo que más se usa en la plataforma: barra de filtros, tabla y paginación en un solo panel. La tabla desborda en horizontal dentro de su caja, nunca empuja la página.",
+      "usar_cuando": [
+        "Hay que recorrer muchos registros y encontrar uno concreto",
+        "El usuario filtra, ordena y pagina sobre el mismo conjunto",
+        "Cada fila lleva acciones propias además de abrirse"
+      ],
+      "nunca": [
+        "Dejar la cabecera sola cuando no hay resultados: va .m-vacio",
+        "Pintar la franja alterna con el tono del hover — desaparece en las filas pares",
+        "Meter más de dos acciones por fila: la tercera va a un menú"
+      ],
+      "ejemplo": "<section class=\"o-listado\">\n  <div class=\"m-filtros\">…</div>\n  <table class=\"m-tabla\">…</table>\n  <nav class=\"m-paginacion\">…</nav>\n</section>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#listado"
+    },
+    {
+      "id": "asistente",
+      "nombre": "Asistente",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-asistente",
+      "instancia_de": null,
+      "resumen": "Pasos arriba, campos en medio y navegación siempre visible al pie: volver a la izquierda, avanzar a la derecha. En Actuaria+ los pasos completados se pulsan para volver.",
+      "usar_cuando": [
+        "El proceso tiene de 3 a 7 pasos con orden obligatorio",
+        "Cada paso se puede validar por separado",
+        "El usuario necesita saber cuánto le queda"
+      ],
+      "nunca": [
+        "Impedir volver a un paso anterior — el equipo confirmó que sí se puede",
+        "Esconder «Continuar» cuando no valida: se deshabilita, para que se vea que existe",
+        "Usarlo para secciones sin orden: eso son pestañas"
+      ],
+      "ejemplo": "<form class=\"o-asistente\">\n  <nav class=\"m-pasos m-pasos--navegable\">…</nav>\n  <fieldset><legend>Hipótesis</legend>…</fieldset>\n</form>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#asistente"
+    },
+    {
+      "id": "lateral",
+      "nombre": "Barra de navegación",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-lateral",
+      "instancia_de": null,
+      "resumen": "Cristal, como la barra de actuaria.com: superficie clara con sombra externa e inset blanco. El enlace es texto plano y el activo es el único con relleno — va hundido porque es donde ya estás — y lleva aria-current=\"page\", así que el estado no depende del color.",
+      "usar_cuando": [
+        "La plataforma tiene más de cinco destinos",
+        "El grupo al que pertenece la sección también se ve",
+        "Hay un solo activo y coincide con la pantalla"
+      ],
+      "nunca": [
+        "Marcar el activo solo con color, sin aria-current",
+        "Dar relieve a cada enlace: si todos sobresalen, el activo deja de verse",
+        "Navegación de solo iconos sin etiqueta"
+      ],
+      "ejemplo": "<nav class=\"o-lateral\" aria-label=\"Navegación principal\">\n  <a class=\"o-lateral__enlace\" aria-current=\"page\" href=\"/\">Inicio</a>\n</nav>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#lateral"
+    },
+    {
+      "id": "maqueta",
+      "nombre": "Composición de pantalla",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-maqueta",
+      "instancia_de": null,
+      "resumen": "Barra lateral fija y contenido fluido. Escritorio primero: por debajo de 1024px la barra pasa arriba y se desplaza en horizontal, pero la plataforma está pensada para pantalla grande.",
+      "usar_cuando": [
+        "Cualquier pantalla de la plataforma con navegación persistente",
+        "El contenido necesita todo el ancho que sobre",
+        "Se prueba también por debajo de 1024px"
+      ],
+      "nunca": [
+        "Anidar regiones con desplazamiento propio dentro del contenido",
+        "Fijar un ancho al contenido: la rejilla ya lo reparte",
+        "Dar relieve a la columna de contenido"
+      ],
+      "ejemplo": "<div class=\"o-maqueta\">\n  <nav class=\"o-lateral\">...</nav>\n  <div>...</div>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#maqueta"
+    },
+    {
+      "id": "navegacion",
+      "nombre": "Barra de navegación",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-navegacion",
+      "instancia_de": null,
+      "resumen": "Medida en producción, no inventada. Es una cápsula de cristal: fondo claro, radio 67px y un inset blanco que es lo que da el efecto — sin él es una caja gris. Los enlaces van en texto plano; la píldora se reserva al CTA.",
+      "usar_cuando": [
+        "Es la navegación de primer nivel de toda la plataforma",
+        "Hay entre tres y seis destinos y caben sin partirse",
+        "Hace falta un CTA único y claro a la derecha"
+      ],
+      "nunca": [
+        "Dar relieve a los enlaces: parecen botones y no lo son",
+        "Quitar el inset blanco — ahí se pierde el cristal",
+        "Marcar el activo con fondo: el filete basta y no grita"
+      ],
+      "ejemplo": "<nav class=\"o-navegacion\" aria-label=\"Principal\">\n  <a class=\"o-navegacion__marca\" href=\"/\">ACTUARIA</a>\n  <div class=\"o-navegacion__enlaces\">\n    <a class=\"o-navegacion__enlace\" aria-current=\"page\">Estudios</a>\n  </div>\n</nav>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#navegacion"
+    },
+    {
+      "id": "pie",
+      "nombre": "Pie",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-pie",
+      "instancia_de": null,
+      "resumen": "Cierra la página y guarda lo que no cabe en la navegación: aviso legal, versión, contacto. Superficie plana — no se pulsa el pie, se pulsan los enlaces de dentro.",
+      "usar_cuando": [
+        "Hay enlaces legales obligatorios que no van en la navegación",
+        "Conviene mostrar la versión para que el soporte sepa qué mira",
+        "La página es larga y el pie confirma que se ha llegado al final"
+      ],
+      "nunca": [
+        "Meter navegación principal: si importa, va arriba",
+        "Darle relieve — es superficie, no control",
+        "Llenarlo de enlaces que nadie pulsa"
+      ],
+      "ejemplo": "<footer class=\"o-pie\">\n  <div class=\"o-pie__grupo\">© 2026 Actuaria</div>\n</footer>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#pie"
+    },
+    {
+      "id": "aviso",
+      "nombre": "Aviso global",
+      "capa": 3,
+      "tipo": "organismo",
+      "clase": ".o-aviso",
+      "instancia_de": null,
+      "resumen": "Distinto de la alerta: la alerta vive en el flujo, junto a lo que explica; el aviso aparece por encima y es pasajero. El papel ARIA depende de la gravedad, y solo se desvanece solo si es una confirmación sin acción.",
+      "usar_cuando": [
+        "La acción terminó y el usuario ya no está mirando ese punto de la pantalla",
+        "El error viene de una operación en segundo plano",
+        "Hace falta ofrecer «deshacer» justo después de una acción"
+      ],
+      "nunca": [
+        "Poner role=\"alert\" a una confirmación: interrumpe al lector a mitad de frase",
+        "Hacer que un error se desvanezca solo (WCAG 2.2.1)",
+        "Dejar el temporizador corriendo con el ratón encima o el foco dentro"
+      ],
+      "ejemplo": "avisar({\n  titulo: \"Estudio guardado\",\n  texto: \"Valuación actuarial 2026\",\n  tipo: \"ok\"            // ok · info · aviso · error\n});",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/03-organismos.html#aviso"
+    },
+    {
+      "id": "dialogo",
+      "nombre": "Diálogo",
+      "capa": 3,
+      "tipo": "superposicion",
+      "clase": ".s-dialogo",
+      "instancia_de": null,
+      "resumen": "Interrumpe. Solo para lo que no puede continuar sin respuesta. El foco entra al abrir, queda atrapado dentro, Escape cierra y el foco vuelve al botón que lo abrió.",
+      "usar_cuando": [
+        "La acción es irreversible y hay que confirmarla",
+        "El texto del botón nombra la acción: «Eliminar estudio», no «Aceptar»",
+        "Se dice exactamente qué se va a borrar o cambiar"
+      ],
+      "nunca": [
+        "Preguntar «¿Estás seguro?» con Sí/No antes de algo reversible: eso lleva Deshacer",
+        "Usarlo para avisos que no necesitan respuesta: eso es una alerta",
+        "Dejar el foco fuera al abrir o perderlo al cerrar"
+      ],
+      "ejemplo": "<button class=\"a-btn\" data-abre=\"dlg-borra\">Eliminar</button>\n\n<dialog class=\"s-dialogo\" id=\"dlg-borra\" aria-labelledby=\"dlg-borra-t\">\n  <h3 id=\"dlg-borra-t\">Eliminar «Valuación 2026»</h3>\n  <button class=\"a-btn a-btn--peligro\" data-cierra>Eliminar estudio</button>\n</dialog>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/04-superposicion.html#dialogo"
+    },
+    {
+      "id": "cajon",
+      "nombre": "Cajón lateral",
+      "capa": 3,
+      "tipo": "superposicion",
+      "clase": ".s-cajon",
+      "instancia_de": null,
+      "resumen": "Para tareas largas que conviene hacer sin perder de vista el fondo: filtros avanzados, detalle de una fila. También es <dialog>, así que hereda el teclado completo.",
+      "usar_cuando": [
+        "La tarea necesita varios campos y el contexto de atrás",
+        "El usuario puede cancelar sin perder lo que había",
+        "El pie deja siempre visible cómo aplicar y cómo salir"
+      ],
+      "nunca": [
+        "Meter dentro un flujo con sus propios pasos: eso es una página",
+        "Abrir un cajón desde otro cajón",
+        "Aplicar los filtros al cerrar sin que el usuario lo pida"
+      ],
+      "ejemplo": "<dialog class=\"s-cajon\" id=\"cjn-filtros\" aria-labelledby=\"cjn-t\">\n  <div class=\"s-cajon__cuerpo\">...</div>\n</dialog>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/04-superposicion.html#cajon"
+    },
+    {
+      "id": "menu",
+      "nombre": "Menú desplegable",
+      "capa": 3,
+      "tipo": "superposicion",
+      "clase": ".s-menu",
+      "instancia_de": null,
+      "resumen": "Acciones sobre un elemento concreto. Usa [popover], que da el cierre al pulsar fuera y la capa superior; las flechas del teclado las añade el sistema. Cada opción es un <button> de verdad.",
+      "usar_cuando": [
+        "Hay más de tres acciones sobre un mismo elemento",
+        "El menú dice a qué elemento se aplica, como en el rótulo",
+        "La opción no disponible explica por qué lo está"
+      ],
+      "nunca": [
+        "Opciones como <div> con onclick: no responden al teclado",
+        "Esconder ahí la acción principal de la fila",
+        "Un menú con una sola opción: eso es un botón"
+      ],
+      "ejemplo": "<button popovertarget=\"menu-fila\" aria-label=\"Acciones de PL-00412\">…</button>\n\n<div class=\"s-menu\" popover id=\"menu-fila\" role=\"menu\">\n  <button class=\"s-menu__opcion\" role=\"menuitem\">Editar datos</button>\n</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/04-superposicion.html#menu"
+    },
+    {
+      "id": "globo",
+      "nombre": "Globo informativo",
+      "capa": 3,
+      "tipo": "superposicion",
+      "clase": ".s-globo",
+      "instancia_de": null,
+      "resumen": "Contenido anclado a un disparador. A diferencia del menú, aquí dentro puede haber formulario o enlaces, así que el foco se queda dentro mientras esté abierto.",
+      "usar_cuando": [
+        "Hay detalle que no cabe pero tampoco merece otra pantalla",
+        "El contenido incluye enlaces o campos que se usan con teclado",
+        "El disparador describe qué va a aparecer"
+      ],
+      "nunca": [
+        "Usarlo para texto de una línea: eso es una pista",
+        "Meter dentro la única copia de un dato importante",
+        "Abrirlo al pasar el ratón: con teclado o dedo no ocurre"
+      ],
+      "ejemplo": "<button popovertarget=\"globo-hip\">Ver hipótesis</button>\n<div class=\"s-globo\" popover id=\"globo-hip\">...</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/04-superposicion.html#globo"
+    },
+    {
+      "id": "pista",
+      "nombre": "Pista",
+      "capa": 3,
+      "tipo": "superposicion",
+      "clase": ".s-pista",
+      "instancia_de": null,
+      "resumen": "Texto breve que adorna lo que ya se entiende. Se conecta con aria-describedby, porque si no, para un lector de pantalla no existe — y en táctil tampoco, que no hay ratón que posar.",
+      "usar_cuando": [
+        "El término ya se entiende y la pista solo lo matiza",
+        "El disparador es un botón, no un <span>",
+        "Se conecta con aria-describedby"
+      ],
+      "nunca": [
+        "Poner ahí la única explicación de algo necesario",
+        "Abrirla solo al pasar el ratón: no existe en táctil",
+        "Meter enlaces o botones dentro: eso es un globo"
+      ],
+      "ejemplo": "<button popovertarget=\"pista-dur\" aria-describedby=\"pista-dur\"\n        aria-label=\"Qué es la duración del pasivo\">…</button>\n<div class=\"s-pista\" popover id=\"pista-dur\" role=\"tooltip\">…</div>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/04-superposicion.html#pista"
+    },
+    {
+      "id": "paleta",
+      "nombre": "Paleta de comandos",
+      "capa": 3,
+      "tipo": "superposicion",
+      "clase": ".s-paleta",
+      "instancia_de": null,
+      "resumen": "Buscador de acciones. El atajo Ctrl+K lo abre, y además hay un botón visible: un atajo que no se ve no existe para quien no lo conoce.",
+      "usar_cuando": [
+        "La plataforma tiene muchas acciones repartidas en pantallas",
+        "El atajo se muestra también como botón visible",
+        "Al no haber coincidencias se sugiere qué probar"
+      ],
+      "nunca": [
+        "Dejar el atajo como única vía de acceso",
+        "Devolver una lista vacía sin decir nada",
+        "Incluir acciones que el usuario no puede ejecutar"
+      ],
+      "ejemplo": "<dialog class=\"s-paleta\" id=\"paleta\" aria-label=\"Buscar una acción\">\n  <input class=\"a-campo\" type=\"search\" autofocus>\n  <ul class=\"s-paleta__lista\">...</ul>\n  <p class=\"s-paleta__vacio\" hidden>Ninguna acción coincide.</p>\n</dialog>",
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/04-superposicion.html#paleta"
+    },
+    {
+      "id": "que-es",
+      "nombre": "Qué es una plantilla",
+      "capa": 4,
+      "tipo": "guia",
+      "clase": null,
+      "instancia_de": null,
+      "resumen": "Frost: Templates are page-level objects that place components into a layout and articulate the design's underlying content structure. Las dos mitades cuentan igual. La disposición se ve en la maqueta; la estructura del contenido se declara en la tabla de requisitos que acompaña a cada una.",
+      "usar_cuando": [
+        "Huecos declarados, no contenido",
+        "Los límites de cada zona: caracteres, filas, número de elementos",
+        "Qué pasa cuando no hay nada que mostrar"
+      ],
+      "nunca": [
+        "Lorem ipsum: oculta justo lo que debe revelar",
+        "Contenido real — eso ya es una página",
+        "Un caso cómodo: el titular de 20 caracteres no prueba nada"
+      ],
+      "ejemplo": null,
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/05-plantillas.html#que-es"
+    },
+    {
+      "id": "t-listado",
+      "nombre": "T1 · Listado",
+      "capa": 4,
+      "tipo": "plantilla",
+      "clase": ".t-pagina.t-listado",
+      "instancia_de": null,
+      "resumen": "La disposición que más se repite en la plataforma: filtros arriba, tabla debajo, paginación al final. Instancia Mis estudios, Colectivos e Informes sin cambiar nada de la estructura.",
+      "usar_cuando": [],
+      "nunca": [],
+      "ejemplo": "<div class=\"t-pagina t-listado\">\n  <div class=\"t-pagina__barra\"><nav class=\"o-navegacion\">…</nav></div>\n  <div class=\"t-pagina__cabecera\"><header class=\"o-cabecera\">…</header></div>\n  <div class=\"m-filtros\">…</div>\n  <div class=\"o-listado\">…</div>\n  <div class=\"t-pagina__pie\"><nav class=\"m-paginacion\">…</nav></div>\n</div>",
+      "requisitos": [
+        {
+          "zona": "Título de la página",
+          "admite": "hasta 48 caracteres en una línea",
+          "si_se_pasa": "A partir de 48 salta a dos líneas y empuja las acciones; no se recorta"
+        },
+        {
+          "zona": "Acciones de cabecera",
+          "admite": "de 1 a 3 botones, uno principal",
+          "si_se_pasa": "A partir de 3, las secundarias pasan a un menú"
+        },
+        {
+          "zona": "Filtros",
+          "admite": "de 0 a 6 fichas activas",
+          "si_se_pasa": "Más de 6 fuerzan segunda línea; la barra crece, no se desplaza"
+        },
+        {
+          "zona": "Filas de la tabla",
+          "admite": "de 0 a 50 por página",
+          "si_se_pasa": "0 filas muestra .m-vacio, no una tabla con cabecera sola"
+        },
+        {
+          "zona": "Paginación",
+          "admite": "aparece a partir de 2 páginas",
+          "si_se_pasa": "Con una sola página no se dibuja"
+        }
+      ],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/05-plantillas.html#t-listado"
+    },
+    {
+      "id": "t-asistente",
+      "nombre": "T2 · Asistente",
+      "capa": 4,
+      "tipo": "plantilla",
+      "clase": ".t-pagina.t-asistente",
+      "instancia_de": null,
+      "resumen": "Dos columnas: los pasos fijos a la izquierda y el formulario a la derecha. Los pasos no se desplazan con el contenido — son el mapa, y si desaparecen el usuario pierde la referencia de cuánto le queda.",
+      "usar_cuando": [],
+      "nunca": [],
+      "ejemplo": "<div class=\"t-pagina t-asistente\">\n  <nav class=\"m-pasos m-pasos--navegable\">…</nav>\n  <form class=\"o-asistente\">…</form>\n  <div class=\"t-pagina__pie\">…</div>\n</div>",
+      "requisitos": [
+        {
+          "zona": "Pasos",
+          "admite": "de 3 a 7",
+          "si_se_pasa": "Menos de 3 no justifica un asistente; más de 7 pide agrupar en fases"
+        },
+        {
+          "zona": "Campos por paso",
+          "admite": "de 1 a 9",
+          "si_se_pasa": "Más de 9 obliga a desplazar y se pierde el botón de continuar"
+        },
+        {
+          "zona": "Nombre del estudio",
+          "admite": "hasta 60 caracteres",
+          "si_se_pasa": "Se trunca con puntos suspensivos y el completo va en title"
+        },
+        {
+          "zona": "Volver atrás",
+          "admite": "siempre disponible",
+          "si_se_pasa": "Confirmado por el equipo: el asistente permite volver a un paso anterior"
+        },
+        {
+          "zona": "Acciones del pie",
+          "admite": "«Atrás» y «Continuar» fijos",
+          "si_se_pasa": "«Continuar» se deshabilita, no se esconde"
+        }
+      ],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/05-plantillas.html#t-asistente"
+    },
+    {
+      "id": "t-detalle",
+      "nombre": "T3 · Detalle",
+      "capa": 4,
+      "tipo": "plantilla",
+      "clase": ".t-pagina.t-detalle",
+      "instancia_de": null,
+      "resumen": "Contenido principal y una columna de apoyo. El apoyo va a la derecha: leyendo de izquierda a derecha, lo primero que se encuentra debe ser el contenido, no el margen.",
+      "usar_cuando": [],
+      "nunca": [],
+      "ejemplo": "<div class=\"t-pagina t-detalle\">\n  <div class=\"t-pagina__cabecera\"><header class=\"o-cabecera\">…</header></div>\n  <div>\n    <div class=\"o-indicadores\">…</div>\n    <div class=\"m-pestanas\">…</div>\n  </div>\n  <aside><dl class=\"m-resumen\">…</dl></aside>\n</div>",
+      "requisitos": [
+        {
+          "zona": "Indicadores",
+          "admite": "de 2 a 4 .m-kpi",
+          "si_se_pasa": "Con 5 o más no caben en una línea y pierden la comparación"
+        },
+        {
+          "zona": "Pestañas",
+          "admite": "de 2 a 5",
+          "si_se_pasa": "Más de 5 pide un menú; las etiquetas no se parten en dos líneas"
+        },
+        {
+          "zona": "Columna de apoyo",
+          "admite": "de 4 a 12 pares etiqueta/valor",
+          "si_se_pasa": "Por encima de 12, va a un acordeón"
+        },
+        {
+          "zona": "Estado del estudio",
+          "admite": "una sola .a-estado",
+          "si_se_pasa": "El punto nunca va solo: siempre con su texto"
+        },
+        {
+          "zona": "Sin datos",
+          "admite": "el panel muestra .m-vacio",
+          "si_se_pasa": "Nunca un panel en blanco sin explicación"
+        }
+      ],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/05-plantillas.html#t-detalle"
+    },
+    {
+      "id": "que-es-pagina",
+      "nombre": "Qué es una página",
+      "capa": 5,
+      "tipo": "guia",
+      "clase": null,
+      "instancia_de": null,
+      "resumen": "Frost: Pages are specific instances of templates that show what a UI looks like with real representative content in place. Representative es la palabra. Una página con el caso cómodo no prueba nada: el titular de 20 caracteres cabe siempre. Por eso cada página de aquí lleva al lado la variante que la rompe.",
+      "usar_cuando": [
+        "Probar si la plantilla aguanta el contenido real",
+        "Encontrar los límites antes de que los encuentre un cliente",
+        "Enseñar el sistema a alguien que no lo conoce"
+      ],
+      "nunca": [
+        "Elegir solo datos que caben: no prueban la plantilla",
+        "Arreglar la página en vez de la plantilla cuando algo rompe",
+        "Dar por buena una pantalla sin su estado vacío y su estado de error"
+      ],
+      "ejemplo": null,
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/06-paginas.html#que-es-pagina"
+    },
+    {
+      "id": "mis-estudios",
+      "nombre": "P1 · Mis estudios",
+      "capa": 5,
+      "tipo": "pagina",
+      "clase": null,
+      "instancia_de": ".t-listado",
+      "resumen": "El listado con 5 de 38 estudios, filtros activos y los cinco estados reales del producto.",
+      "usar_cuando": [],
+      "nunca": [],
+      "ejemplo": null,
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/06-paginas.html#mis-estudios"
+    },
+    {
+      "id": "nuevo-estudio",
+      "nombre": "P2 · Nuevo estudio",
+      "capa": 5,
+      "tipo": "pagina",
+      "clase": null,
+      "instancia_de": ".t-asistente",
+      "resumen": "Paso 2 de 5 del asistente, con las hipótesis heredadas del estudio anterior.",
+      "usar_cuando": [],
+      "nunca": [],
+      "ejemplo": null,
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/06-paginas.html#nuevo-estudio"
+    },
+    {
+      "id": "detalle-estudio",
+      "nombre": "P3 · Detalle de estudio",
+      "capa": 5,
+      "tipo": "pagina",
+      "clase": null,
+      "instancia_de": ".t-detalle",
+      "resumen": "Indicadores, pestañas y columna de apoyo con las hipótesis del estudio.",
+      "usar_cuando": [],
+      "nunca": [],
+      "ejemplo": null,
+      "requisitos": [],
+      "url": "https://renatopuente-ux.github.io/actuaria-plus-ds/pages/06-paginas.html#detalle-estudio"
+    }
+  ]
+}
