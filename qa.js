@@ -55,6 +55,34 @@
       .forEach(([id, n]) => F('id-repetido', `«${id}» aparece ${n} veces`));
   }
 
+  /* 2c · LINEA CENTRAL COMPARTIDA. Dos controles de la misma fila tienen
+     que estar centrados entre si. Se descuadran cuando uno es mas alto
+     —un boton dentro de un anillo mide 12px mas— y algun hijo fija
+     align-self, que anula el align-items del contenedor. El ojo lo nota
+     a 3px, asi que el umbral es 2. */
+  {
+    const filas = new Set();
+    document.querySelectorAll('button, a[href], .a-anillo, select, input').forEach(e => {
+      const pa = e.parentElement; if (!pa) return;
+      const d = getComputedStyle(pa).display;
+      if ((d === 'flex' || d === 'inline-flex') && getComputedStyle(pa).flexDirection.startsWith('row')) filas.add(pa);
+    });
+    filas.forEach(pa => {
+      const hijos = [...pa.children].filter(visible).filter(e => e.getBoundingClientRect().height > 0);
+      if (hijos.length < 2) return;
+      const centros = hijos.map(e => { const r = e.getBoundingClientRect(); return { e, c: r.top + r.height / 2 }; });
+      /* solo compara los que estan en la MISMA linea visual */
+      const base = centros[0].c;
+      const mismaLinea = centros.filter(x => Math.abs(x.c - base) < 40);
+      if (mismaLinea.length < 2) return;
+      const min = Math.min(...mismaLinea.map(x => x.c)), max = Math.max(...mismaLinea.map(x => x.c));
+      if (max - min > 2) {
+        const culpable = mismaLinea.find(x => Math.abs(x.c - min) > 2 || Math.abs(x.c - max) > 2);
+        F('alineacion', `fila descuadrada ${Math.round(max - min)}px: ${nombre(culpable.e)}`);
+      }
+    });
+  }
+
   /* 3 · AREA TACTIL. WCAG 2.2 (2.5.8) pide 24x24 CSS px como minimo; el
      sistema exige 34 porque es el tamano del boton pequeno. */
   [...document.querySelectorAll('button, a[href], input[type=checkbox], select')].filter(visible)

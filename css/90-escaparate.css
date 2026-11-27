@@ -11,7 +11,7 @@
 }
 .esc-marca {
   display: inline-flex; align-items: center; min-height: 44px; font: 700 19px/1 var(--ff-display); letter-spacing: .5px; color: var(--txt-inverso); text-decoration: none; }
-.esc-marca span { color: var(--p-naranja-soft); }
+.esc-marca span { color: var(--p-naranja-soft); font-weight: 400; letter-spacing: .04em; }
 .esc-version { font: var(--t-ui-sm); color: var(--p-naranja-soft); }
 
 .esc-shell { display: flex; align-items: flex-start; }

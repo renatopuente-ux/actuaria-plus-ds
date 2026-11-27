@@ -18,7 +18,12 @@
 .a-btn {
   display: inline-flex; align-items: center; justify-content: center;
   gap: var(--e-2);
-  align-self: flex-start; width: fit-content; max-width: 100%;
+  /* NO se fija align-self. El atajo flex-start anulaba el
+     align-items:center del contenedor, asi que en una fila los botones
+     se alineaban por ARRIBA: junto a uno con anillo, 12px mas alto, los
+     centros se descuadraban 6px. `width: fit-content` ya evita que el
+     boton se estire en una columna, que era lo unico que hacia falta. */
+  width: fit-content; max-width: 100%;
   min-height: 44px; padding: 0 var(--e-6);
   border-radius: var(--r-pill);
   background: var(--sup-app);
@@ -181,7 +186,12 @@ textarea.a-campo { min-height: 104px; padding: var(--e-3) var(--e-4); border-rad
    porque un tinte con alpha hereda el fondo y su contraste cambia solo. */
 .a-chip {
   display: inline-flex; align-items: center; gap: var(--e-1);
-  align-self: flex-start; width: fit-content; max-width: 100%;
+  /* NO se fija align-self. El atajo flex-start anulaba el
+     align-items:center del contenedor, asi que en una fila los botones
+     se alineaban por ARRIBA: junto a uno con anillo, 12px mas alto, los
+     centros se descuadraban 6px. `width: fit-content` ya evita que el
+     boton se estire en una columna, que era lo unico que hacia falta. */
+  width: fit-content; max-width: 100%;
   padding: var(--e-1) var(--e-3);
   border-radius: var(--r-pill);
   background: var(--fill-neutro); color: var(--txt-medio);
@@ -313,7 +323,12 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
    UNA por pantalla: si todo lleva anillo, el anillo deja de destacar nada. */
 .a-anillo {
   display: inline-flex;
-  align-self: flex-start; width: fit-content;
+  /* NO se fija align-self. El atajo flex-start anulaba el
+     align-items:center del contenedor, asi que en una fila los botones
+     se alineaban por ARRIBA: junto a uno con anillo, 12px mas alto, los
+     centros se descuadraban 6px. `width: fit-content` ya evita que el
+     boton se estire en una columna, que era lo unico que hacia falta. */
+  width: fit-content;
   padding: 6px;
   border-radius: var(--r-pill);
   background: var(--sup-app);

@@ -1,4 +1,4 @@
-# Actuaria+ Design System
+# Actuaria DS 27
 
 Sistema de diseño con el que se renueva la plataforma **Actuaria+**.
 Construido por capas según el *Atomic Design* de Brad Frost, con lenguaje
