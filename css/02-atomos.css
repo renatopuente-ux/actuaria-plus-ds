@@ -542,3 +542,99 @@ a.a-chip, button.a-chip, .a-chip[data-pulsable] { box-shadow: var(--n-xs); curso
 @media (prefers-reduced-motion: reduce) {
   .a-casilla .caja::after, .a-interruptor .pista .pulgar::after { transition: none; }
 }
+
+/* ── Campo numerico · .a-numero ───────────────────────────────────────
+   type="number" trae tres problemas de serie, y los tres se arreglan
+   aqui una sola vez:
+
+   1 · LA RUEDA DEL RATON CAMBIA EL VALOR. Con el cursor encima del
+       campo, rodar la pagina modifica la cifra EN SILENCIO. En un
+       estudio actuarial eso convierte una tasa de 2,75 en 3,75 sin que
+       nadie lo note. Se neutraliza en el JS.
+   2 · LAS FLECHAS NATIVAS SON DIMINUTAS. Miden unos 10px, cambian de
+       forma en cada navegador y se montan sobre el texto. Se ocultan y
+       se sustituyen por botones de verdad, que cumplen el area minima
+       y la ley de relieve.
+   3 · NO ACEPTA COMA DECIMAL. En es-ES el separador es la coma y
+       type="number" solo admite el punto: el campo se queda vacio al
+       validar. Por eso este atomo es para CANTIDADES ENTERAS —edades,
+       numero de polizas, anos— y los decimales con coma siguen en un
+       campo de texto con inputmode. No es una limitacion del atomo:
+       es la razon de que existan los dos.
+
+   La cifra va en cifras tabulares y alineada a la derecha: asi las
+   unidades quedan en columna y se comparan de un vistazo. */
+.a-numero {
+  display: inline-flex;
+  align-items: stretch;
+  /* El alto NO sale solo. Sin min-height el contenedor colapsa al
+     interlineado del input y los botones quedaron en 23x14, por debajo
+     del minimo de 24. Se fija a la misma escala que el resto de campos
+     para que la fila de un formulario quede alineada. */
+  min-height: 38px;
+  border-radius: var(--r-md);
+  background: var(--sup-hundida);
+  box-shadow: var(--n-in-sm);
+  transition: box-shadow var(--mov-rapido);
+}
+.a-numero input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  text-align: right;
+  font: var(--t-ui);
+  font-variant-numeric: tabular-nums;
+  color: var(--txt-fuerte);
+  padding: 0 var(--e-2) 0 var(--e-4);
+}
+.a-numero input:focus { outline: none; }
+.a-numero:focus-within { outline: 2px solid var(--p-azul); outline-offset: 3px; }
+/* fuera las flechas nativas */
+.a-numero input::-webkit-outer-spin-button,
+.a-numero input::-webkit-inner-spin-button { -webkit-appearance: none; appearance: none; margin: 0; }
+.a-numero input[type="number"] { -moz-appearance: textfield; appearance: textfield; }
+
+/* La unidad es informativa: plana, opaca y sin cursor. */
+.a-numero .unidad {
+  display: grid; place-items: center;
+  padding-right: var(--e-3);
+  font: var(--t-ui-sm);
+  color: var(--txt-debil);
+  cursor: default;
+  user-select: none;
+}
+/* Los pasos SI se pulsan: relieve y area completa. */
+.a-numero .paso-num {
+  display: grid; place-items: center;
+  /* flex:none o el boton se encoge por debajo de su ancho declarado */
+  flex: none;
+  width: 34px;
+  border: 0;
+  border-radius: var(--r-md);
+  margin: 3px;
+  background: var(--sup-elevada);
+  box-shadow: var(--n-xs);
+  color: var(--txt-medio);
+  cursor: pointer;
+  transition: box-shadow var(--mov-rapido);
+}
+.a-numero .paso-num:hover { box-shadow: var(--n-sm); color: var(--txt-fuerte); }
+.a-numero .paso-num:active { box-shadow: var(--n-in-sm); }
+.a-numero .paso-num[disabled] { box-shadow: none; opacity: .45; cursor: not-allowed; }
+.a-numero[aria-invalid="true"] { box-shadow: var(--n-in-sm), 0 0 0 2px var(--p-danger-700); }
+
+@media (pointer: coarse) {
+  .a-numero { min-height: 44px; }
+  .a-numero input { font-size: 16px; }
+  /* Sin margen: con 3px por lado el boton se quedaba en 38 dentro de
+     una caja de 44, y 44 es el minimo con el dedo. Al pegarlo al borde
+     hereda el radio del contenedor por su lado exterior. */
+  .a-numero .paso-num {
+    width: 44px;
+    margin: 0;
+    border-radius: var(--r-md) 0 0 var(--r-md);
+  }
+  .a-numero .paso-num[data-num="+"] { border-radius: 0 var(--r-md) var(--r-md) 0; }
+}

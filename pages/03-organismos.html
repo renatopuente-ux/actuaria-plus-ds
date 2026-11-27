@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="../css/00b-fuentes.css?v=eaa7ce03">
 <link rel="stylesheet" href="../css/00-reset.css?v=e9a6c5a0">
 <link rel="stylesheet" href="../css/01-tokens.css?v=c7960d93">
-<link rel="stylesheet" href="../css/02-atomos.css?v=bb542bd3">
+<link rel="stylesheet" href="../css/02-atomos.css?v=0970e361">
 <link rel="stylesheet" href="../css/03-moleculas.css?v=90ede061">
 <link rel="stylesheet" href="../css/04-organismos.css?v=824411ca">
 <link rel="stylesheet" href="../css/05-superposicion.css?v=d73fe1c2">
@@ -199,7 +199,7 @@
                 <input class="a-campo" id="o-tasa" value="2,75" aria-describedby="o-tasa-a">
                 <span class="ayuda" id="o-tasa-a">Anual efectiva, en porcentaje</span>
               </div>
-              <div class="m-campo">
+              <div class="m-campo m-campo--obligatorio"><label class="a-etiqueta" for="o-edad">Edad de jubilación</label><span class="a-numero"><button type="button" class="paso-num" data-num="-" aria-label="Restar 1 a edad de jubilación"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3.5 8h9"/></svg></button><input type="number" id="o-edad" value="65" min="50" max="75" step="1" inputmode="numeric" aria-describedby="o-edad-a"><span class="unidad" aria-hidden="true">años</span><button type="button" class="paso-num" data-num="+" aria-label="Sumar 1 a edad de jubilación"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9"/></svg></button></span><span class="ayuda" id="o-edad-a">Entre 50 y 75. Se aplica a quien no tenga edad propia pactada</span></div><div class="m-campo">
                 <label class="a-etiqueta" for="o-rot">Rotación anual</label>
                 <input class="a-campo" id="o-rot" value="12" aria-invalid="true" aria-describedby="o-rot-e">
                 <span class="error" id="o-rot-e" role="alert"><svg viewBox="0 0 20 20" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 4v12m0 0 4-4m-4 4-4-4"/></svg> Debe estar entre 0 y 10</span>
@@ -303,8 +303,10 @@
   </style>
   
   
+  
   </main>
 </div>
+<script src="../js/numero.js?v=4f763e4c" defer></script>
 <script src="../js/ds.js?v=c3c2bbb3"></script>
 <script src="../js/superposicion.js?v=b81abd6e"></script>
 <script>
